@@ -1,6 +1,6 @@
 ﻿using AuthFlow.Domain.Interfaces;
 
-namespace AuthFlow.Domain
+namespace AuthFlow.Domain.Entities
 {
     public class User : IEntity
     {

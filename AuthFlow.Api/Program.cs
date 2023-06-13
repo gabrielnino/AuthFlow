@@ -1,12 +1,12 @@
 using AuthFlow.Application.Repositories.Interface;
+using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
-using AuthFlow.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
 builder.Services.AddDbContext<AuthFlowDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUserRepository, UsersRepository>();
 
 builder.Services.AddLogging(logginBuilder =>
 {

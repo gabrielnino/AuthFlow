@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AuthFlow.Domain;
+using AuthFlow.Domain.Entities;
 using AuthFlow.Application.Repositories.Interface;
 
 namespace AuthFlow.Api.Controllers
@@ -9,14 +9,14 @@ namespace AuthFlow.Api.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly IConfiguration _configuration;
-        private readonly IUsersRepository _usersRepository;
+        //private readonly IConfiguration _configuration;
+        private readonly IUserRepository _usersRepository;
 
-        public UserController(IUsersRepository usersRepository, IConfiguration configuration)
+        public UserController(IUserRepository usersRepository, IConfiguration configuration)
         {
             // Inject IPeopleRepository instance into controller's constructor
             _usersRepository = usersRepository;
-            _configuration = configuration;
+           // _configuration = configuration;
         }
 
         //[Authorize]
@@ -48,15 +48,15 @@ namespace AuthFlow.Api.Controllers
                     return BadRequest();
                 }
 
-                var personByEmail = await _usersRepository.GetEntitiesByFilter(p => p.Email == user.Email);
-                if (personByEmail is not null)
-                {
-                    // If the request body is null, return a 400 Bad Request response
-                    return BadRequest();
-                }
+                //var personByEmail = await _usersRepository.GetEntitiesByFilter(p => p.Email == user.Email);
+                //if (personByEmail is not null)
+                //{
+                //    // If the request body is null, return a 400 Bad Request response
+                //    return BadRequest();
+                //}
 
                 // Add the new person to the repository
-                _usersRepository.CreateEntity(user);
+                await _usersRepository.CreateEntity(user);
                 // Return 201 Created response with the person and its ID in the Location header
                 return Ok(user);
             }
@@ -91,9 +91,9 @@ namespace AuthFlow.Api.Controllers
                 }
 
                 // Update the person in the repository
-                var result = _usersRepository.UpdateEntity(user);
+                var result = await _usersRepository.UpdateEntity(user);
                 // Return a 204 No Content response
-                return Ok(result.Result);
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace AuthFlow.Api.Controllers
                     return NotFound();
                 }
                 // Delete the person from the repository
-                Task<bool> result = _usersRepository.DeleteEntity(user.First());
+                var result = await _usersRepository.DeleteEntity(user.First());
                 // Return a 204 No Content response
                 return Ok(result);
             }

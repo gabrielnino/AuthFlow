@@ -50,7 +50,7 @@ namespace AuthFlow.Persistence.Repositories
             {
                 entity.Id = 0;
                 _dbSet.Add(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return entity.Id;
             }
             catch (Exception ex)

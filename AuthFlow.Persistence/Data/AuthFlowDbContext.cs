@@ -1,4 +1,5 @@
 ﻿using AuthFlow.Domain;
+using AuthFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AuthFlow.Persistence.Data
