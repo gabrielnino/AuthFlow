@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "gEEjwiWwvwblwNzVW922hVpnjVW+mZ8xCtSzh0l0Vyc=",
+  "Source": "AuthFlow",
+  "BasePath": "_content/AuthFlow",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

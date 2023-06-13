@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "AuthFlow.Application/1.0.0": {
+        "dependencies": {
+          "AuthFlow.Domain": "1.0.0"
+        },
+        "runtime": {
+          "AuthFlow.Application.dll": {}
+        }
+      },
+      "AuthFlow.Domain/1.0.0": {
+        "runtime": {
+          "AuthFlow.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AuthFlow.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AuthFlow.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
