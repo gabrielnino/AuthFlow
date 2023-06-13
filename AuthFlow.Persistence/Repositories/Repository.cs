@@ -26,6 +26,7 @@ namespace AuthFlow.Persistence.Repositories
             }
             catch (Exception ex)
             {
+                // Add logs
                 throw;
             }
         }
@@ -39,6 +40,7 @@ namespace AuthFlow.Persistence.Repositories
             }
             catch (Exception ex)
             {
+                // Add logs
                 throw;
             }
         }
