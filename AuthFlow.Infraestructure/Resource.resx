@@ -126,10 +126,37 @@
   <data name="FailedOccurredDataLayer" xml:space="preserve">
     <value>An error occurred in the data layer.</value>
   </data>
+  <data name="GenericToActiveNotExist" xml:space="preserve">
+    <value>The {0} you are trying to active does not exist.</value>
+  </data>
+  <data name="GenericToDeleteNotExist" xml:space="preserve">
+    <value>The {0} you are trying to delete does not exist.</value>
+  </data>
+  <data name="GenericToInactiveNotExist" xml:space="preserve">
+    <value>The{0} you are trying to inactive does not exist.</value>
+  </data>
   <data name="NecesaryData" xml:space="preserve">
     <value>Necessary data was not provided.</value>
   </data>
-  <data name="SuccessfullySearch" xml:space="preserve">
+  <data name="SuccessfullyGeneric" xml:space="preserve">
+    <value>{0} was created successfully.</value>
+  </data>
+  <data name="SuccessfullyGenericActiveated" xml:space="preserve">
+    <value>{0} was activated successfully.</value>
+  </data>
+  <data name="SuccessfullyGenericDeleted" xml:space="preserve">
+    <value>{0} was deleted successfully.</value>
+  </data>
+  <data name="SuccessfullyGenericDisabled" xml:space="preserve">
+    <value>{0} was disabled successfully.</value>
+  </data>
+  <data name="SuccessfullyGenericUpdated" xml:space="preserve">
+    <value>{0} was updated successfully.</value>
+  </data>
+  <data name="SuccessfullySearchGeneric" xml:space="preserve">
+    <value>The search in the {0} entity completed successfully.</value>
+  </data>
+  <data name="SuccessfullySearchUser" xml:space="preserve">
     <value>The search in the User entity completed successfully.</value>
   </data>
   <data name="SuccessfullyUser" xml:space="preserve">

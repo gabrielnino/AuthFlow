@@ -88,6 +88,33 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} you are trying to active does not exist..
+        /// </summary>
+        internal static string GenericToActiveNotExist {
+            get {
+                return ResourceManager.GetString("GenericToActiveNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} you are trying to delete does not exist..
+        /// </summary>
+        internal static string GenericToDeleteNotExist {
+            get {
+                return ResourceManager.GetString("GenericToDeleteNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The{0} you are trying to inactive does not exist..
+        /// </summary>
+        internal static string GenericToInactiveNotExist {
+            get {
+                return ResourceManager.GetString("GenericToInactiveNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Necessary data was not provided..
         /// </summary>
         internal static string NecesaryData {
@@ -97,11 +124,65 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} was created successfully..
+        /// </summary>
+        internal static string SuccessfullyGeneric {
+            get {
+                return ResourceManager.GetString("SuccessfullyGeneric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} was activated successfully..
+        /// </summary>
+        internal static string SuccessfullyGenericActiveated {
+            get {
+                return ResourceManager.GetString("SuccessfullyGenericActiveated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} was deleted successfully..
+        /// </summary>
+        internal static string SuccessfullyGenericDeleted {
+            get {
+                return ResourceManager.GetString("SuccessfullyGenericDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} was disabled successfully..
+        /// </summary>
+        internal static string SuccessfullyGenericDisabled {
+            get {
+                return ResourceManager.GetString("SuccessfullyGenericDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} was updated successfully..
+        /// </summary>
+        internal static string SuccessfullyGenericUpdated {
+            get {
+                return ResourceManager.GetString("SuccessfullyGenericUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The search in the {0} entity completed successfully..
+        /// </summary>
+        internal static string SuccessfullySearchGeneric {
+            get {
+                return ResourceManager.GetString("SuccessfullySearchGeneric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The search in the User entity completed successfully..
         /// </summary>
-        internal static string SuccessfullySearch {
+        internal static string SuccessfullySearchUser {
             get {
-                return ResourceManager.GetString("SuccessfullySearch", resourceCulture);
+                return ResourceManager.GetString("SuccessfullySearchUser", resourceCulture);
             }
         }
         
