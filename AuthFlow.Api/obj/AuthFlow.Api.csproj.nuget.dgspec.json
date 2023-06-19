@@ -250,6 +250,9 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+              "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj": {
+                "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj"
+              },
               "C:\\ShopFlow\\AuthFlow\\AuthFlow.Persistence\\AuthFlow.Persistence.csproj": {
                 "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Persistence\\AuthFlow.Persistence.csproj"
               }
@@ -314,9 +317,6 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj": {
-                "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj"
-              },
               "C:\\ShopFlow\\AuthFlow\\AuthFlow.Domain\\AuthFlow.Domain.csproj": {
                 "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Domain\\AuthFlow.Domain.csproj"
               }

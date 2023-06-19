@@ -1,7 +1,7 @@
 ﻿using AuthFlow.Domain.Interfaces;
 using System.Linq.Expressions;
 
-namespace AuthFlow.Application.Repositories.Interface
+namespace AuthFlow.Persistence.Repositories.Interface
 {
     public interface IRepository<T> where T : class, IEntity
     {

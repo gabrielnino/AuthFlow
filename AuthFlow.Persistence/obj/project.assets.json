@@ -1133,19 +1133,6 @@
           }
         }
       },
-      "AuthFlow.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "AuthFlow.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/AuthFlow.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AuthFlow.Application.dll": {}
-        }
-      },
       "AuthFlow.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -3476,11 +3463,6 @@
         "version.txt"
       ]
     },
-    "AuthFlow.Application/1.0.0": {
-      "type": "project",
-      "path": "../AuthFlow.Application/AuthFlow.Application.csproj",
-      "msbuildProject": "../AuthFlow.Application/AuthFlow.Application.csproj"
-    },
     "AuthFlow.Domain/1.0.0": {
       "type": "project",
       "path": "../AuthFlow.Domain/AuthFlow.Domain.csproj",
@@ -3489,7 +3471,6 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "AuthFlow.Application >= 1.0.0",
       "AuthFlow.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.5"
@@ -3528,9 +3509,6 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj": {
-              "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj"
-            },
             "C:\\ShopFlow\\AuthFlow\\AuthFlow.Domain\\AuthFlow.Domain.csproj": {
               "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Domain\\AuthFlow.Domain.csproj"
             }

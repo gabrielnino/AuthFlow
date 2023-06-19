@@ -1266,6 +1266,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "AuthFlow.Application": "1.0.0",
           "AuthFlow.Persistence": "1.0.0"
         },
         "compile": {
@@ -1279,7 +1280,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "AuthFlow.Application": "1.0.0",
           "AuthFlow.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
         },

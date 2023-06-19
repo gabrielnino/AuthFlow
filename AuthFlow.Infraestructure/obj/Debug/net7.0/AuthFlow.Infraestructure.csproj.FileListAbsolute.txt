@@ -17,3 +17,5 @@ C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraest
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\refint\AuthFlow.Infraestructure.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\ref\AuthFlow.Infraestructure.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.Resource.resources
+C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.csproj.GenerateResource.cache

@@ -1055,7 +1055,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "AuthFlow.Application": "1.0.0",
           "AuthFlow.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
         },
@@ -3228,6 +3227,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "AuthFlow.Application >= 1.0.0",
       "AuthFlow.Persistence >= 1.0.0"
     ]
   },
@@ -3264,6 +3264,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj": {
+              "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj"
+            },
             "C:\\ShopFlow\\AuthFlow\\AuthFlow.Persistence\\AuthFlow.Persistence.csproj": {
               "projectPath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Persistence\\AuthFlow.Persistence.csproj"
             }
