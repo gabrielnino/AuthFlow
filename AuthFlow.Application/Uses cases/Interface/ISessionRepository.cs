@@ -2,27 +2,32 @@
 using AuthFlow.Domain.Entities;
 using System.Linq.Expressions;
 
+// Namespace for application repository interfaces
 namespace AuthFlow.Application.Repositories.Interface
 {
+    // Interface for the Session repository.
+    // This interface defines methods for interacting with the Session data in the repository.
     public interface ISessionRepository
     {
-        // Returns all entities of type T in the repository
+        // Returns all Sessions in the repository
         Task<OperationResult<IQueryable<Session>>> GetSessionsAll();
-        // Returns a subset of entities of type T based on the predicate specified
+
+        // Returns a subset of Sessions based on the provided predicate
         Task<OperationResult<IQueryable<Session>>> GetSessionsByFilter(Expression<Func<Session, bool>> predicate);
 
-        // Adds an entity of type T to the repository
+        // Adds a Session entity to the repository and returns the id of the added Session
         Task<OperationResult<int>> CreateSession(Session entity);
 
-        // Deletes an entity of type T from the repository
+        // Updates a Session in the repository and returns a boolean indicating if the update was successful
         Task<OperationResult<bool>> UpdateSession(Session entity);
 
-        // Updates an entity of type T in the repository
+        // Deletes a Session with the provided id from the repository and returns a boolean indicating if the deletion was successful
         Task<OperationResult<bool>> DeleteSession(int id);
 
-        // Deletes an entity of type T from the repository
+        // Disables a Session with the provided id and returns a boolean indicating if the operation was successful
         Task<OperationResult<bool>> DisableSession(int id);
 
+        // Activates a Session with the provided id and returns a boolean indicating if the operation was successful
         Task<OperationResult<bool>> ActivateSession(int id);
     }
 }

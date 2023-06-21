@@ -1,6 +1,7 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Domain.Entities;
+using AuthFlow.Infrastructure.Repositories;
 using AuthFlow.Persistence.Data;
 using System.Linq.Expressions;
 
