@@ -55,7 +55,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to add a new entity.
-        public async Task<OperationResult<int>> Add(T entity)
+        public new async Task<OperationResult<int>> Add(T entity)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // If validation is not successful, return a failure operation result with a custom error message
                 if (!validationResult.IsSuccessful)
                 {
-                    return OperationResult<int>.Failure(validationResult.Message);
+                    return OperationResult<int>.Failure(validationResult?.Message);
                 }
 
                 // If validation is successful, create the entity in the database
@@ -124,7 +124,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to modify an existing entity.
-        public async Task<OperationResult<bool>> Modified(T entity)
+        public new async Task<OperationResult<bool>> Modified(T entity)
         {
             try
             {
@@ -190,7 +190,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to retrieve all entities.
-        public async Task<OperationResult<IQueryable<T>>> GetAll()
+        public new async Task<OperationResult<IQueryable<T>>> GetAll()
         {
             try
             {
@@ -212,7 +212,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to retrieve entities based on a filter expression.
-        public async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
+        public new async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
         {
             try
             {
