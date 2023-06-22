@@ -12,15 +12,15 @@ namespace AuthFlow.Persistence.Repositories.Interface
         Task<IQueryable<T>> GetAll();
 
         // Returns a subset of entities of type T based on the provided predicate
-        Task<IQueryable<T>> GetEntitiesByFilter(Expression<Func<T, bool>> predicate);
+        Task<IQueryable<T>> GetAllByFilter(Expression<Func<T, bool>> predicate);
 
         // Adds an entity of type T to the repository and returns the id of the added entity
-        Task<int> CreateEntity(T entity);
+        Task<int> Add(T entity);
 
         // Updates an entity of type T in the repository and returns a boolean indicating if the update was successful
-        Task<bool> UpdateEntity(T entity);
+        Task<bool> Modified(T entity);
 
         // Deletes an entity of type T from the repository and returns a boolean indicating if the deletion was successful
-        Task<bool> DeleteEntity(T entity);
+        Task<bool> Remove(T entity);
     }
 }

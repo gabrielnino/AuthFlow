@@ -7,13 +7,13 @@ namespace AuthFlow.Api.Controllers
     // Defines route and declares this class as a controller in the API.
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class BaseController : ControllerBase
     {
         // Defines an interface for accessing User data in the repository.
         private readonly IUserRepository _usersRepository;
 
         // Constructor for UserController, injecting the User repository.
-        public UserController(IUserRepository usersRepository, IConfiguration configuration)
+        public BaseController(IUserRepository usersRepository, IConfiguration configuration)
         {
             _usersRepository = usersRepository;
         }
@@ -22,7 +22,7 @@ namespace AuthFlow.Api.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUsersAll()
         {
-            var result = await _usersRepository.GetUsersAll();
+            var result = await _usersRepository.GetAll();
             return Ok(result);
         }
 
@@ -30,7 +30,7 @@ namespace AuthFlow.Api.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var result = await _usersRepository.GetUsersByFilter(u => u.Id.Equals(id));
+            var result = await _usersRepository.GetAllByFilter(u => u.Id.Equals(id));
             return Ok(result);
         }
 
@@ -38,7 +38,7 @@ namespace AuthFlow.Api.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> DisableUser(int id)
         {
-            var result = await _usersRepository.DisableUser(id);
+            var result = await _usersRepository.Deactivate(id);
             return Ok(result);
         }
 
@@ -46,7 +46,7 @@ namespace AuthFlow.Api.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> ActivateUser(int id)
         {
-            var result = await _usersRepository.ActivateUser(id);
+            var result = await _usersRepository.Activate(id);
             return Ok(result);
         }
 
@@ -54,7 +54,7 @@ namespace AuthFlow.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEntity([FromBody] User user)
         {
-            var result = await _usersRepository.CreateUser(user);
+            var result = await _usersRepository.Add(user);
             return Ok(result);
         }
 
@@ -62,7 +62,7 @@ namespace AuthFlow.Api.Controllers
         [HttpPut()]
         public async Task<IActionResult> Update([FromBody] User user)
         {
-            var result = await _usersRepository.UpdateUser(user);
+            var result = await _usersRepository.Modified(user);
             return Ok(result);
         }
 
@@ -70,7 +70,7 @@ namespace AuthFlow.Api.Controllers
         [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _usersRepository.DeleteUser(id);
+            var result = await _usersRepository.Remove(id);
             return Ok(result);
         }
     }

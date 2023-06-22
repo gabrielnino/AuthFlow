@@ -1,7 +1,6 @@
 ﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Repositories.Interface;
+using AuthFlow.Application.Repositories.Interface.Repository;
 using AuthFlow.Domain.Interfaces;
-using AuthFlow.Infraestructure;
 using AuthFlow.Persistence.Data;
 using AuthFlow.Persistence.Repositories;
 using System.Linq.Expressions;
@@ -39,7 +38,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 entity.Active = true;
 
                 // Update the entity in the database
-                var result = await UpdateEntity(entity);
+                var result = await base.Modified(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericActiveated, typeof(T).Name);
@@ -70,7 +69,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 }
 
                 // If validation is successful, create the entity in the database
-                var result = await CreateEntity(entity);
+                var result = await base.Add(entity);
 
                 // Custom success message
                 var messageExist = string.Format(Resource.SuccessfullyGeneric, typeof(T).Name);
@@ -108,7 +107,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 entity.Active = false;
 
                 // Update the entity in the database
-                var result = await UpdateEntity(entity);
+                var result = await base.Modified(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericDisabled, typeof(T).Name);
@@ -125,7 +124,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to modify an existing entity.
-        public async Task<OperationResult<bool>> Modify(T entity)
+        public async Task<OperationResult<bool>> Modified(T entity)
         {
             try
             {
@@ -139,7 +138,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 }
 
                 // If validation is successful, update the entity in the database
-                var result = await UpdateEntity(entity);
+                var result = await base.Modified(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericUpdated, typeof(T).Name);
@@ -174,7 +173,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
                 // If validation is successful, delete the entity from the database
                 var entity = validationResult.Data;
-                bool result = await DeleteEntity(entity);
+                bool result = await Remove(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericDeleted, typeof(T).Name);
@@ -191,12 +190,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to retrieve all entities.
-        public async Task<OperationResult<IQueryable<T>>> RetrieveAll()
+        public async Task<OperationResult<IQueryable<T>>> GetAll()
         {
             try
             {
                 // Get all entities from the database
-                var result = await GetAll();
+                var result = await base.GetAll();
 
                 // Custom success message
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
@@ -213,12 +212,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Method to retrieve entities based on a filter expression.
-        public async Task<OperationResult<IQueryable<T>>> RetrieveByFilter(Expression<Func<T, bool>> predicate)
+        public async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
         {
             try
             {
                 // Get entities from the database based on the provided filter expression
-                var result = await GetEntitiesByFilter(predicate);
+                var result = await base.GetAllByFilter(predicate);
 
                 // Custom success message
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
@@ -248,7 +247,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
 
             // Get the entity from the database based on the provided ID
-            var entitiesToValidate = await GetEntitiesByFilter(p => p.Id == id);
+            var entitiesToValidate = await base.GetAllByFilter(p => p.Id == id);
             var entity = entitiesToValidate.FirstOrDefault();
 
             // If the entity does not exist, return a failure operation result with a custom error message

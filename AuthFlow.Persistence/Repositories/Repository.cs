@@ -29,7 +29,7 @@ namespace AuthFlow.Persistence.Repositories
         }
 
         // Finds entities of type T that match a given predicate
-        public async Task<IQueryable<T>> GetEntitiesByFilter(Expression<Func<T, bool>> predicate)
+        public async Task<IQueryable<T>> GetAllByFilter(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Where(predicate);
         }
@@ -37,7 +37,7 @@ namespace AuthFlow.Persistence.Repositories
         // Adds an entity of type T to the database
         // This method sets the entity Id to 0, adds the entity to the DbSet, 
         // and then saves the changes to the database asynchronously.
-        public async Task<int> CreateEntity(T entity)
+        public async Task<int> Add(T entity)
         {
             entity.Id = 0;
             _dbSet.Add(entity);
@@ -48,7 +48,7 @@ namespace AuthFlow.Persistence.Repositories
         // Modifies an existing entity of type T in the database
         // This method sets the EntityState to Modified, and then saves the changes to the database asynchronously.
         // The method returns a boolean indicating whether the operation was successful.
-        public async Task<bool> UpdateEntity(T entity)
+        public async Task<bool> Modified(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             var result = await _context.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace AuthFlow.Persistence.Repositories
         // Deletes an entity of type T from the database
         // This method removes the entity from the DbSet, and then saves the changes to the database asynchronously.
         // The method returns a boolean indicating whether the operation was successful.
-        public async Task<bool> DeleteEntity(T entity)
+        public async Task<bool> Remove(T entity)
         {
             _dbSet.Remove(entity);
             var result = await _context.SaveChangesAsync();

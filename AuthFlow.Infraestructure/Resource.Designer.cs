@@ -70,6 +70,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A session is already registered with this token..
+        /// </summary>
+        internal static string FailedAlreadyRegisteredToken {
+            get {
+                return ResourceManager.GetString("FailedAlreadyRegisteredToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A user is already registered with this username..
         /// </summary>
         internal static string FailedAlreadyRegisteredUser {

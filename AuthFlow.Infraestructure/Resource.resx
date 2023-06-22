@@ -120,6 +120,9 @@
   <data name="FailedAlreadyRegisteredEmail" xml:space="preserve">
     <value>A user is already registered with this email.</value>
   </data>
+  <data name="FailedAlreadyRegisteredToken" xml:space="preserve">
+    <value>A session is already registered with this token.</value>
+  </data>
   <data name="FailedAlreadyRegisteredUser" xml:space="preserve">
     <value>A user is already registered with this username.</value>
   </data>

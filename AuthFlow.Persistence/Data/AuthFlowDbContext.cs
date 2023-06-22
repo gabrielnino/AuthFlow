@@ -1,5 +1,4 @@
-﻿using AuthFlow.Domain;
-using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 // Namespace for Persistence Data
