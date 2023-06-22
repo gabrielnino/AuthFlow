@@ -16,8 +16,6 @@ namespace AuthFlow.Persistence.Data
         // Define a DbSet for the Session model. This represents a collection of Sessions in the database context.
         public DbSet<Session> Sessions { get; set; }
 
-        // Define a DbSet for the AccessToken model. This represents a collection of AccessTokens in the database context.
-        public DbSet<AccessToken> AccessTokens { get; set; }
 
         // Define a constructor that takes DbContextOptions<AuthFlowDbContext> and passes it to the base constructor.
         // This constructor is used to configure the DbContext with options, which can include a connection string,
@@ -29,9 +27,6 @@ namespace AuthFlow.Persistence.Data
 
             // Initialize the Sessions property with a non-null DbSet<Session>
             Sessions = Set<Session>();
-
-            // Initialize the AccessTokens property with a non-null DbSet<AccessToken>
-            AccessTokens = Set<AccessToken>();
         }
     }
 }

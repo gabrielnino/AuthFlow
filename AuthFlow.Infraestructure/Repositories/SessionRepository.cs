@@ -1,7 +1,7 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Domain.Entities;
-using AuthFlow.Infrastructure.Repositories;
+using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
 using System;
 using System.Collections.Generic;

@@ -123,6 +123,9 @@
   <data name="FailedAlreadyRegisteredUser" xml:space="preserve">
     <value>A user is already registered with this username.</value>
   </data>
+  <data name="FailedDataSizeCharacter" xml:space="preserve">
+    <value>One or more data from the User have been submitted with errors {0}</value>
+  </data>
   <data name="FailedOccurredDataLayer" xml:space="preserve">
     <value>An error occurred in the data layer.</value>
   </data>

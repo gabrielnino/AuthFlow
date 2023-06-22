@@ -79,6 +79,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more data from the User have been submitted with errors {0}.
+        /// </summary>
+        internal static string FailedDataSizeCharacter {
+            get {
+                return ResourceManager.GetString("FailedDataSizeCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred in the data layer..
         /// </summary>
         internal static string FailedOccurredDataLayer {

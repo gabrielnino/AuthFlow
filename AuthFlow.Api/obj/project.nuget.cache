@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "qWjII1nrDd279FsYVm/mTwmz8spVm/D1OAQD2VyO4vZcAs6N4o9Cx3S0SqUuC/c95ef6m8TW3i4PGBI8VdPIeg==",
+  "dgSpecHash": "/WWC3kJrWG43NeTOqQ98dztMElbkJV9dgT0RaYZqloIwF+c+G0COJ95ki2aCJ0ogboyJmaQc+qHP5TUzihhIJg==",
   "success": true,
   "projectFilePath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Api\\AuthFlow.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\luisg\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\luisg\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.4\\microsoft.aspnetcore.openapi.7.0.4.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

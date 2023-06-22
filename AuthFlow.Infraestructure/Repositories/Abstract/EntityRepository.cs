@@ -1,6 +1,5 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
-using AuthFlow.Domain.Entities;
 using AuthFlow.Domain.Interfaces;
 using AuthFlow.Infraestructure;
 using AuthFlow.Persistence.Data;
@@ -8,7 +7,7 @@ using AuthFlow.Persistence.Repositories;
 using System.Linq.Expressions;
 
 // Namespace for infrastructure repositories
-namespace AuthFlow.Infrastructure.Repositories
+namespace AuthFlow.Infraestructure.Repositories.Abstract
 {
     // Base class for Entity Repositories, provides common CRUD operations for all entities that extend from IEntity
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity
@@ -37,10 +36,10 @@ namespace AuthFlow.Infrastructure.Repositories
 
                 // If validation is successful, set the entity as active
                 var entity = validationResult.Data;
-                entity.Active=true;
+                entity.Active = true;
 
                 // Update the entity in the database
-                var result = await base.UpdateEntity(entity);
+                var result = await UpdateEntity(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericActiveated, typeof(T).Name);
@@ -71,7 +70,7 @@ namespace AuthFlow.Infrastructure.Repositories
                 }
 
                 // If validation is successful, create the entity in the database
-                var result = await base.CreateEntity(entity);
+                var result = await CreateEntity(entity);
 
                 // Custom success message
                 var messageExist = string.Format(Resource.SuccessfullyGeneric, typeof(T).Name);
@@ -106,10 +105,10 @@ namespace AuthFlow.Infrastructure.Repositories
 
                 // If validation is successful, set the entity as inactive
                 var entity = validationResult.Data;
-                entity.Active=false;
+                entity.Active = false;
 
                 // Update the entity in the database
-                var result = await base.UpdateEntity(entity);
+                var result = await UpdateEntity(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericDisabled, typeof(T).Name);
@@ -140,7 +139,7 @@ namespace AuthFlow.Infrastructure.Repositories
                 }
 
                 // If validation is successful, update the entity in the database
-                var result = await base.UpdateEntity(entity);
+                var result = await UpdateEntity(entity);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericUpdated, typeof(T).Name);
@@ -197,7 +196,7 @@ namespace AuthFlow.Infrastructure.Repositories
             try
             {
                 // Get all entities from the database
-                var result = await base.GetAll();
+                var result = await GetAll();
 
                 // Custom success message
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
@@ -219,7 +218,7 @@ namespace AuthFlow.Infrastructure.Repositories
             try
             {
                 // Get entities from the database based on the provided filter expression
-                var result = await base.GetEntitiesByFilter(predicate);
+                var result = await GetEntitiesByFilter(predicate);
 
                 // Custom success message
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
@@ -249,7 +248,7 @@ namespace AuthFlow.Infrastructure.Repositories
             }
 
             // Get the entity from the database based on the provided ID
-            var entitiesToValidate = await base.GetEntitiesByFilter(p => p.Id == id);
+            var entitiesToValidate = await GetEntitiesByFilter(p => p.Id == id);
             var entity = entitiesToValidate.FirstOrDefault();
 
             // If the entity does not exist, return a failure operation result with a custom error message

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "T47Rn9c2d9ezMbZHq7ZT64q5hgwDXoMo9HQdzJcxyCYHY0xaLSUOG8koclar2bZGnOqmxsTY13ij3JDJOfoPVA==",
+  "dgSpecHash": "WRxsQgbaipjjn7/qix1QKzdNWbHhyNP/WpifB8DJuDAPXjFf0ekZrq30dzUaX67knSNQyP7zZuCDb4WEGmNrhg==",
   "success": true,
   "projectFilePath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Application\\AuthFlow.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\luisg\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512"
+  ],
   "logs": []
 }

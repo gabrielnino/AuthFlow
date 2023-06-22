@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "4vn5WPUQSGRVhxElCUBrc4Oa/NHvvXYScFl/IAltdgXHSqd4JqdyFbQ/3okLuBd0KlneTLhPuBFHEdHDvKbopw==",
+  "dgSpecHash": "eJ4hZhzAry+YSWfb9tvReDY+rxQiRfhw7PwL3JIkrSVxKTD9rd2mcHNAIAMI6X1yD2wAFKB0PjruRsaiNreJvQ==",
   "success": true,
   "projectFilePath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Infraestructure\\AuthFlow.Infraestructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\luisg\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\luisg\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
