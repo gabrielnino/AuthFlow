@@ -7,11 +7,15 @@ namespace AuthFlow.Application.Validators
     // FluentValidation is a .NET library for building strongly-typed validation rules
     public class UserValidator : AbstractValidator<User>
     {
-        public UserValidator()
+        public UserValidator(bool isModified = false)
         {
             // Rule for 'Id' property
             // It must be greater than 0, not null and not empty
-            RuleFor(x => x.Id).GreaterThan(0).NotNull().NotEmpty();
+            if(isModified)
+            {
+                RuleFor(x => x.Id).GreaterThan(0).NotNull().NotEmpty();
+            }
+            
 
             // Rule for 'Username' property
             // It must not be null, not empty, and its length should be between 6 and 50

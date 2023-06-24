@@ -106,6 +106,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user was not found - unable to create the session..
+        /// </summary>
+        internal static string FailedUserNotFound {
+            get {
+                return ResourceManager.GetString("FailedUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} you are trying to active does not exist..
         /// </summary>
         internal static string GenericToActiveNotExist {

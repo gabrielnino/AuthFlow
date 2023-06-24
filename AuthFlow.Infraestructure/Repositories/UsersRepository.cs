@@ -29,7 +29,8 @@ namespace AuthFlow.Infraestructure.Repositories
 
         protected override async Task<OperationResult<bool>> ValidateEntity(User entity, int? updatingUserId = null)
         {
-            var validator = new UserValidator();
+            var isModified = updatingUserId != null;
+            var validator = new UserValidator(isModified);
             var result = validator.Validate(entity);
             if(!result.IsValid)
             {

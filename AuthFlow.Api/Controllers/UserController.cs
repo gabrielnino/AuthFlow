@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AuthFlow.Application.Repositories.Interface;
-
 using AutoMapper;
 using AuthFlow.Domain.DTO;
 using AuthFlow.Application.DTOs;

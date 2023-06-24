@@ -9,13 +9,17 @@ namespace AuthFlow.Infraestructure.Repositories
 {
     public class SessionRepository : EntityRepository<Session>, ISessionRepository
     {
-        public SessionRepository(AuthFlowDbContext context) : base(context)
+        public SessionRepository(AuthFlowDbContext context, IUserRepository userRepository) : base(context)
         {
+            _userRepository = userRepository;
         }
+
+        public IUserRepository _userRepository { get; set; }
 
         protected override async Task<OperationResult<bool>> ValidateEntity(Session entity, int? updatingUserId = null)
         {
-            var validator = new SessionValidator();
+            var isModified = updatingUserId != null;
+            var validator = new SessionValidator(isModified);
             var result = validator.Validate(entity);
             if (!result.IsValid)
             {
@@ -32,11 +36,11 @@ namespace AuthFlow.Infraestructure.Repositories
                 return OperationResult<bool>.Failure(Resource.NecesaryData);
             }
 
-            var userByEmail = await base.GetAllByFilter(p => p.UserId == entity.UserId && p.Token == entity.Token  && p.Id != updatingUserId);
-            var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
-            if (userExistByEmail is not null)
+            var userExistById = await _userRepository.GetAllByFilter(x => x.Id.Equals(entity.UserId));
+            var user = userExistById?.Data.FirstOrDefault();
+            if (user is null)
             {
-                return OperationResult<bool>.Failure(Resource.FailedAlreadyRegisteredToken);
+                return OperationResult<bool>.Failure(Resource.FailedUserNotFound);
             }
 
             return OperationResult<bool>.Success(true);

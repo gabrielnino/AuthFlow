@@ -8,6 +8,6 @@ namespace AuthFlow.Application.Repositories.Interface
     // This interface defines methods for interacting with the Session data in the repository.
     public interface ISessionRepository : IRepositoryOperations<Session>
     {
-
+        public IUserRepository _userRepository { get; set; }
     }
 }

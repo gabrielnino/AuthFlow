@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06.Test", "06.Test", "{28A1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthFlow.Infraestructure", "AuthFlow.Infraestructure\AuthFlow.Infraestructure.csproj", "{AF97C507-F526-4F3B-B564-28144B165214}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthFlow.Test", "AuthFlow.Test\AuthFlow.Test.csproj", "{193C297A-8972-44C3-8F1D-DC931030D98D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{AF97C507-F526-4F3B-B564-28144B165214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF97C507-F526-4F3B-B564-28144B165214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF97C507-F526-4F3B-B564-28144B165214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193C297A-8972-44C3-8F1D-DC931030D98D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193C297A-8972-44C3-8F1D-DC931030D98D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193C297A-8972-44C3-8F1D-DC931030D98D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193C297A-8972-44C3-8F1D-DC931030D98D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{51CD508F-110D-49F0-8E53-4DCC95DE7879} = {E64D94D4-9254-4962-9F82-0699A501C37B}
 		{C20A5B21-E387-4891-9040-65C22F054125} = {B0BB6528-34E3-4F1C-9C20-F89C12235179}
 		{AF97C507-F526-4F3B-B564-28144B165214} = {99A20726-F53B-4AC8-A16E-770BDE0A0079}
+		{193C297A-8972-44C3-8F1D-DC931030D98D} = {28A1E273-C838-4A11-8F68-890CE97A5D03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {420A98E8-DE00-465B-80B3-01D26CDC0A92}

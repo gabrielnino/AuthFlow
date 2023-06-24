@@ -132,6 +132,9 @@
   <data name="FailedOccurredDataLayer" xml:space="preserve">
     <value>An error occurred in the data layer.</value>
   </data>
+  <data name="FailedUserNotFound" xml:space="preserve">
+    <value>The user was not found - unable to create the session.</value>
+  </data>
   <data name="GenericToActiveNotExist" xml:space="preserve">
     <value>The {0} you are trying to active does not exist.</value>
   </data>
