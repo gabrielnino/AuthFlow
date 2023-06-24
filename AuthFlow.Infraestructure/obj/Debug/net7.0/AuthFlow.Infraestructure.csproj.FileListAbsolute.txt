@@ -4,10 +4,12 @@ C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Infraest
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Application.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Domain.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Persistence.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Persistence.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Application.pdb
+C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Persistence.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\bin\Debug\net7.0\AuthFlow.Domain.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.csproj.AssemblyReference.cache
+C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.Resource.resources
+C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.csproj.GenerateResource.cache
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.AssemblyInfoInputs.cache
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.AssemblyInfo.cs
@@ -17,5 +19,3 @@ C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraest
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\refint\AuthFlow.Infraestructure.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\ref\AuthFlow.Infraestructure.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.Resource.resources
-C:\ShopFlow\AuthFlow\AuthFlow.Infraestructure\obj\Debug\net7.0\AuthFlow.Infraestructure.csproj.GenerateResource.cache

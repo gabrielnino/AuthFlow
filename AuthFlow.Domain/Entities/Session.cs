@@ -13,6 +13,8 @@ namespace AuthFlow.Domain.Entities
         // Identifier for the User that this Session is associated with
         public int UserId { get; set; }
 
+        public User User { get; set; }
+
         // The session token string. This may be null if the session token has not been generated.
         public string? Token { get; set; }
 

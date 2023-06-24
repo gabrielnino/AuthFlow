@@ -27,7 +27,7 @@ namespace AuthFlow.Application.Validators
 
             // Rule for 'CreatedAt' property
             // It must not be null and should be greater than current UTC date
-            RuleFor(x => x.CreatedAt).NotNull().GreaterThan(DateTime.UtcNow.Date);
+            ///RuleFor(x => x.CreatedAt).NotNull().GreaterThan(DateTime.UtcNow.Date);
 
             // Rule for 'Active' property
             // It must not be null

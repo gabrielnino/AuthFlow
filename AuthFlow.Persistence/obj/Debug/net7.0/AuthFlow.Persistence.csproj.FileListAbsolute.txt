@@ -1,4 +1,5 @@
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Persistence.deps.json
+C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Persistence.runtimeconfig.json
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Persistence.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Persistence.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Domain.dll
@@ -12,6 +13,5 @@ C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\AuthFlow.Persistence.
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\AuthFlow.Persistence.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\refint\AuthFlow.Persistence.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\AuthFlow.Persistence.pdb
-C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\ref\AuthFlow.Persistence.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Persistence\bin\Debug\net7.0\AuthFlow.Persistence.runtimeconfig.json
 C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\AuthFlow.Persistence.genruntimeconfig.cache
+C:\ShopFlow\AuthFlow\AuthFlow.Persistence\obj\Debug\net7.0\ref\AuthFlow.Persistence.dll

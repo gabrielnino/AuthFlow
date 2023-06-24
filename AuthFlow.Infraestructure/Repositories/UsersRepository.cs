@@ -13,6 +13,20 @@ namespace AuthFlow.Infraestructure.Repositories
         {
         }
 
+        protected override async Task<User> CallEntity(User entity)
+        {
+            var userReposity = await base.GetAllByFilter(e => e.Id.Equals(entity.Id));
+            var user = userReposity?.Data?.FirstOrDefault();
+            if (!user.Username.Equals(entity.Username) || !user.Email.Equals(entity.Email))
+            {
+                user.Username = entity.Username;
+                user.Email = entity.Email;
+                user.Active = false;
+            }
+            user.UpdatedAt = DateTime.Now;
+            return await Task.FromResult(user);
+        }
+
         protected override async Task<OperationResult<bool>> ValidateEntity(User entity, int? updatingUserId = null)
         {
             var validator = new UserValidator();

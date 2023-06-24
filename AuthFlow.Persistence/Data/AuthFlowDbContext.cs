@@ -27,5 +27,15 @@ namespace AuthFlow.Persistence.Data
             // Initialize the Sessions property with a non-null DbSet<Session>
             Sessions = Set<Session>();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Sessions)
+                .WithOne(y => y.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
     }
 }

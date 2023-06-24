@@ -128,6 +128,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
+                entity = await CallEntity(entity);
                 // Validate the entity
                 var validationResult = await ValidateEntity(entity, entity.Id);
 
@@ -236,6 +237,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
         // Abstract method to validate an entity, must be overridden in derived classes
         protected abstract Task<OperationResult<bool>> ValidateEntity(T entity, int? updatingUserId = null);
+
+        protected virtual Task<T> CallEntity(T entity)
+        {
+            return Task.FromResult(entity);
+        }
+
 
         // Method to validate if an entity exists based on its ID.
         private async Task<OperationResult<T>> ValidateExist(int id, string message)

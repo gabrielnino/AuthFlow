@@ -30,5 +30,7 @@ namespace AuthFlow.Domain.Entities
         // A boolean value indicating whether the User account is currently active or not.
         // If false, the user account is considered disabled or deactivated.
         public bool Active { get; set; }
+
+        public List<Session> Sessions { get; set; }
     }
 }
