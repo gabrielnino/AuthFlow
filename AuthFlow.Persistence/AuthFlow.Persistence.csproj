@@ -18,4 +18,8 @@
     <ProjectReference Include="..\AuthFlow.Domain\AuthFlow.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Interface\" />
+  </ItemGroup>
+
 </Project>

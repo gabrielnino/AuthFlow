@@ -128,7 +128,13 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
-                entity = await CallEntity(entity);
+                var resultCallEntity = await CallEntity(entity);
+                if (!resultCallEntity.IsSuccessful)
+                {
+                    return OperationResult<bool>.Failure(resultCallEntity.Message);
+                }
+
+                entity = resultCallEntity.Data;
                 // Validate the entity
                 var validationResult = await ValidateEntity(entity, entity.Id);
 
@@ -146,6 +152,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
                 // Return a success operation result
                 return OperationResult<bool>.Success(result, messageSuccess);
+
             }
             catch
             {
@@ -154,6 +161,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
+               
 
         // Method to remove a specific entity by its ID.
         public async Task<OperationResult<bool>> Remove(int id)
@@ -234,15 +242,17 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-
         // Abstract method to validate an entity, must be overridden in derived classes
         protected abstract Task<OperationResult<bool>> ValidateEntity(T entity, int? updatingUserId = null);
 
-        protected virtual Task<T> CallEntity(T entity)
-        {
-            return Task.FromResult(entity);
-        }
 
+
+        protected virtual async Task<OperationResult<T>> CallEntity(T entity)
+        {
+            // Custom success message
+            var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
+            return OperationResult<T>.Success(entity, messageSuccessfully);
+        }
 
         // Method to validate if an entity exists based on its ID.
         private async Task<OperationResult<T>> ValidateExist(int id, string message)
@@ -250,7 +260,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             // Validate the provided ID
             if (id == 0)
             {
-                return OperationResult<T>.Failure(Resource.NecesaryData);
+                return OperationResult<T>.Failure(Resource.FailedNecesaryData);
             }
 
             // Get the entity from the database based on the provided ID

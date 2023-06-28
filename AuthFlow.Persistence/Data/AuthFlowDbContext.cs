@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 namespace AuthFlow.Persistence.Data
 {
     // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model
-    // It manages the entity objects during run time, which includes populating objects with data from a database,
+    // It manages the entity objects during runtime, which includes populating objects with data from a database,
     // change tracking, and persisting data to the database.
     public class AuthFlowDbContext : DbContext
     {
         // Define a DbSet for the User model. This represents a collection of Users in the database context.
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         // Define a DbSet for the Session model. This represents a collection of Sessions in the database context.
-        public DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
 
 
         // Define a constructor that takes DbContextOptions<AuthFlowDbContext> and passes it to the base constructor.
@@ -30,6 +30,7 @@ namespace AuthFlow.Persistence.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configure the relationship between User and Session entities
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Sessions)
                 .WithOne(y => y.User)

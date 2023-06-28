@@ -9,15 +9,12 @@ namespace AuthFlow.Application.Validators
     {
         public SessionValidator(bool isModified = false)
         {
-
+            // Rule for 'Id' property
+            // It must be greater than 0, not null and not empty
             if (isModified)
             {
-                // Rule for 'Id' property
-                // It must be greater than 0, not null and not empty
                 RuleFor(x => x.Id).GreaterThan(0).NotNull().NotEmpty();
             }
-
-            
 
             // Rule for 'UserId' property
             // It must be greater than 0, not null and not empty

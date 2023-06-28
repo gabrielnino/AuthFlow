@@ -1,16 +1,18 @@
-﻿using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Domain.DTO;
+using AuthFlow.Domain.Entities;
+using AuthFlow.Domain.Interfaces;
 
 namespace AuthFlow.Domain.Tests
 {
     [TestFixture]
     public class UserTests
     {
-        private User _user;
+        private Entities.User _user;
 
         [SetUp]
         public void GivenAUserWithProperties()
         {
-            _user = new User
+            _user = new Entities.User
             {
                 Id = 1,
                 Username = "TestUser",
@@ -20,6 +22,19 @@ namespace AuthFlow.Domain.Tests
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
+        }
+
+        [Test]
+        public void GivenAUser_WhenCheckingType_ThenItInheritsFromIEntity()
+        {
+            // Given
+            // Defined in Setup
+
+            // When
+            bool isEntity = _user is IEntity;
+
+            // Then
+            Assert.IsTrue(isEntity);
         }
 
         [Test]

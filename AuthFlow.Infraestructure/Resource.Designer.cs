@@ -97,11 +97,29 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Necessary data was not provided..
+        /// </summary>
+        internal static string FailedNecesaryData {
+            get {
+                return ResourceManager.GetString("FailedNecesaryData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred in the data layer..
         /// </summary>
         internal static string FailedOccurredDataLayer {
             get {
                 return ResourceManager.GetString("FailedOccurredDataLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user does not exist..
+        /// </summary>
+        internal static string FailedUserDoesNotExist {
+            get {
+                return ResourceManager.GetString("FailedUserDoesNotExist", resourceCulture);
             }
         }
         
@@ -138,15 +156,6 @@ namespace AuthFlow.Infraestructure {
         internal static string GenericToInactiveNotExist {
             get {
                 return ResourceManager.GetString("GenericToInactiveNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Necessary data was not provided..
-        /// </summary>
-        internal static string NecesaryData {
-            get {
-                return ResourceManager.GetString("NecesaryData", resourceCulture);
             }
         }
         

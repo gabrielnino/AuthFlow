@@ -17,12 +17,15 @@ namespace AuthFlow.Application.DTOs
         public T? Data { get; set; }
 
         // Factory method for creating a successful operation result with the given data and message.
+        // "data" parameter is the data that operation returns
+        // "message" parameter is an optional success message, empty by default
         public static OperationResult<T> Success(T data, string message = "")
         {
             return new OperationResult<T> { IsSuccessful = true, Message = message, Data = data };
         }
 
         // Factory method for creating a failed operation result with the given message.
+        // "message" parameter is a failure message describing the reason of operation failure
         public static OperationResult<T> Failure(string message)
         {
             return new OperationResult<T> { IsSuccessful = false, Message = message };

@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.5.0" />
@@ -18,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthFlow.Application\AuthFlow.Application.csproj" />
     <ProjectReference Include="..\AuthFlow.Domain\AuthFlow.Domain.csproj" />
+    <ProjectReference Include="..\AuthFlow.Infraestructure\AuthFlow.Infraestructure.csproj" />
+    <ProjectReference Include="..\AuthFlow.Persistence\AuthFlow.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

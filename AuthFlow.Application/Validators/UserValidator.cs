@@ -11,11 +11,10 @@ namespace AuthFlow.Application.Validators
         {
             // Rule for 'Id' property
             // It must be greater than 0, not null and not empty
-            if(isModified)
+            if (isModified)
             {
                 RuleFor(x => x.Id).GreaterThan(0).NotNull().NotEmpty();
             }
-            
 
             // Rule for 'Username' property
             // It must not be null, not empty, and its length should be between 6 and 50
@@ -30,8 +29,9 @@ namespace AuthFlow.Application.Validators
             RuleFor(x => x.Email).NotNull().NotEmpty().MinimumLength(10).MaximumLength(100);
 
             // Rule for 'CreatedAt' property
-            // It must not be null and should be greater than current UTC date
-            ///RuleFor(x => x.CreatedAt).NotNull().GreaterThan(DateTime.UtcNow.Date);
+            // It must not be null and should be greater than the current UTC date
+            // Uncomment the line below to enable the rule
+            // RuleFor(x => x.CreatedAt).NotNull().GreaterThan(DateTime.UtcNow.Date);
 
             // Rule for 'Active' property
             // It must not be null
