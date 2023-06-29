@@ -133,7 +133,7 @@ namespace AuthFlow.Persistence.Tests.Repositories
         public async Task GivenExistingEntity_WhenModifiedCalled_ThenEntityIsModifiedInDatabase()
         {
             // Given
-            var entity = new User { Id = 1, Username = "user1" };
+            var entity = new User { Id = 1, Username = "user1", Email = "email@withoutemail.com" };
 
             using (var context = new AuthFlowDbContext(_options))
             {
