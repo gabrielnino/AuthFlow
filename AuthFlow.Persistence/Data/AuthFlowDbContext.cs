@@ -12,10 +12,6 @@ namespace AuthFlow.Persistence.Data
         // Define a DbSet for the User model. This represents a collection of Users in the database context.
         public virtual DbSet<User> Users { get; set; }
 
-        // Define a DbSet for the Session model. This represents a collection of Sessions in the database context.
-        public virtual DbSet<Session> Sessions { get; set; }
-
-
         // Define a constructor that takes DbContextOptions<AuthFlowDbContext> and passes it to the base constructor.
         // This constructor is used to configure the DbContext with options, which can include a connection string,
         // a provider to use, or other configuration.
@@ -23,19 +19,11 @@ namespace AuthFlow.Persistence.Data
         {
             // Initialize the Users property with a non-null DbSet<User>
             Users = Set<User>();
-
-            // Initialize the Sessions property with a non-null DbSet<Session>
-            Sessions = Set<Session>();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure the relationship between User and Session entities
-            modelBuilder.Entity<User>()
-                .HasMany(x => x.Sessions)
-                .WithOne(y => y.User)
-                .HasForeignKey(x => x.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

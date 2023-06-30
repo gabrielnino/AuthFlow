@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
 builder.Services.AddDbContext<AuthFlowDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
-builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddLogging(logginBuilder =>

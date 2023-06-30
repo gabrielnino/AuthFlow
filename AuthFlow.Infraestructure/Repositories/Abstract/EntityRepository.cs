@@ -128,13 +128,6 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
-                var resultCallEntity = await CallEntity(entity);
-                if (!resultCallEntity.IsSuccessful)
-                {
-                    return OperationResult<bool>.Failure(resultCallEntity.Message);
-                }
-
-                entity = resultCallEntity.Data;
                 // Validate the entity
                 var validationResult = await ValidateEntity(entity, entity.Id);
 
@@ -143,6 +136,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 {
                     return OperationResult<bool>.Failure(validationResult.Message);
                 }
+
+                var resultCallEntity = await CallEntity(entity);
+                if (!resultCallEntity.IsSuccessful)
+                {
+                    return OperationResult<bool>.Failure(resultCallEntity.Message);
+                }
+
+                entity = resultCallEntity.Data;
 
                 // If validation is successful, update the entity in the database
                 var result = await base.Modified(entity);

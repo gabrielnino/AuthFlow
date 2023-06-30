@@ -120,9 +120,6 @@
   <data name="FailedAlreadyRegisteredEmail" xml:space="preserve">
     <value>A user is already registered with this email.</value>
   </data>
-  <data name="FailedAlreadyRegisteredToken" xml:space="preserve">
-    <value>A session is already registered with this token.</value>
-  </data>
   <data name="FailedAlreadyRegisteredUser" xml:space="preserve">
     <value>A user is already registered with this username.</value>
   </data>
@@ -148,7 +145,7 @@
     <value>The {0} you are trying to delete does not exist.</value>
   </data>
   <data name="GenericToInactiveNotExist" xml:space="preserve">
-    <value>The{0} you are trying to inactive does not exist.</value>
+    <value>The {0} you are trying to inactive does not exist.</value>
   </data>
   <data name="SuccessfullyGeneric" xml:space="preserve">
     <value>{0} was created successfully.</value>

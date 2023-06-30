@@ -6,7 +6,7 @@ namespace AuthFlow.Domain.DTO
     /// Represents a user in the context of the application.
     /// Implements the IEntity interface, indicating that it can be used with the application's data persistence layer.
     /// </summary>
-    public class User : IEntity
+    public class User
     {
         /// <summary>
         /// Gets or sets the unique identifier for the User. This is typically a primary key in the database.

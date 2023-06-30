@@ -11,6 +11,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
     [TestFixture]
     public class UsersRepositoryTests
     {
+        private const string Value = "The User you are trying to inactive does not exist.";
         private UsersRepository _userRepository;
         private AuthFlowDbContext _dbContextMock;
         //private Mock<IUserRepository> _userRepositoryMock;
@@ -77,7 +78,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             result.Data.Should().BeFalse();
             result.Message.Should().NotBeEmpty();
         }
-        /*
+      
         [Test]
         public async Task Given_ValidUserEntity_When_DeactivatingUser_Then_SuccessResultWithTrueReturned()
         {
@@ -91,9 +92,9 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             result.IsSuccessful.Should().BeTrue();
             result.Data.Should().BeTrue();
         }
-
+ /*
         [Test]
-        public async Task Given_ValidUserEntity_When_ActivatingUser_Then_SuccessResultWithTrueReturned()
+        public async Task Given_ValidUserEntity_When_ActivatingUser_Then_SuccessResultWithFalseReturned()
         {
 
             // Given
@@ -103,12 +104,12 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             var result = await _userRepository.Activate(userId);
 
             // Then
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeTrue();
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeFalse();
         }
-
+ */
         [Test]
-        public async Task Given_ValidUserEntity_When_RemovingUser_Then_SuccessResultWithTrueReturned()
+        public async Task Given_ValidUserEntity_When_RemovingUser_Then_SuccessResultWithFalseReturned()
         {
             // Given
             var user = new User
@@ -125,7 +126,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
 
             // Then
             result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeTrue();
+            result.Message.Equals("User was deleted successfully.").Should().BeTrue();
         }
 
         #endregion
@@ -173,7 +174,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             result.IsSuccessful.Should().BeFalse();
             result.Message.Should().NotBeNullOrEmpty();
         }
-
+        /*
         [Test]
         public async Task Given_InvalidUserEntity_When_DeactivatingUser_Then_FailureResultWithErrorMessageReturned()
         {
@@ -185,9 +186,9 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
 
             // Then
             result.IsSuccessful.Should().BeFalse();
-            result.Message.Should().NotBeNullOrEmpty();
+            result.Message.Equals("The user you are trying to inactive does not exist.").Should().BeTrue();
         }
-
+        
         [Test]
         public async Task Given_InvalidUserEntity_When_ActivatingUser_Then_FailureResultWithErrorMessageReturned()
         {
@@ -199,9 +200,9 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
 
             // Then
             result.IsSuccessful.Should().BeFalse();
-            result.Message.Should().NotBeNullOrEmpty();
+            result.Message.Equals(Value).Should().BeTrue();
         }
-
+        
         [Test]
         public async Task Given_InvalidUserEntity_When_RemovingUser_Then_FailureResultWithErrorMessageReturned()
         {
@@ -220,9 +221,9 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
 
             // Then
             result.IsSuccessful.Should().BeFalse();
-            result.Message.Should().NotBeNullOrEmpty();
+            result.Message.Equals("User was deleted successfully.").Should().BeTrue();
         }
-
+        */
         #endregion
 
         #region Given: Non-existent user ID
@@ -268,7 +269,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             result.IsSuccessful.Should().BeFalse();
             result.Message.Should().NotBeNullOrEmpty();
         }
-        */
+        
         #endregion
     }
 }

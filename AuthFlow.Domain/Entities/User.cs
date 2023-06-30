@@ -52,11 +52,5 @@ namespace AuthFlow.Domain.Entities
         /// If this property is false, the user account is considered disabled or deactivated.
         /// </summary>
         public bool Active { get; set; }
-
-        /// <summary>
-        /// Gets or sets the list of sessions associated with this User.
-        /// This can be used to track all sessions (active and inactive) linked to this user.
-        /// </summary>
-        public List<Session> Sessions { get; set; }
     }
 }

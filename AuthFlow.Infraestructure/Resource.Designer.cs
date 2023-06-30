@@ -70,15 +70,6 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A session is already registered with this token..
-        /// </summary>
-        internal static string FailedAlreadyRegisteredToken {
-            get {
-                return ResourceManager.GetString("FailedAlreadyRegisteredToken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A user is already registered with this username..
         /// </summary>
         internal static string FailedAlreadyRegisteredUser {
@@ -151,7 +142,7 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The{0} you are trying to inactive does not exist..
+        ///   Looks up a localized string similar to The {0} you are trying to inactive does not exist..
         /// </summary>
         internal static string GenericToInactiveNotExist {
             get {
