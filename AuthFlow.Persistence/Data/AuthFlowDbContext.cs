@@ -24,6 +24,8 @@ namespace AuthFlow.Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure the relationship between User and Session entities
+            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         }
 
     }

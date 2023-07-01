@@ -34,7 +34,7 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
         [Test]
         public async Task Given_ValidUserEntity_When_AddingUser_Then_SuccessResultWithIdReturned()
         {
-            User user = GetUser();
+            User user = GetUser("carson");
 
             // When
             var result = await _userRepository.Add(user);
@@ -44,14 +44,14 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             result.Data.Should().Be(user.Id);
         }
 
-        private static User GetUser()
+        private static User GetUser(string lastname ="doe")
         {
             // Given
             return new User
             {
                 Id = 1,
-                Username = "john.doe",
-                Email = "john.doe@example.com",
+                Username = $"john.{lastname}",
+                Email = $"john.{lastname}@example.com",
                 Password = "password",
                 Active = true
             };
@@ -152,6 +152,25 @@ namespace AuthFlow.Tests.Infraestructure.Repositories
             // Then
             result.IsSuccessful.Should().BeFalse();
             result.Message.Should().NotBeNullOrEmpty();
+        }
+
+        [Test]
+        public async Task Given_InvalidUserEntity_When_AddingUser_Then_Success()
+        {
+            // Given
+            var user = new User
+            {
+                Username = "john.doe",
+                Email = "john.doe@example.com",
+                Password = "password",
+            };
+
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result.IsSuccessful.Should().BeTrue();
+            result.Message.Equals("User was created successfully.").Should().BeTrue();
         }
 
         [Test]

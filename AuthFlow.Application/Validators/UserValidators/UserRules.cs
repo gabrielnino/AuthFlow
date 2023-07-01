@@ -1,13 +1,11 @@
 ﻿using AuthFlow.Domain.Entities;
 using FluentValidation;
 
-namespace AuthFlow.Application.Validators
+namespace AuthFlow.Application.Validators.UserValidators
 {
-    // This class is a FluentValidation Validator for User entities
-    // FluentValidation is a .NET library for building strongly-typed validation rules
-    public class UserValidator : AbstractValidator<User>
+    public class UserRules : AbstractValidator<User>
     {
-        public UserValidator(bool isModified = false)
+        public UserRules(bool isModified = false)
         {
             // Rule for 'Id' property
             // It must be greater than 0, not null and not empty

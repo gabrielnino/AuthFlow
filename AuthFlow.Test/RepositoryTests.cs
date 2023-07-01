@@ -9,10 +9,10 @@ using AuthFlow.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace AuthFlow.Persistence.Tests.Repositories
+namespace AuthFlow.Test
 {
     [TestFixture]
-    public class RepositoryTests
+    public class RepositoryTestsTest
     {
         private DbContextOptions<AuthFlowDbContext> _options;
 
@@ -107,13 +107,14 @@ namespace AuthFlow.Persistence.Tests.Repositories
         public async Task GivenNewEntity_WhenAddCalled_ThenEntityIsAddedToDatabase()
         {
             // Given
-            var entity = new User 
-            { 
-                Id = 1, Username = "username", 
-                Password = "password", 
-                CreatedAt = DateTime.Now, 
-                UpdatedAt =  DateTime.Now, 
-                Email = "email@withoutemail.com" 
+            var entity = new User
+            {
+                Id = 1,
+                Username = "username",
+                Password = "password",
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                Email = "email@withoutemail.com"
             };
 
             using (var context = new AuthFlowDbContext(_options))
