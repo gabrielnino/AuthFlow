@@ -27,7 +27,8 @@ namespace AuthFlow.Infraestructure.Repositories
             if (!result.IsValid)
             {
                 var errorMessage = string.Empty;
-                foreach (var error in result.Errors.Select(x => x.ErrorMessage).Distinct())
+                var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
+                foreach (var error in errors)
                 {
                     var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
                     errorMessage += messageValidation;
@@ -74,7 +75,8 @@ namespace AuthFlow.Infraestructure.Repositories
             if (!result.IsValid)
             {
                 var errorMessage = string.Empty;
-                foreach (var error in result.Errors.Select(x => x.ErrorMessage).Distinct())
+                var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
+                foreach (var error in errors)
                 {
                     var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
                     errorMessage += messageValidation;
