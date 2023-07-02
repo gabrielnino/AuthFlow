@@ -79,10 +79,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     return OperationResult<bool>.Failure(resultCallEntity.Message);
                 }
 
-                entity = resultCallEntity.Data;
+                var entityModified = resultCallEntity.Data;
 
                 // If validation is successful, update the entity in the database
-                var result = await base.Modified(entity);
+                var result = await base.Modified(entityModified);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericUpdated, typeof(T).Name);

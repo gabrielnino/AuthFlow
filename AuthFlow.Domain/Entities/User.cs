@@ -1,7 +1,4 @@
 ﻿using AuthFlow.Domain.Interfaces;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
 
 // Namespace holding all the domain entities
 namespace AuthFlow.Domain.Entities
@@ -16,8 +13,6 @@ namespace AuthFlow.Domain.Entities
         /// <summary>
         /// Gets or sets the unique identifier for the User. This is typically a primary key in the database.
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
@@ -25,8 +20,6 @@ namespace AuthFlow.Domain.Entities
         /// for a user in a system and is used for user logins. 
         /// This property can be null if the username has not yet been set.
         /// </summary>
-        [Required]
-        [MaxLength(50)]
         public string? Username { get; set; }
 
         /// <summary>
@@ -34,8 +27,6 @@ namespace AuthFlow.Domain.Entities
         /// ideally using a strong hashing algorithm. 
         /// This property can be null if the password has not yet been set.
         /// </summary>
-        [Required]
-        [MaxLength(100)]
         public string? Password { get; set; }
 
         /// <summary>
@@ -43,14 +34,12 @@ namespace AuthFlow.Domain.Entities
         /// as well as a recovery method for account access. 
         /// This property can be null if the email has not yet been set.
         /// </summary>
-        [Required]
-        [MaxLength(100)]
         public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the date and time when the User was created.
         /// </summary>
-        [Required]
+
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
@@ -63,7 +52,6 @@ namespace AuthFlow.Domain.Entities
         /// Gets or sets a boolean value indicating whether the User account is currently active or not.
         /// If this property is false, the user account is considered disabled or deactivated.
         /// </summary>
-        [Required]
         public bool Active { get; set; }
     }
 }

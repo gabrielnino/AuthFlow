@@ -1,12 +1,9 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
-using AuthFlow.Application.Validators;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
 
 namespace AuthFlow.Infraestructure.Repositories
 {
@@ -118,7 +115,7 @@ namespace AuthFlow.Infraestructure.Repositories
             entityUnmodified.Password = entityModified.Password;
             // Custom success message
             var successMessage = string.Format(Resource.SuccessfullySearchGeneric, typeof(User).Name);
-            return OperationResult<User>.Success(entityModified, successMessage);
+            return OperationResult<User>.Success(entityUnmodified, successMessage);
         }
     }
 }
