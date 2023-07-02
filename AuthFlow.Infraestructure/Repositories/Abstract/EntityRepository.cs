@@ -29,23 +29,17 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
                 // Validate the entity
                 var validationResult = await AddEntity(entity);
-
-                // If validation is not successful, return a failure operation result with a custom error message
                 if (!validationResult.IsSuccessful)
                 {
                     return OperationResult<int>.Failure(validationResult?.Message);
                 }
 
-                var entityAdd = validationResult.Data;
+                // If validation is successful, add the entity to the database
+                var addedEntityResult = await base.Add(validationResult.Data);
 
-                // If validation is successful, create the entity in the database
-                var result = await base.Add(entityAdd);
-
-                // Custom success message
+                // Create a success message and return the success result
                 var successMessage = string.Format(Resource.SuccessfullyGeneric, typeof(T).Name);
-
-                // Return a success operation result
-                return OperationResult<int>.Success(result, successMessage);
+                return OperationResult<int>.Success(addedEntityResult, successMessage);
             }
             catch
             {
@@ -73,22 +67,20 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     return OperationResult<bool>.Failure(resultExist.Message);
                 }
 
-                var resultCallEntity = await ModifyEntity(entity, resultExist.Data);
-                if (!resultCallEntity.IsSuccessful)
+                var resultModifyEntity = await ModifyEntity(entity, resultExist.Data);
+                if (!resultModifyEntity.IsSuccessful)
                 {
-                    return OperationResult<bool>.Failure(resultCallEntity.Message);
+                    return OperationResult<bool>.Failure(resultModifyEntity.Message);
                 }
 
-                var entityModified = resultCallEntity.Data;
-
                 // If validation is successful, update the entity in the database
-                var result = await base.Modified(entityModified);
+                var updateResult = await base.Modified(resultModifyEntity.Data);
 
                 // Custom success message
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericUpdated, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<bool>.Success(result, messageSuccess);
+                return OperationResult<bool>.Success(updateResult, messageSuccess);
 
             }
             catch
@@ -107,12 +99,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Validate if the entity with the provided ID exists
                 var validationResult = await ValidateExist(id);
 
-                // Custom message for validation
-                var messageExist = string.Format(Resource.GenericToActiveNotExist, typeof(T).Name);
-
                 // If validation is not successful, return a failure operation result
                 if (!validationResult.IsSuccessful)
                 {
+                    var messageExist = string.Format(Resource.GenericToActiveNotExist, typeof(T).Name);
                     return OperationResult<bool>.Failure(messageExist);
                 }
 
@@ -147,12 +137,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Validate if the entity with the provided ID exists
                 var validationResult = await ValidateExist(id);
 
-                // Custom message for validation
-                var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
-
                 // If validation is not successful, return a failure operation result
                 if (!validationResult.IsSuccessful)
                 {
+                    var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
                     return OperationResult<bool>.Failure(messageExist);
                 }
 
@@ -177,9 +165,6 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-
-
-
         // Method to remove a specific entity by its ID.
         public async Task<OperationResult<bool>> Remove(int id)
         {
@@ -188,11 +173,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Validate if the entity with the provided ID exists
                 var validationResult = await ValidateExist(id);
 
-                var messageExist = string.Format(Resource.GenericToDeleteNotExist, typeof(T).Name);
-
                 // If validation is not successful, return a failure operation result
                 if (!validationResult.IsSuccessful)
                 {
+                    var messageExist = string.Format(Resource.GenericToDeleteNotExist, typeof(T).Name);
                     return OperationResult<bool>.Failure(messageExist);
                 }
 
