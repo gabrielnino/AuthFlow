@@ -3,22 +3,24 @@ using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace AuthFlow.Test.RepositoryTests
 {
     [TestFixture]
-    public class AddUsersRepositoryTests
+    public class AddUsersRepositoryTests : UtilTests
     {
 
-
+        private const string alreadyRegisteredUsername = "A user is already registered with this username.";
         private const string success = "User was created successfully.";
         private const string necessaryData = "Necessary data was not provided.";
+        private const string lengthMinimun = "One or more data from the User have been submitted with errors The length of 'Username' must be at least 6 characters. You entered 3 characters., The length of 'Password' must be at least 6 characters. You entered 3 characters., The length of 'Email' must be at least 10 characters. You entered 3 characters.";
+        private const string lengthOverMaximum = "One or more data from the User have been submitted with errors The length of 'Username' must be 50 characters or fewer. You entered 111 characters., The length of 'Password' must be 100 characters or fewer. You entered 111 characters., The length of 'Email' must be 100 characters or fewer. You entered 111 characters.";
+        private const string alreadyRegisteredEmail = "A user is already registered with this email.";
+        private const string emailMustNotEmpty = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
+        private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
+        private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
+        
         private UsersRepository _userRepository;
         private AuthFlowDbContext _dbContextMock;
         private DbContextOptions<AuthFlowDbContext> _options;
@@ -37,19 +39,80 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_AddingUser_Then_SuccessResultWithIdReturned()
         {
             // Given
-            User user = GetUser("carson");
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name);
 
             // When
             var result = await _userRepository.Add(user);
 
             // Then
+            result?.Message.Should().BeEquivalentTo(success);
             result.IsSuccessful.Should().BeTrue();
             result.Data.Should().BeGreaterThan(0);
-            result?.Message.Equals(success).Should().BeTrue();
         }
 
         [Test]
-        public async Task Given_user_null_When_AddingUser_Then_FailedResultWithIdReturned()
+        public async Task Given_user_null_email_When_AddingUser_Then_FailedResultWithoutIdReturned()
+        {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            var user = new User
+            {
+                Username = $"john.{name}",
+                Password = "password",
+            };
+            
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result?.Message.Should().Be(emailMustNotEmpty);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
+        }
+
+        [Test]
+        public async Task Given_user_null_username_When_AddingUser_Then_FailedResultWithoutIdReturned()
+        {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            var user = new User
+            {
+                Password = "password",
+                Email = $"john.{name}@example.com",
+            };
+
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result?.Message.Should().Be(usernameMustNotEmpty);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
+        }
+
+        [Test]
+        public async Task Given_user_null_password_When_AddingUser_Then_FailedResultWithoutIdReturned()
+        {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            var user = new User
+            {
+                Username = $"john.{name}",
+                Email = $"john.{name}@example.com",
+            };
+
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result?.Message.Should().Be(passwordMustNotEmpty);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
+        }
+
+        [Test]
+        public async Task Given_user_null_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -60,59 +123,75 @@ namespace AuthFlow.Test.RepositoryTests
             var result = await _userRepository.Add(user);
 
             // Then
+            result.Message.Should().Be(necessaryData);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Message.Equals(necessaryData).Should().BeTrue();    
         }
 
-
-        private static User GetUser(string name = "doe", int minimumLength = 0, int maximumLength = 0)
+        [Test]
+        public async Task Given_user_min_lengt_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name, 4);
 
-            string userName = $"john.{name}";
-            userName = GetMaximumLength(maximumLength, userName);
-            userName = GetMinimumLength(minimumLength, userName);
+            // When
+            var result = await _userRepository.Add(user);
 
-            string lastname = $"john.{name}@example.com";
-            lastname = GetMaximumLength(maximumLength, lastname);
-            lastname = GetMinimumLength(minimumLength, lastname);
-
-            string password = "password";
-            password = GetMaximumLength(maximumLength, password);
-            password = GetMinimumLength(minimumLength, password);
-
-            return new User
-            {
-                Username = userName,
-                Email = lastname,
-                Password = password
-            };
+            // Then
+            result.Message.Should().Be(lengthMinimun);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
         }
 
-        private static string GetMaximumLength(int maximumLength, string value)
+        [Test]
+        public async Task Given_user_max_lengt_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
-            if (maximumLength > 0)
-            {
-                if (value.Length < maximumLength)
-                {
-                    value = value.PadRight(maximumLength +1,'_');
-                }
-            }
+            // Given
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name, 0, 110);
 
-            return value;
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result.Message.Should().Be(lengthOverMaximum);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
         }
 
-        private static string GetMinimumLength(int minimumLength, string value)
+        [Test]
+        public async Task Given_duplicate_user_When_AddingUser_Then__FailedResultWithoutIdReturned()
         {
-            if (minimumLength > 0)
-            {
-                if (value.Length > minimumLength)
-                {
-                    value = value.Substring(0, value.Length - minimumLength);
-                }
-            }
+            // Given
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name);
+            _ = await _userRepository.Add(user);
+            user.Email = $"john.{name}.jr@example.com";
+            // When
+            var result = await _userRepository.Add(user);
 
-            return value;
+            // Then
+            result?.Message.Should().Be(alreadyRegisteredUsername);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
+        }
+
+        [Test]
+        public async Task Given_duplicate_email_When_AddingUser_Then__FailedResultWithoutIdReturned()
+        {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name);
+            _ = await _userRepository.Add(user);
+            user.Username = $"john.{name}.jr";
+            // When
+            Application.DTOs.OperationResult<int>? result = await _userRepository.Add(user);
+
+            // Then
+            result?.Message.Should().Be(alreadyRegisteredEmail);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
         }
     }
 }

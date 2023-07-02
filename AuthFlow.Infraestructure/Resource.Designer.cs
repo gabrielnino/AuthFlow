@@ -151,6 +151,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string GlobalOkMessage {
+            get {
+                return ResourceManager.GetString("GlobalOkMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} was created successfully..
         /// </summary>
         internal static string SuccessfullyGeneric {

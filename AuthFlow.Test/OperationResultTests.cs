@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using AuthFlow.Application.DTOs;
+﻿using AuthFlow.Application.DTOs;
+using FluentAssertions;
 
 namespace AuthFlow.Application.Tests
 {
     [TestFixture]
     public class OperationResultTests
     {
-        [Test]
+        [Test] 
         public void GivenSuccessfulOperation_WhenCreatingSuccessResultWithDataAndMessage_ThenOperationResultIsSuccessfulWithDataAndMessage()
         {
             // Given
@@ -17,9 +17,9 @@ namespace AuthFlow.Application.Tests
             var result = OperationResult<string>.Success(data, message);
 
             // Then
-            Assert.IsTrue(result.IsSuccessful);
-            Assert.AreEqual(data, result.Data);
-            Assert.AreEqual(message, result.Message);
+            result.Message.Should().Be(message);
+            result.IsSuccessful.Should().BeTrue();
+            result.Data.Should().Be(data);
         }
 
         [Test]
@@ -32,9 +32,10 @@ namespace AuthFlow.Application.Tests
             var result = OperationResult<string>.Failure(message);
 
             // Then
-            Assert.IsFalse(result.IsSuccessful);
-            Assert.IsNull(result.Data);
-            Assert.AreEqual(message, result.Message);
+            result.Message.Should().Be(message);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().Be(null);
+
         }
 
         [Test]
@@ -47,9 +48,9 @@ namespace AuthFlow.Application.Tests
             var result = OperationResult<int>.Success(data);
 
             // Then
-            Assert.IsTrue(result.IsSuccessful);
-            Assert.AreEqual(data, result.Data);
-            Assert.IsEmpty(result.Message);
+            result.Message.Should().Be(string.Empty);
+            result.IsSuccessful.Should().BeTrue();
+            result.Data.Should().Be(data);
         }
     }
 }

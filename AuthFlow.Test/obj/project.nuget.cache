@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HsJBmqyc5XLxR4mDI65oODJgRNI15NMazZ40/RdHUW1MLCQVb/NZArXQ1wmeg4PeqhHBFGXHIrgDcYYa/JKckw==",
+  "dgSpecHash": "2JE8Eomc2N7eb6xDLVtCauYKj/B0ps9YQykMYjbZDoDMUUrllf5BeWAMs3vLctrdyehkJaJ1cf+Q6qQFbBnkuA==",
   "success": true,
   "projectFilePath": "C:\\ShopFlow\\AuthFlow\\AuthFlow.Test\\AuthFlow.Test.csproj",
   "expectedPackageFiles": [
@@ -55,6 +55,7 @@
     "C:\\Users\\luisg\\.nuget\\packages\\nunit3testadapter\\4.3.0\\nunit3testadapter.4.3.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",
+    "C:\\Users\\luisg\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\system.configuration.configurationmanager\\5.0.0\\system.configuration.configurationmanager.5.0.0.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\system.diagnostics.debug\\4.0.11\\system.diagnostics.debug.4.0.11.nupkg.sha512",
     "C:\\Users\\luisg\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",

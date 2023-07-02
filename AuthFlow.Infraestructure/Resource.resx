@@ -147,6 +147,9 @@
   <data name="GenericToInactiveNotExist" xml:space="preserve">
     <value>The {0} you are trying to inactive does not exist.</value>
   </data>
+  <data name="GlobalOkMessage" xml:space="preserve">
+    <value>Ok</value>
+  </data>
   <data name="SuccessfullyGeneric" xml:space="preserve">
     <value>{0} was created successfully.</value>
   </data>
