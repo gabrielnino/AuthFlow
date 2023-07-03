@@ -63,7 +63,7 @@ namespace AuthFlow.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
         {
-            var password = ComputeSha256Hash(addUserRequest?.Password);
+            var password = addUserRequest?.Password;
             var user = new Domain.Entities.User()
             {
                 Username = addUserRequest.Username,
@@ -81,7 +81,7 @@ namespace AuthFlow.Api.Controllers
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Update(int id, ModifiedUserRequest modifiedUserRequest)
         {
-            var password = ComputeSha256Hash(modifiedUserRequest?.Password);
+            var password = modifiedUserRequest?.Password;
             var user = new Domain.Entities.User()
             {
                 Id = id,
@@ -99,23 +99,6 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.Remove(id);
             return Ok(result);
-        }
-
-        private static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using SHA256 sha256Hash = SHA256.Create();
-            // ComputeHash - returns byte array  
-            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-            // Convert byte array to a string   
-            var builder = new StringBuilder();
-            foreach (byte v in bytes)
-            {
-                builder.Append(v.ToString("x2"));
-            }
-
-            return builder.ToString();
         }
     }
 }

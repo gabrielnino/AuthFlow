@@ -34,6 +34,25 @@ namespace AuthFlow.Test.RepositoryTests
         }
 
         [Test]
+        public async Task Given_user_password_When_AddingUser_Then_SuccessResultWithIdReturned()
+        {
+            // Given
+            var name = Guid.NewGuid().ToString();
+            User user = GetUser(name);
+            var passwordhash = ComputeSha256Hash(user.Password);
+            // When
+            var result = await _userRepository.Add(user);
+            user.Id = result.Data;
+            var resultRepo = await _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
+            var userCompute = resultRepo.Data.FirstOrDefault();
+            // Then
+            result?.Message.Should().BeEquivalentTo(success);
+            result.IsSuccessful.Should().BeTrue();
+            result.Data.Should().BeGreaterThan(0);
+            userCompute.Password.Should().Be(passwordhash);
+        }
+
+        [Test]
         public async Task Given_user_null_email_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given

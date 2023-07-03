@@ -3,8 +3,11 @@ using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Application.Uses_cases.Interface;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
+using AuthFlow.Domain.Interfaces;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AuthFlow.Infraestructure.Repositories
 {
@@ -58,7 +61,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var entityAdd = new User()
             {
                 Username = entity.Username,
-                Password = entity.Password,
+                Password = ComputeSha256Hash(entity.Password),
                 Email = entity.Email,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
@@ -117,10 +120,27 @@ namespace AuthFlow.Infraestructure.Repositories
 
             // Update the UpdatedAt property with the current datetime
             entityUnmodified.UpdatedAt = DateTime.Now;
-            entityUnmodified.Password = entityModified.Password;
+            entityUnmodified.Password =  ComputeSha256Hash(entityModified.Password);
             // Custom success message
             var successMessage = string.Format(Resource.SuccessfullySearchGeneric, typeof(User).Name);
             return OperationResult<User>.Success(entityUnmodified, successMessage);
+        }
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array  
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+            // Convert byte array to a string   
+            var builder = new StringBuilder();
+            foreach (byte v in bytes)
+            {
+                builder.Append(v.ToString("x2"));
+            }
+
+            return builder.ToString();
         }
     }
 }

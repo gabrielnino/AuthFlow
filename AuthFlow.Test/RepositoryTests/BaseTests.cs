@@ -4,6 +4,8 @@ using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AuthFlow.Test.RepositoryTests
 {
@@ -27,7 +29,7 @@ namespace AuthFlow.Test.RepositoryTests
         }
 
 
-        public static string GetMaximumLength(int maximumLength, string value)
+        protected static string GetMaximumLength(int maximumLength, string value)
         {
             if (maximumLength > 0)
             {
@@ -40,7 +42,7 @@ namespace AuthFlow.Test.RepositoryTests
             return value;
         }
 
-        public static string GetMinimumLength(int minimumLength, string value)
+        protected static string GetMinimumLength(int minimumLength, string value)
         {
             if (minimumLength > 0)
             {
@@ -54,7 +56,7 @@ namespace AuthFlow.Test.RepositoryTests
         }
 
 
-        public static User GetUser(string name = "doe", int minimumLength = 0, int maximumLength = 0)
+        protected static User GetUser(string name = "doe", int minimumLength = 0, int maximumLength = 0)
         {
 
             var userName = $"john.{name}";
@@ -74,11 +76,28 @@ namespace AuthFlow.Test.RepositoryTests
             };
         }
 
-        public static string GetValueModified(int minimumLength, int maximumLength, string userName)
+        protected static string GetValueModified(int minimumLength, int maximumLength, string userName)
         {
             userName = GetMaximumLength(maximumLength, userName);
             userName = GetMinimumLength(minimumLength, userName);
             return userName;
+        }
+
+        protected static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array  
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+            // Convert byte array to a string   
+            var builder = new StringBuilder();
+            foreach (byte v in bytes)
+            {
+                builder.Append(v.ToString("x2"));
+            }
+
+            return builder.ToString();
         }
     }
 }
