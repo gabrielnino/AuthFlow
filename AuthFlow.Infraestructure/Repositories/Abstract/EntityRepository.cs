@@ -64,7 +64,6 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     return OperationResult<bool>.Failure(hasEntity.Message);
                 }
 
-
                 var resultExist = await ValidateExist(entity.Id);
                 if (!resultExist.IsSuccessful)
                 {
