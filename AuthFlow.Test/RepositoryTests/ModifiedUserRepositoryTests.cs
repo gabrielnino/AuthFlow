@@ -1,15 +1,10 @@
-﻿using AuthFlow.Application.Uses_cases.Interface;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Repositories;
-using AuthFlow.Persistence.Data;
+﻿using AuthFlow.Domain.Entities;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace AuthFlow.Test.RepositoryTests
 {
     [TestFixture]
-    public class ModifiedUserRepositoryTests : UtilTests
+    public class ModifiedUserRepositoryTests : BaseTests
     {
         private const string success = "User was updated successfully.";
         private const string alreadyRegisteredUsername = "A user is already registered with this username.";
@@ -27,22 +22,6 @@ namespace AuthFlow.Test.RepositoryTests
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
         
-        private UsersRepository _userRepository;
-        private AuthFlowDbContext _dbContextMock;
-        private DbContextOptions<AuthFlowDbContext> _options;
-        private Mock<IExternalLogService> _externalLogService;
-
-        [SetUp]
-        public void Setup()
-        {
-            _externalLogService = new Mock<IExternalLogService>();
-            _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
-               .UseInMemoryDatabase(databaseName: "testdb")
-               .Options;
-            _dbContextMock =  new AuthFlowDbContext(_options);
-            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object);
-        }
-
         [Test]
         public async Task Given_user_When_ModifiedUser_Then_SuccessResultWithTrue()
         {

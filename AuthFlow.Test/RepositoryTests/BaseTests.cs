@@ -1,10 +1,31 @@
-﻿using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Application.Uses_cases.Interface;
+using AuthFlow.Domain.Entities;
+using AuthFlow.Infraestructure.Repositories;
+using AuthFlow.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 
 namespace AuthFlow.Test.RepositoryTests
 {
     [TestFixture]
-    public class UtilTests
+    public class BaseTests
     {
+        public UsersRepository _userRepository;
+        public AuthFlowDbContext _dbContextMock;
+        public DbContextOptions<AuthFlowDbContext> _options;
+        public Mock<IExternalLogService> _externalLogService;
+
+        [SetUp]
+        public void Setup()
+        {
+            _externalLogService = new Mock<IExternalLogService>();
+            _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
+               .UseInMemoryDatabase(databaseName: "testdb")
+               .Options;
+            _dbContextMock =  new AuthFlowDbContext(_options);
+            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object);
+        }
+
 
         public static string GetMaximumLength(int maximumLength, string value)
         {

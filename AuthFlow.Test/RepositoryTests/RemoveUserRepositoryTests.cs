@@ -9,26 +9,10 @@ using Moq;
 namespace AuthFlow.Test.RepositoryTests
 {
     [TestFixture]
-    public class RemoveUserRepositoryTests : UtilTests
+    public class RemoveUserRepositoryTests : BaseTests
     {
         private const string success = "User was deleted successfully.";
         private const string userTryingInDeleteDoesNotExist = "The User you are trying to delete does not exist.";
-
-        private UsersRepository _userRepository;
-        private AuthFlowDbContext _dbContextMock;
-        private DbContextOptions<AuthFlowDbContext> _options;
-        private Mock<IExternalLogService> _externalLogService;
-
-        [SetUp]
-        public void Setup()
-        {
-            _externalLogService = new Mock<IExternalLogService>();
-            _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
-               .UseInMemoryDatabase(databaseName: "testdb")
-               .Options;
-            _dbContextMock =  new AuthFlowDbContext(_options);
-            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object);
-        }
 
         [Test]
         public async Task Given_user_When_RemoveUser_Then_SuccessResultWithTrue()
