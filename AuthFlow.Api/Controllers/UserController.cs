@@ -3,6 +3,8 @@ using AuthFlow.Application.Repositories.Interface;
 using AutoMapper;
 using AuthFlow.Domain.DTO;
 using AuthFlow.Application.DTOs;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace AuthFlow.Api.Controllers
 {
@@ -61,10 +63,11 @@ namespace AuthFlow.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
         {
+            var password = ComputeSha256Hash(addUserRequest?.Password);
             var user = new Domain.Entities.User()
             {
                 Username = addUserRequest.Username,
-                Password = addUserRequest?.Password,
+                Password = password,
                 Email = addUserRequest?.Email,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
@@ -78,11 +81,12 @@ namespace AuthFlow.Api.Controllers
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Update(int id, ModifiedUserRequest modifiedUserRequest)
         {
+            var password = ComputeSha256Hash(modifiedUserRequest?.Password);
             var user = new Domain.Entities.User()
             {
                 Id = id,
                 Username = modifiedUserRequest?.Username,
-                Password = modifiedUserRequest?.Password,
+                Password = password,
                 Email = modifiedUserRequest?.Email,
             };
             var result = await _usersRepository.Modified(user);
@@ -95,6 +99,23 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.Remove(id);
             return Ok(result);
+        }
+
+        private static string ComputeSha256Hash(string rawData)
+        {
+            // Create a SHA256   
+            using SHA256 sha256Hash = SHA256.Create();
+            // ComputeHash - returns byte array  
+            var bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+            // Convert byte array to a string   
+            var builder = new StringBuilder();
+            foreach (byte v in bytes)
+            {
+                builder.Append(v.ToString("x2"));
+            }
+
+            return builder.ToString();
         }
     }
 }
