@@ -4,11 +4,13 @@ using AuthFlow.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
 using AutoMapper;
+using AuthFlow.Application.Uses_cases.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
 builder.Services.AddDbContext<AuthFlowDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
+builder.Services.AddScoped<IExternalLogService, ExternalLogService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddLogging(logginBuilder =>
@@ -19,6 +21,7 @@ builder.Services.AddLogging(logginBuilder =>
 }
 );
 
+builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddFluentValidationAutoValidation();

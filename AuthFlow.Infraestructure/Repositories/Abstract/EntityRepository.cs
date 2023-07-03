@@ -1,5 +1,7 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface.Repository;
+using AuthFlow.Application.Uses_cases.Interface;
+using AuthFlow.Domain.Entities;
 using AuthFlow.Domain.Interfaces;
 using AuthFlow.Persistence.Data;
 using AuthFlow.Persistence.Repositories;
@@ -11,9 +13,11 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
     // Base class for Entity Repositories, provides common CRUD operations for all entities that extend from IEntity
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity
     {
+        private readonly IExternalLogService _externalLogService;
         // Constructor that takes a AuthFlowDbContext object as a parameter
-        public EntityRepository(AuthFlowDbContext context) : base(context)
+        public EntityRepository(AuthFlowDbContext context, IExternalLogService externalLogService) : base(context)
         {
+            _externalLogService = externalLogService;
         }
 
         // Method to add a new entity.
@@ -21,6 +25,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
+                throw new Exception("error sin descripcion");
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
@@ -41,10 +46,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var successMessage = string.Format(Resource.SuccessfullyGeneric, typeof(T).Name);
                 return OperationResult<int>.Success(addedEntityResult, successMessage);
             }
-            catch
+            catch(Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, entity, OperationExecute.Add);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -83,10 +88,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 return OperationResult<bool>.Success(updateResult, messageSuccess);
 
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, entity, OperationExecute.Modified);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -119,10 +124,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Return a success operation result
                 return OperationResult<bool>.Success(result, messageSuccess);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, id, OperationExecute.Activate);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -157,10 +162,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Return a success operation result
                 return OperationResult<bool>.Success(result, messageSuccess);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, id, OperationExecute.Deactivate);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -190,10 +195,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Return a success operation result
                 return OperationResult<bool>.Success(result, messageSuccess);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, id, OperationExecute.Remove);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -212,10 +217,10 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Return a success operation result
                 return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, "GetAll", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
             }
         }
@@ -234,12 +239,19 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // Return a success operation result
                 return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
             }
-            catch
+            catch (Exception ex)
             {
-                // TODO: Handle exception and add log
-                // Return a failure operation result with a custom error message
+                var log = GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
                 return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
             }
+        }
+
+        private static Log GetLogError(Exception ex, object entity, OperationExecute operation)
+        {
+            var message = $"Error Message: {ex.Message}  StackTrace: {ex.StackTrace}";
+            var log = Log.Error(message, entity, operation);
+            return log;
         }
 
         // Abstract method to validate an entity, must be overridden in derived classes

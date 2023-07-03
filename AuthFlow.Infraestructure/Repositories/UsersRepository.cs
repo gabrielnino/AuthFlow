@@ -1,5 +1,6 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
+using AuthFlow.Application.Uses_cases.Interface;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories.Abstract;
@@ -11,8 +12,10 @@ namespace AuthFlow.Infraestructure.Repositories
     // It provides repository operations for the User entity using the EntityRepository base class
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
-        public UsersRepository(AuthFlowDbContext context) : base(context)
+        
+        public UsersRepository(AuthFlowDbContext context, IExternalLogService externalLogService) : base(context, externalLogService)
         {
+           
         }
 
         // Override the ValidateEntity method to provide custom validation logic for the User entity

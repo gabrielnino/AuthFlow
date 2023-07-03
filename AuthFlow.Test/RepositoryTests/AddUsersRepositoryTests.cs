@@ -1,9 +1,10 @@
-﻿using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Application.Uses_cases.Interface;
+using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-
+using Moq;
 
 namespace AuthFlow.Test.RepositoryTests
 {
@@ -24,15 +25,17 @@ namespace AuthFlow.Test.RepositoryTests
         private UsersRepository _userRepository;
         private AuthFlowDbContext _dbContextMock;
         private DbContextOptions<AuthFlowDbContext> _options;
+        private Mock<IExternalLogService> _externalLogService;
 
         [SetUp]
         public void Setup()
         {
+            _externalLogService = new Mock<IExternalLogService>();
             _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
                .UseInMemoryDatabase(databaseName: "testdb")
                .Options;
             _dbContextMock =  new AuthFlowDbContext(_options);
-            _userRepository = new UsersRepository(_dbContextMock);
+            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object);
         }
 
         [Test]
