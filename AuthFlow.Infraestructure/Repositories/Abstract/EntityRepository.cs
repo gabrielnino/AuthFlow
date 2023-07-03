@@ -25,7 +25,6 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
-                throw new Exception("error sin descripcion");
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
