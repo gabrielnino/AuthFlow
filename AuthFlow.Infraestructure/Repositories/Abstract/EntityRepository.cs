@@ -245,6 +245,58 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
+        // Method to retrieve entities based on a filter expression.
+        public new async Task<OperationResult<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter)
+        {
+            try
+            {
+                // Get entities from the database based on the provided filter expression
+                var predicate = GetPredicate(filter);
+                var result =  await base.GetPageByFilter(predicate, pageNumber, pageSize);
+
+                // Custom success message
+                var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
+
+                // Return a success operation result
+                return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
+
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
+
+
+        // Method to retrieve entities based on a filter expression.
+        public new async Task<OperationResult<int>> GetCountFilter(string filter)
+        {
+            try
+            {
+                // Get entities from the database based on the provided filter expression
+                var predicate = GetPredicate(filter);
+                var result = await base.GetCountFilter(predicate);
+
+                // Custom success message
+                var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
+
+                // Return a success operation result
+                return OperationResult<int>.Success(result, messageSuccessfully);
+
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
+
+
+        internal abstract Expression<Func<T, bool>> GetPredicate(string filter);
+
         private static Log GetLogError(Exception ex, object entity, OperationExecute operation)
         {
             var message = $"Error Message: {ex.Message}  StackTrace: {ex.StackTrace}";
@@ -253,9 +305,9 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // Abstract method to validate an entity, must be overridden in derived classes
-        protected abstract Task<OperationResult<T>> AddEntity(T entity);
+        internal abstract Task<OperationResult<T>> AddEntity(T entity);
 
-        protected virtual async Task<OperationResult<T>> ModifyEntity(T entityModified, T entityUnmodified)
+        internal virtual async Task<OperationResult<T>> ModifyEntity(T entityModified, T entityUnmodified)
         {
             // Custom success message
             var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);

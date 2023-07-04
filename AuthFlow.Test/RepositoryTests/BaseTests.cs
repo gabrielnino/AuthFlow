@@ -76,6 +76,19 @@ namespace AuthFlow.Test.RepositoryTests
             };
         }
 
+        protected static User GetUser(string userName, string email)
+        {
+
+            var password = "password";
+
+            return new User
+            {
+                Username = userName,
+                Email = email,
+                Password = password
+            };
+        }
+
         protected static string GetValueModified(int minimumLength, int maximumLength, string userName)
         {
             userName = GetMaximumLength(maximumLength, userName);

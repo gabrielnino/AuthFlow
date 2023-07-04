@@ -14,6 +14,11 @@ namespace AuthFlow.Persistence.Repositories.Interface
         // Returns a subset of entities of type T based on the provided predicate
         Task<IQueryable<T>> GetAllByFilter(Expression<Func<T, bool>> predicate);
 
+        // Returns a subset of entities of type T based on the provided predicate
+        Task<IQueryable<T>> GetPageByFilter(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize);
+
+        Task<int> GetCountFilter(Expression<Func<T, bool>> predicate);
+
         // Adds an entity of type T to the repository and returns the id of the added entity
         Task<int> Add(T entity);
 

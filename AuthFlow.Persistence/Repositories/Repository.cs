@@ -34,6 +34,25 @@ namespace AuthFlow.Persistence.Repositories
             return _dbSet.Where(predicate);
         }
 
+        // Finds entities of type T that match a given predicate
+        public async Task<IQueryable<T>> GetPageByFilter(Expression<Func<T, bool>> predicate, int pageNumber, int pageSize)
+        {
+            // Calculate the number of entities to skip based on the current page number
+            int skip = pageNumber * pageSize;
+            return _dbSet.Where(predicate)
+                              .OrderBy(p => p.Id) // Assuming that Id is a field you want to sort by
+                              .Skip(skip)
+                              .Take(pageSize);
+        }
+
+
+        public async Task<int> GetCountFilter(Expression<Func<T, bool>> predicate)
+        {
+            // Calculate the number of entities to skip based on the current page number
+            return _dbSet.Where(predicate).Count();
+        }
+
+
         // Adds an entity of type T to the database
         // This method sets the entity Id to 0, adds the entity to the DbSet, 
         // and then saves the changes to the database asynchronously.

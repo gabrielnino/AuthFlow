@@ -1,7 +1,6 @@
 ﻿using AuthFlow.Application.Uses_cases.Interface;
 using AuthFlow.Domain.Entities;
 using Newtonsoft.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Text;
 using System.Net.Http.Headers;
 
@@ -9,14 +8,15 @@ namespace AuthFlow.Infraestructure.Repositories
 {
     public class ExternalLogService : IExternalLogService
     {
-        private string user = "admin";
-        private string password = "xxnDBVrrFUhVvPWQPh7LuunDBVccFUhVvooQQWQPh7L";
+        private const string user = "admin";
+        private const string password = "xxnDBVrrFUhVvPWQPh7LuunDBVccFUhVvooQQWQPh7L";
         private readonly HttpClient _client;
-        private TokenResponse _tokenResponse;
+
         public ExternalLogService(IHttpClientFactory clientFactory)
         {
             _client = clientFactory.CreateClient();
         }
+
         public async Task CreateLog(Log log)
         {
             try
@@ -39,6 +39,7 @@ namespace AuthFlow.Infraestructure.Repositories
 
             return string.Empty;
         }
+
         private async Task<string> SetLog(Log log)
         {
             var url = "https://localhost:7060/api/Log";

@@ -3,11 +3,14 @@ using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Application.Uses_cases.Interface;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
-using AuthFlow.Domain.Interfaces;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
+using FluentValidation.Results;
+using System.Globalization;
+using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AuthFlow.Infraestructure.Repositories
 {
@@ -22,7 +25,7 @@ namespace AuthFlow.Infraestructure.Repositories
         }
 
         // Override the ValidateEntity method to provide custom validation logic for the User entity
-        protected override async Task<OperationResult<User>> AddEntity(User entity)
+        internal override async Task<OperationResult<User>> AddEntity(User entity)
         {
 
             // Create a new instance of the UserValidator and validate the entity
@@ -32,13 +35,7 @@ namespace AuthFlow.Infraestructure.Repositories
             // If the validation fails, return a failure operation result with the validation error message
             if (!result.IsValid)
             {
-                var errorMessage = string.Empty;
-                var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
-                foreach (var error in errors)
-                {
-                    var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
-                    errorMessage += messageValidation;
-                }
+                var errorMessage = GetErrorMessage(result);
                 return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
@@ -58,7 +55,15 @@ namespace AuthFlow.Infraestructure.Repositories
                 return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredUser);
             }
 
-            var entityAdd = new User()
+            User entityAdd = GetUser(entity);
+
+            // Return a success operation result
+            return OperationResult<User>.Success(entityAdd);
+        }
+
+        private static User GetUser(User entity)
+        {
+            return new User()
             {
                 Username = entity.Username,
                 Password = ComputeSha256Hash(entity.Password),
@@ -67,26 +72,17 @@ namespace AuthFlow.Infraestructure.Repositories
                 UpdatedAt = DateTime.UtcNow,
                 Active = false,
             };
-
-            // Return a success operation result
-            return OperationResult<User>.Success(entityAdd);
         }
 
         // Override the CallEntity method to customize the entity before modification T entityModified, T entityUnmodified
-        protected override async Task<OperationResult<User>> ModifyEntity(User entityModified, User entityUnmodified)
+        internal override async Task<OperationResult<User>> ModifyEntity(User entityModified, User entityUnmodified)
         {
             var validatorModified = new ModifiedUserRequestRules();
             var result = validatorModified.Validate(entityModified);
             // If the validation fails, return a failure operation result with the validation error message
             if (!result.IsValid)
             {
-                var errorMessage = string.Empty;
-                var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
-                foreach (var error in errors)
-                {
-                    var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
-                    errorMessage += messageValidation;
-                }
+                var errorMessage = GetErrorMessage(result);
                 return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
@@ -126,6 +122,19 @@ namespace AuthFlow.Infraestructure.Repositories
             return OperationResult<User>.Success(entityUnmodified, successMessage);
         }
 
+        private static string GetErrorMessage(ValidationResult result)
+        {
+            var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
+            var errorMessage = string.Empty;
+            foreach (var error in errors)
+            {
+                var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
+                errorMessage += messageValidation;
+            }
+
+            return errorMessage;
+        }
+
         private static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
@@ -141,6 +150,31 @@ namespace AuthFlow.Infraestructure.Repositories
             }
 
             return builder.ToString();
+        }
+
+        internal override Expression<Func<User, bool>> GetPredicate(string filter)
+        {
+            return u =>  Compare(u.Username, u.Email, filter);
+        }
+
+        private static bool Compare(string username, string email, string filter)
+        {
+            username = GetValidate(username);
+            email = GetValidate(email);
+            filter = GetValidate(filter);
+            return string.IsNullOrEmpty(filter) || username.Contains(filter) || email.Contains(filter);
+        }
+
+        private static string GetValidate(string value)
+        {
+            return value is null ? string.Empty :
+                value.ToLower()
+                .Trim()
+                .Replace("á", "a")
+                .Replace("é", "e")
+                .Replace("í", "i")
+                .Replace("ó", "o")
+                .Replace("ú", "u");
         }
     }
 }

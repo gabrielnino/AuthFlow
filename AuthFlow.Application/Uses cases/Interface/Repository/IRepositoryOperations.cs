@@ -15,6 +15,8 @@ namespace AuthFlow.Application.Repositories.Interface.Repository
         // Returns a subset of entities of type T based on the provided predicate
         Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate);
 
+        Task<OperationResult<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter);
+
         // Adds an entity of type T to the repository and returns the id of the added entity
         Task<OperationResult<int>> Add(T entity);
 
