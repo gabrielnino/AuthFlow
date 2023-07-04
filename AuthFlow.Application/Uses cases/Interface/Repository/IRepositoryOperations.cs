@@ -9,8 +9,6 @@ namespace AuthFlow.Application.Repositories.Interface.Repository
     // This interface defines common methods for interacting with the data in the repository.
     public interface IRepositoryOperations<T> where T : class, IEntity
     {
-        // Returns all entities of type T in the repository
-        Task<OperationResult<IQueryable<T>>> GetAll();
 
         // Returns a subset of entities of type T based on the provided predicate
         Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate);

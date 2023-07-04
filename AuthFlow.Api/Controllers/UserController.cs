@@ -24,15 +24,6 @@ namespace AuthFlow.Api.Controllers
         }
 
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetUsersAll()
-        {
-            var result = await _usersRepository.GetAll();
-            var resultDTO = _mapper.Map<List<Domain.DTO.User>>(result.Data.ToList());
-            return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
-        }
-
-        // Gets all Users. Endpoint: GET api/User/GetUsersAll
         [HttpGet("[action]/{pageNumber}/{pageSize}/{filter}")]
         public async Task<IActionResult> GetPageByFilter(int pageNumber, int pageSize, string filter)
         {

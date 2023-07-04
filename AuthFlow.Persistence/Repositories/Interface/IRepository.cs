@@ -8,9 +8,6 @@ namespace AuthFlow.Persistence.Repositories.Interface
     // This interface defines common methods for interacting with the data in the repository.
     public interface IRepository<T> where T : class, IEntity
     {
-        // Returns all entities of type T in the repository
-        Task<IQueryable<T>> GetAll();
-
         // Returns a subset of entities of type T based on the provided predicate
         Task<IQueryable<T>> GetAllByFilter(Expression<Func<T, bool>> predicate);
 

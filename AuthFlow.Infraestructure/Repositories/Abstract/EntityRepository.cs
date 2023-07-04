@@ -201,27 +201,6 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-        // Method to retrieve all entities.
-        public new async Task<OperationResult<IQueryable<T>>> GetAll()
-        {
-            try
-            {
-                // Get all entities from the database
-                var result = await base.GetAll();
-
-                // Custom success message
-                var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
-
-                // Return a success operation result
-                return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
-            }
-            catch (Exception ex)
-            {
-                var log = GetLogError(ex, "GetAll", OperationExecute.GetAllByFilter);
-                await _externalLogService.CreateLog(log);
-                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
-            }
-        }
 
         // Method to retrieve entities based on a filter expression.
         public new async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)

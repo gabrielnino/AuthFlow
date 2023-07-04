@@ -22,11 +22,6 @@ namespace AuthFlow.Persistence.Repositories
             _dbSet = context.Set<T>();
         }
 
-        // Returns all entities of type T in the database
-        public async Task<IQueryable<T>> GetAll()
-        {
-            return _dbSet;
-        }
 
         // Finds entities of type T that match a given predicate
         public async Task<IQueryable<T>> GetAllByFilter(Expression<Func<T, bool>> predicate)
