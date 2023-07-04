@@ -20,7 +20,6 @@ namespace AuthFlow.Api.Controllers
         {
             _usersRepository = usersRepository;
             _mapper = mapper;
-            
         }
 
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
@@ -42,7 +41,7 @@ namespace AuthFlow.Api.Controllers
         }
 
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
-        [HttpGet("[action]/{filter?}")]
+        [HttpGet("[action]/{filter}")]
         public async Task<IActionResult> GetCountByFilter(string filter)
         {
             var result = await _usersRepository.GetCountByFilter(filter);
@@ -66,22 +65,6 @@ namespace AuthFlow.Api.Controllers
             var result = await _usersRepository.GetAllByFilter(u => u.Id.Equals(id));
             var resultDTO = _mapper.Map<List<User>>(result.Data);
             return Ok(OperationResult<User>.Success(resultDTO.FirstOrDefault(), result.Message));
-        }
-
-        // Disables a specific User by ID. Endpoint: GET api/User/DisableUser/{id}
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> DisableUser(int id)
-        {
-            var result = await _usersRepository.Deactivate(id);
-            return Ok(result);
-        }
-
-        // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
-        [HttpGet("[action]/{id}")]
-        public async Task<IActionResult> ActivateUser(int id)
-        {
-            var result = await _usersRepository.Activate(id);
-            return Ok(result);
         }
 
         // Creates a User. Endpoint: POST api/User
@@ -115,6 +98,22 @@ namespace AuthFlow.Api.Controllers
                 Email = modifiedUserRequest?.Email,
             };
             var result = await _usersRepository.Modified(user);
+            return Ok(result);
+        }
+
+        // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> ActivateUser(int id)
+        {
+            var result = await _usersRepository.Activate(id);
+            return Ok(result);
+        }
+
+        // Disables a specific User by ID. Endpoint: GET api/User/DisableUser/{id}
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> DisableUser(int id)
+        {
+            var result = await _usersRepository.Deactivate(id);
             return Ok(result);
         }
 
