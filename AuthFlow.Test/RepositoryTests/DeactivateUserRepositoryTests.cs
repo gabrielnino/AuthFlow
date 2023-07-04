@@ -13,7 +13,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_DeactivateUser_Then_SuccessResultWithTrue()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "1e8a562d-1a7f-4848-9bee-a82b438dfe4b";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -35,7 +35,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_DeactivateUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "5a910d91-68d9-400d-b093-2519ed4701a3";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;

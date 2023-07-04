@@ -23,7 +23,7 @@ namespace AuthFlow.Test.RepositoryTests
             result.IsSuccessful.Should().BeTrue();
             result.Data.Should().Be(1);
         }
-        /*
+        
         [Test]
         public async Task Given__SeventeenUsers_When_GetCountFilter_Then_SuccessResulTrueThreeUsers()
         {
@@ -37,9 +37,9 @@ namespace AuthFlow.Test.RepositoryTests
 
             result?.Message.Should().Be(success);
             result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(17);
+            result.Data.Should().Be(23);
         }
-*/
+
 
         [Test]
         public async Task Given__SeventeenUsers_When_GetCountFilter_Then_SuccessResulTrueByEmail()

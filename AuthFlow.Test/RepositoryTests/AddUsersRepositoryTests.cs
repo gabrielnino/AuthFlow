@@ -21,7 +21,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_AddingUser_Then_SuccessResultWithIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "549f726e-3fe5-4f87-af14-95d36e5ee9d8";
             User user = GetUser(name);
 
             // When
@@ -37,7 +37,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_password_When_AddingUser_Then_SuccessResultWithIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "83997f50-1748-4991-9d9b-2d96e1337db9";
             User user = GetUser(name);
             var passwordhash = ComputeSha256Hash(user.Password);
             // When
@@ -56,7 +56,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_null_email_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "5309395a-ab03-45c1-bdf6-d85fe9f2b967";
             var user = new User
             {
                 Username = $"john.{name}",
@@ -76,7 +76,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_null_username_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "559b767c-162c-49a6-acf7-90fb600a5d27";
             var user = new User
             {
                 Password = "password",
@@ -96,7 +96,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_null_password_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "70e5c921-5c33-40cf-b859-bb85f6fa7def";
             var user = new User
             {
                 Username = $"john.{name}",
@@ -133,7 +133,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_min_lengt_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "cd391035-0927-45d5-826f-72b41fb1fcc8";
             User user = GetUser(name, 4);
 
             // When
@@ -149,7 +149,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_max_lengt_When_AddingUser_Then_FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "ac2d4ea5-5d48-49ce-9d8e-04438798abb6";
             User user = GetUser(name, 0, 110);
 
             // When
@@ -165,7 +165,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_duplicate_user_When_AddingUser_Then__FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "2485eac5-7c39-4c66-b324-facb0915fb89";
             User user = GetUser(name);
             _ = await _userRepository.Add(user);
             user.Email = $"john.{name}.jr@example.com";
@@ -182,7 +182,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_duplicate_email_When_AddingUser_Then__FailedResultWithoutIdReturned()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "26ce5a07-ddcb-4026-b229-eaa0df6c3597";
             User user = GetUser(name);
             _ = await _userRepository.Add(user);
             user.Username = $"john.{name}.jr";

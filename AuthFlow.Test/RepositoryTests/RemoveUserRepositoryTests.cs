@@ -18,7 +18,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_RemoveUser_Then_SuccessResultWithTrue()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "ee8f161f-9a33-4fa0-9f9b-5e47f196b662";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -36,7 +36,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_RemoveUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "b00e69f1-a32f-4d28-be10-c3365b17bcef";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;

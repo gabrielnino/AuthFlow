@@ -26,7 +26,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_ModifiedUser_Then_SuccessResultWithTrue()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "89855be1-46a0-4aa0-873f-92ed6234f191";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -63,7 +63,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_does_not_exist_Id_is_cero_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "37ab864d-d9c4-47c5-9d3b-406d5267c1a6";
             User user = GetUser(name);
             // When
             var result = await _userRepository.Modified(user);
@@ -73,14 +73,14 @@ namespace AuthFlow.Test.RepositoryTests
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeFalse();
         }
-        /*
+        
         [Test]
         public async Task Given_user_does_not_exist_Id_is_diferent_cero_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "ee7c4716-9db7-49a1-955e-72e2a65ec0d4";
             User user = GetUser(name);
-            user.Id = 20;
+            user.Id = 999999999;
             // When
             var result = await _userRepository.Modified(user);
 
@@ -89,12 +89,12 @@ namespace AuthFlow.Test.RepositoryTests
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeFalse();
         }
-        */
+        
         [Test]
         public async Task Given_user_null_email_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "11407931-6c9e-4dff-b4db-33a9dbf6d1f8";
             var user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -114,7 +114,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_null_username_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "5ded9739-cf32-4027-856c-c77bb6b74522";
             var user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -133,7 +133,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_null_password_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "29843786-3057-4388-8a20-8445e8947075";
             var user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -153,7 +153,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_duplicate_username_When_ModifiedUser_Then_FailedResultWithFalse()
         { 
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "0e29703d-f110-4478-ab5f-f8ef5f9f9de7";
             var user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -177,7 +177,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_duplicate_email_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "46b28fe8-65ab-4279-a290-8f8e8aa3177d";
             var user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -201,7 +201,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_min_lengt_username_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "e7f32b4a-4cd3-4a39-8e49-414535cd9324";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -219,7 +219,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_min_lengt_email_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "e6297940-bb05-4b27-855d-9d03a7e2fc8c";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -237,7 +237,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_min_lengt_password_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "467cf2d3-85e7-4222-a1f8-8163683496f2";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -255,7 +255,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_min_lengt_allField_When_ModifiedUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "0ce44259-b7c4-4b02-8463-b30b6920f66e";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -275,7 +275,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_max_lengt_username_When_AddingUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "537a68b3-ecb9-4633-81e0-e05bc7179635";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -293,7 +293,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_max_lengt_email_When_AddingUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "b0aff042-7f20-444c-8d4b-b01f437a8c91";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -311,7 +311,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_max_lengt_password_When_AddingUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "49af61ca-6b87-4949-a451-d29a90819623";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -329,7 +329,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_max_lengt_allField_When_AddingUser_Then_FailedResultWithFalse()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "cf68f306-05cc-40e2-80c2-d9551323f3f4";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
@@ -350,7 +350,7 @@ namespace AuthFlow.Test.RepositoryTests
         public async Task Given_user_When_ModifiedUserEmail_Then_SuccessResultWithTrue()
         {
             // Given
-            var name = Guid.NewGuid().ToString();
+            var name = "ef0fac3f-61ea-4efe-b59a-9e53a735f3e0";
             User user = GetUser(name);
             var repo = await _userRepository.Add(user);
             user.Id = repo.Data;
