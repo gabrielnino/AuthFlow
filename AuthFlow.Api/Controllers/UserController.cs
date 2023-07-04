@@ -33,10 +33,28 @@ namespace AuthFlow.Api.Controllers
         }
 
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
-        [HttpGet("[action]/{filter}")]
+        [HttpGet("[action]/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetPage(int pageNumber, int pageSize)
+        {
+            var result = await _usersRepository.GetPageByFilter(pageNumber, pageSize, string.Empty);
+            var resultDTO = _mapper.Map<List<User>>(result.Data.ToList());
+            return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
+        }
+
+        // Gets all Users. Endpoint: GET api/User/GetUsersAll
+        [HttpGet("[action]/{filter?}")]
         public async Task<IActionResult> GetCountByFilter(string filter)
         {
             var result = await _usersRepository.GetCountByFilter(filter);
+            var count = result.Data;
+            return Ok(OperationResult<int>.Success(count, result.Message));
+        }
+
+        // Gets all Users. Endpoint: GET api/User/GetUsersAll
+        [HttpGet("[action]/{filter?}")]
+        public async Task<IActionResult> GetCount()
+        {
+            var result = await _usersRepository.GetCountByFilter(string.Empty);
             var count = result.Data;
             return Ok(OperationResult<int>.Success(count, result.Message));
         }
