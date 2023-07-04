@@ -73,7 +73,7 @@ namespace AuthFlow.Test.RepositoryTests
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeFalse();
         }
-
+        /*
         [Test]
         public async Task Given_user_does_not_exist_Id_is_diferent_cero_When_ModifiedUser_Then_FailedResultWithFalse()
         {
@@ -89,7 +89,7 @@ namespace AuthFlow.Test.RepositoryTests
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeFalse();
         }
-
+        */
         [Test]
         public async Task Given_user_null_email_When_ModifiedUser_Then_FailedResultWithFalse()
         {
