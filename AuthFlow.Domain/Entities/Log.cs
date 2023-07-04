@@ -76,12 +76,14 @@ namespace AuthFlow.Domain.Entities
 
     public enum OperationExecute
     {
-        GetAllByFilter = 0,
-        Add = 1,
-        Modified = 2,
-        Remove = 3,
-        Deactivate = 4,
-        Activate = 5
+        GetAllByFilter,
+        GetPageByFilter,
+        GetCountByFilter,
+        Add,
+        Modified,
+        Remove,
+        Deactivate,
+        Activate
     }
 
 }

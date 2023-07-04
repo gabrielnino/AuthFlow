@@ -17,6 +17,8 @@ namespace AuthFlow.Application.Repositories.Interface.Repository
 
         Task<OperationResult<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter);
 
+        Task<OperationResult<int>> GetCountByFilter(string filter);
+
         // Adds an entity of type T to the repository and returns the id of the added entity
         Task<OperationResult<int>> Add(T entity);
 

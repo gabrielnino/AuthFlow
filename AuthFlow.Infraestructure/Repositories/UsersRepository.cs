@@ -154,27 +154,8 @@ namespace AuthFlow.Infraestructure.Repositories
 
         internal override Expression<Func<User, bool>> GetPredicate(string filter)
         {
-            return u =>  Compare(u.Username, u.Email, filter);
-        }
-
-        private static bool Compare(string username, string email, string filter)
-        {
-            username = GetValidate(username);
-            email = GetValidate(email);
-            filter = GetValidate(filter);
-            return string.IsNullOrEmpty(filter) || username.Contains(filter) || email.Contains(filter);
-        }
-
-        private static string GetValidate(string value)
-        {
-            return value is null ? string.Empty :
-                value.ToLower()
-                .Trim()
-                .Replace("á", "a")
-                .Replace("é", "e")
-                .Replace("í", "i")
-                .Replace("ó", "o")
-                .Replace("ú", "u");
+            filter = filter.ToLower();
+            return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
         }
     }
 }

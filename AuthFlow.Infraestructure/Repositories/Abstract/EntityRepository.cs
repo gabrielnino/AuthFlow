@@ -269,6 +269,28 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
+        public new async Task<OperationResult<int>> GetCountByFilter(string filter)
+        {
+            try
+            {
+                // Get entities from the database based on the provided filter expression
+                var predicate = GetPredicate(filter);
+                var result = await base.GetCountFilter(predicate);
+
+                // Custom success message
+                var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
+
+                // Return a success operation result
+                return OperationResult<int>.Success(result, messageSuccessfully);
+
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetCountByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
 
         // Method to retrieve entities based on a filter expression.
         public new async Task<OperationResult<int>> GetCountFilter(string filter)
