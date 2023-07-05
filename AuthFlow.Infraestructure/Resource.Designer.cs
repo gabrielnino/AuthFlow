@@ -205,6 +205,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user was loging successfully..
+        /// </summary>
+        internal static string SuccessfullyLogin {
+            get {
+                return ResourceManager.GetString("SuccessfullyLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The search in the {0} entity completed successfully..
         /// </summary>
         internal static string SuccessfullySearchGeneric {
@@ -264,6 +273,15 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullyUserUpdated {
             get {
                 return ResourceManager.GetString("SuccessfullyUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The given username or password is incorrect..
+        /// </summary>
+        internal static string UserFailedPassword {
+            get {
+                return ResourceManager.GetString("UserFailedPassword", resourceCulture);
             }
         }
         

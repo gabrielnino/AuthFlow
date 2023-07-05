@@ -13,7 +13,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
     // Base class for Entity Repositories, provides common CRUD operations for all entities that extend from IEntity
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity
     {
-        private readonly IExternalLogService _externalLogService;
+        protected readonly IExternalLogService _externalLogService;
         // Constructor that takes a AuthFlowDbContext object as a parameter
         public EntityRepository(AuthFlowDbContext context, IExternalLogService externalLogService) : base(context)
         {
@@ -298,7 +298,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
         internal abstract Expression<Func<T, bool>> GetPredicate(string filter);
 
-        private static Log GetLogError(Exception ex, object entity, OperationExecute operation)
+        protected static Log GetLogError(Exception ex, object entity, OperationExecute operation)
         {
             var message = $"Error Message: {ex.Message}  StackTrace: {ex.StackTrace}";
             var log = Log.Error(message, entity, operation);

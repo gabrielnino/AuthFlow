@@ -6,8 +6,13 @@ using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
 using FluentValidation.Results;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
@@ -18,10 +23,47 @@ namespace AuthFlow.Infraestructure.Repositories
     // It provides repository operations for the User entity using the EntityRepository base class
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
-        
-        public UsersRepository(AuthFlowDbContext context, IExternalLogService externalLogService) : base(context, externalLogService)
+        private readonly IConfiguration _configuration;
+        public UsersRepository(AuthFlowDbContext context, IExternalLogService externalLogService, IConfiguration configuration) : base(context, externalLogService)
         {
-           
+            _configuration = configuration;
+        }
+
+        public async Task<OperationResult<string>> Login(string? username, string? password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                {
+                    return OperationResult<string>.Failure(Resource.FailedNecesaryData);
+                }
+
+                // Get entities from the database based on the provided filter expression
+                var result = await base.GetAllByFilter(u => u.Username.Equals(username));
+                var user = result?.Data?.FirstOrDefault();
+                if (user is null)
+                {
+                    return OperationResult<string>.Failure(Resource.FailedUserNotFound);
+                }
+
+                var passwordCipher = ComputeSha256Hash(password);
+                if (!passwordCipher.Equals(user.Password))
+                {
+                    return OperationResult<string>.Failure(Resource.UserFailedPassword);
+                }
+                
+                var token = GenerateToken(user);
+
+                //// Return a success operation result
+                return OperationResult<string>.Success(token, Resource.SuccessfullyLogin);
+
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<string>.Failure(Resource.FailedOccurredDataLayer);
+            }
         }
 
         // Override the ValidateEntity method to provide custom validation logic for the User entity
@@ -59,19 +101,6 @@ namespace AuthFlow.Infraestructure.Repositories
 
             // Return a success operation result
             return OperationResult<User>.Success(entityAdd);
-        }
-
-        private static User GetUser(User entity)
-        {
-            return new User()
-            {
-                Username = entity.Username,
-                Password = ComputeSha256Hash(entity.Password),
-                Email = entity.Email,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                Active = false,
-            };
         }
 
         // Override the CallEntity method to customize the entity before modification T entityModified, T entityUnmodified
@@ -122,6 +151,24 @@ namespace AuthFlow.Infraestructure.Repositories
             return OperationResult<User>.Success(entityUnmodified, successMessage);
         }
 
+        internal override Expression<Func<User, bool>> GetPredicate(string filter)
+        {
+            filter = filter.ToLower();
+            return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
+        }
+
+        private static User GetUser(User entity)
+        {
+            return new User()
+            {
+                Username = entity.Username,
+                Password = ComputeSha256Hash(entity.Password),
+                Email = entity.Email,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                Active = false,
+            };
+        }
         private static string GetErrorMessage(ValidationResult result)
         {
             var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
@@ -152,10 +199,25 @@ namespace AuthFlow.Infraestructure.Repositories
             return builder.ToString();
         }
 
-        internal override Expression<Func<User, bool>> GetPredicate(string filter)
+        private string GenerateToken(User user)
         {
-            filter = filter.ToLower();
-            return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                // new Claim("AdminType", admin.AdminType),
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var securitytoken = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(securitytoken);
         }
     }
 }

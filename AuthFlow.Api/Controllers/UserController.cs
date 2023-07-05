@@ -68,7 +68,7 @@ namespace AuthFlow.Api.Controllers
         }
 
         // Creates a User. Endpoint: POST api/User
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
         {
             var password = addUserRequest?.Password;
@@ -82,6 +82,14 @@ namespace AuthFlow.Api.Controllers
                 Active = false
             };
             var result = await _usersRepository.Add(user);
+            return Ok(result);
+        }
+
+        // Creates a User. Endpoint: POST api/User
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Login(string username, string password)
+        {
+            var result = await _usersRepository.Login(username, password);
             return Ok(result);
         }
 

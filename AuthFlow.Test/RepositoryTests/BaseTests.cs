@@ -6,26 +6,35 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace AuthFlow.Test.RepositoryTests
 {
     [TestFixture]
     public class BaseTests
     {
-        public UsersRepository _userRepository;
-        public AuthFlowDbContext _dbContextMock;
-        public DbContextOptions<AuthFlowDbContext> _options;
-        public Mock<IExternalLogService> _externalLogService;
+        protected UsersRepository _userRepository;
+        protected AuthFlowDbContext _dbContextMock;
+        protected DbContextOptions<AuthFlowDbContext> _options;
+        protected Mock<IExternalLogService> _externalLogService;
+        protected Mock<IConfiguration> _configuration;
+        protected Mock<IConfigurationSection> _configurationSection;
 
         [SetUp]
         public void Setup()
         {
             _externalLogService = new Mock<IExternalLogService>();
+            _configuration = new Mock<IConfiguration>();
+            _configurationSection = new Mock<IConfigurationSection>();
+            _configurationSection.SetupGet(m => m.Value).Returns("ssnDBVccFUhVvPWQPh7LssnDBVccFUhVvPWQPh7L");
+            _configuration.Setup(config => config.GetSection(It.IsAny<string>())).Returns(_configurationSection.Object);
+            
             _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
                .UseInMemoryDatabase(databaseName: "testdb")
                .Options;
             _dbContextMock =  new AuthFlowDbContext(_options);
-            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object);
+            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object);
         }
 
 
@@ -80,6 +89,17 @@ namespace AuthFlow.Test.RepositoryTests
         {
 
             var password = "password";
+
+            return new User
+            {
+                Username = userName,
+                Email = email,
+                Password = password
+            };
+        }
+
+        protected static User GetUser(string userName, string email, string password)
+        {
 
             return new User
             {
