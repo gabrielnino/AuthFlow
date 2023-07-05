@@ -52,6 +52,7 @@ namespace AuthFlow.Persistence.Data
         // a provider to use, or other configuration.
         public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options) : base(options)
         {
+            Initialize();
             // Initialize the Users property with a non-null DbSet<User>
             Users = Set<User>();
         }
