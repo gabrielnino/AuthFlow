@@ -88,3 +88,4 @@ C:\ShopFlow\AuthFlow\AuthFlow.Api\obj\Debug\net7.0\ref\AuthFlow.Api.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
