@@ -50,7 +50,7 @@ namespace AuthFlow.Api.Controllers
         }
 
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
-        [HttpGet("[action]/{filter?}")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetCount()
         {
             var result = await _usersRepository.GetCountByFilter(string.Empty);
