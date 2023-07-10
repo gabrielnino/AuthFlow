@@ -16,6 +16,7 @@ namespace AuthFlow.Test.RepositoryTests
         private const string emailMustNotEmpty = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
+        private const string invalidEmailFormat = "The given email is not in a valid format";
 
         [Test]
         public async Task Given_user_When_AddingUser_Then_SuccessResultWithIdReturned()
@@ -191,6 +192,23 @@ namespace AuthFlow.Test.RepositoryTests
 
             // Then
             result?.Message.Should().Be(alreadyRegisteredEmail);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeGreaterThanOrEqualTo(0);
+        }
+
+
+        [Test]
+        public async Task Given_user_When_AddingUser_Then_FaildedByEmailResultWithIdReturned()
+        {
+            // Given
+            var name = "549f726e-3fe5-4f87-af14-9r35te5ee9d8";
+            User user = GetUser(name);
+            user.Email = "not_is_an_email";
+            // When
+            var result = await _userRepository.Add(user);
+
+            // Then
+            result?.Message.Should().BeEquivalentTo(invalidEmailFormat);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
         }

@@ -88,6 +88,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given email is not in a valid format.
+        /// </summary>
+        internal static string FailedEmailInvalidFormat {
+            get {
+                return ResourceManager.GetString("FailedEmailInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Necessary data was not provided..
         /// </summary>
         internal static string FailedNecesaryData {

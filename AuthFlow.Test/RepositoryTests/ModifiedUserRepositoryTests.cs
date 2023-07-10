@@ -21,7 +21,8 @@ namespace AuthFlow.Test.RepositoryTests
         private const string emailMustNotEmpty = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
-        
+        private const string invalidEmailFormat = "The given email is not in a valid format";
+
         [Test]
         public async Task Given_user_When_ModifiedUser_Then_SuccessResultWithTrue()
         {
@@ -365,6 +366,28 @@ namespace AuthFlow.Test.RepositoryTests
             result?.Message.Should().Be(success);
             result.IsSuccessful.Should().BeTrue();
             result.Data.Should().BeTrue();
+        }
+
+
+        [Test]
+        public async Task Given_user_When_ModifiedUser_Then_FailedByEmailResultWithFalse()
+        {
+            // Given
+            var name = "89855be1-46a0-4aa0-873f-92ed623oiuhj";
+            User user = GetUser(name);
+            var repo = await _userRepository.Add(user);
+            user.Id = repo.Data;
+            var repoFind = await _userRepository.GetAllByFilter(u => u.Id == user.Id);
+            var userFound = repoFind.Data.FirstOrDefault();
+            // When
+            userFound.Password = userFound.Password + "_Modified";
+            userFound.Email = "not_is_email_Modified";
+            var result = await _userRepository.Modified(userFound);
+
+            // Then
+            result?.Message.Should().Be(invalidEmailFormat);
+            result.IsSuccessful.Should().BeFalse();
+            result.Data.Should().BeFalse();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace AuthFlow.Test.RepositoryTests
 
             result?.Message.Should().Be(success);
             result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(23);
+            result.Data.Should().Be(37);
         }
 
 

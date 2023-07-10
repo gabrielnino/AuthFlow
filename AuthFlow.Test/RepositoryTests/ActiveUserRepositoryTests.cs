@@ -41,7 +41,7 @@ namespace AuthFlow.Test.RepositoryTests
             user.Id = repo.Data;
 
             // When
-            var result = await _userRepository.Activate(2);
+            var result = await _userRepository.Activate(99999999);
 
             // Then
             result?.Message.Should().Be(userTryingActiveDoesNotExist);

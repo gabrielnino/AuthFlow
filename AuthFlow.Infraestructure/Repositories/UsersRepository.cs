@@ -3,19 +3,18 @@ using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Application.Uses_cases.Interface;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
+using AuthFlow.Domain.Interfaces;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
+using System.Text.RegularExpressions;
 
 namespace AuthFlow.Infraestructure.Repositories
 {
@@ -81,6 +80,11 @@ namespace AuthFlow.Infraestructure.Repositories
                 return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
+            if(!IsValidEmail(entity?.Email))
+            {
+                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat);
+            }
+
             // Check if the email is already registered by another user
             var userByEmail = await base.GetAllByFilter(p => p.Email == entity.Email);
             var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
@@ -113,6 +117,11 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 var errorMessage = GetErrorMessage(result);
                 return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
+            }
+
+            if (!IsValidEmail(entityModified?.Email))
+            {
+                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat);
             }
 
             // Check if the email is already registered by another user
@@ -157,6 +166,12 @@ namespace AuthFlow.Infraestructure.Repositories
             return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
         }
 
+        private bool IsValidEmail(string email)
+        {
+            var emailPattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)*\w+[\w-]$";
+            return Regex.IsMatch(email, emailPattern);
+        }
+
         private static User GetUser(User entity)
         {
             return new User()
@@ -169,6 +184,7 @@ namespace AuthFlow.Infraestructure.Repositories
                 Active = false,
             };
         }
+
         private static string GetErrorMessage(ValidationResult result)
         {
             var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
