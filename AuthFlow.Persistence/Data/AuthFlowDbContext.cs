@@ -51,8 +51,8 @@ namespace AuthFlow.Persistence.Data
             modelBuilder.Entity<User>().Property(u => u.Active).HasColumnType("bit").IsRequired();
             modelBuilder.Entity<User>().HasKey(u => u.Id);
             modelBuilder.Entity<User>().Property(u => u.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
-            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Username, "UC_Users_Username").IsUnique(true);
+            modelBuilder.Entity<User>().HasIndex(u => u.Email, "UC_Users_Email").IsUnique(true);
         }
 
     }
