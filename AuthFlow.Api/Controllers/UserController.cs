@@ -87,9 +87,9 @@ namespace AuthFlow.Api.Controllers
 
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(Credential credential)
         {
-            var result = await _usersRepository.Login(username, password);
+            var result = await _usersRepository.Login(credential.Username, credential.Password);
             return Ok(result);
         }
 

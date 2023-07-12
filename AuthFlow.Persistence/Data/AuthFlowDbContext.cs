@@ -41,8 +41,7 @@ namespace AuthFlow.Persistence.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configure the relationship between User and Session entities
-            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
-            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
             modelBuilder.Entity<User>().Property(u => u.Id).HasColumnType("int");
             modelBuilder.Entity<User>().Property(u => u.Username).HasColumnType("nvarchar(50)").IsRequired();
             modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(100)").IsRequired();
@@ -50,11 +49,10 @@ namespace AuthFlow.Persistence.Data
             modelBuilder.Entity<User>().Property(u => u.CreatedAt).HasColumnType("datetime").IsRequired();
             modelBuilder.Entity<User>().Property(u => u.UpdatedAt).HasColumnType("datetime");
             modelBuilder.Entity<User>().Property(u => u.Active).HasColumnType("bit").IsRequired();
-
-
-
             modelBuilder.Entity<User>().HasKey(u => u.Id);
             modelBuilder.Entity<User>().Property(u => u.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         }
 
     }

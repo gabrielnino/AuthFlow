@@ -10,7 +10,10 @@ C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\AutoMapper.Extensions.Microso
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Azure.Core.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Azure.Identity.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Humanizer.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
@@ -32,6 +35,7 @@ C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.OpenApi.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -85,7 +89,3 @@ C:\ShopFlow\AuthFlow\AuthFlow.Api\obj\Debug\net7.0\refint\AuthFlow.Api.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Api\obj\Debug\net7.0\AuthFlow.Api.pdb
 C:\ShopFlow\AuthFlow\AuthFlow.Api\obj\Debug\net7.0\AuthFlow.Api.genruntimeconfig.cache
 C:\ShopFlow\AuthFlow\AuthFlow.Api\obj\Debug\net7.0\ref\AuthFlow.Api.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Api\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
