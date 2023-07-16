@@ -16,6 +16,10 @@ C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Azure.Identity.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Castle.Core.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\FluentAssertions.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\FluentValidation.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.AspNetCore.Http.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.AspNetCore.Http.Features.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.AspNetCore.WebUtilities.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
@@ -32,6 +36,7 @@ C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Depende
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.ObjectPool.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Identity.Client.dll
@@ -42,6 +47,7 @@ C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.IdentityModel.Logg
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.Net.Http.Headers.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.TestPlatform.CoreUtilities.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -55,6 +61,7 @@ C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Moq.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\NuGet.Frameworks.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\nunit.framework.dll
+C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\SendGrid.CSharp.HTTP.Client.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Diagnostics.EventLog.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Drawing.Common.dll

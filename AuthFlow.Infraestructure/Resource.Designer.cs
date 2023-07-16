@@ -97,6 +97,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to It happened an error in the email service..
+        /// </summary>
+        internal static string FailedEmailService {
+            get {
+                return ResourceManager.GetString("FailedEmailService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Necessary data was not provided..
         /// </summary>
         internal static string FailedNecesaryData {
@@ -111,6 +120,24 @@ namespace AuthFlow.Infraestructure {
         internal static string FailedOccurredDataLayer {
             get {
                 return ResourceManager.GetString("FailedOccurredDataLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It happened an error in the OTP service..
+        /// </summary>
+        internal static string FailedOtpService {
+            get {
+                return ResourceManager.GetString("FailedOtpService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It happened an error in the Recaptcha service..
+        /// </summary>
+        internal static string FailedRecaptchaService {
+            get {
+                return ResourceManager.GetString("FailedRecaptchaService", resourceCulture);
             }
         }
         
@@ -165,6 +192,33 @@ namespace AuthFlow.Infraestructure {
         internal static string GlobalOkMessage {
             get {
                 return ResourceManager.GetString("GlobalOkMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OTP does not equal..
+        /// </summary>
+        internal static string OtpFailedDoesNotEquals {
+            get {
+                return ResourceManager.GetString("OtpFailedDoesNotEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OTP does not exist..
+        /// </summary>
+        internal static string OtpFailedDoesNotExist {
+            get {
+                return ResourceManager.GetString("OtpFailedDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OTP was not submitted..
+        /// </summary>
+        internal static string OtpFailedDoesNotSubmitted {
+            get {
+                return ResourceManager.GetString("OtpFailedDoesNotSubmitted", resourceCulture);
             }
         }
         

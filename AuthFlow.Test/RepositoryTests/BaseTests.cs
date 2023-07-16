@@ -1,5 +1,4 @@
-﻿using AuthFlow.Application.Uses_cases.Interface;
-using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +6,7 @@ using Moq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
+using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
 
 namespace AuthFlow.Test.RepositoryTests
 {
@@ -17,14 +16,14 @@ namespace AuthFlow.Test.RepositoryTests
         protected UsersRepository _userRepository;
         protected AuthFlowDbContext _dbContextMock;
         protected DbContextOptions<AuthFlowDbContext> _options;
-        protected Mock<IExternalLogService> _externalLogService;
+        protected Mock<ILogService> _externalLogService;
         protected Mock<IConfiguration> _configuration;
         protected Mock<IConfigurationSection> _configurationSection;
 
         [SetUp]
         public void Setup()
         {
-            _externalLogService = new Mock<IExternalLogService>();
+            _externalLogService = new Mock<ILogService>();
             _configuration = new Mock<IConfiguration>();
             _configurationSection = new Mock<IConfigurationSection>();
             _configurationSection.SetupGet(m => m.Value).Returns("ssnDBVccFUhVvPWQPh7LssnDBVccFUhVvPWQPh7L");

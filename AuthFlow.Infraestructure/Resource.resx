@@ -129,11 +129,20 @@
   <data name="FailedEmailInvalidFormat" xml:space="preserve">
     <value>The given email is not in a valid format</value>
   </data>
+  <data name="FailedEmailService" xml:space="preserve">
+    <value>It happened an error in the email service.</value>
+  </data>
   <data name="FailedNecesaryData" xml:space="preserve">
     <value>Necessary data was not provided.</value>
   </data>
   <data name="FailedOccurredDataLayer" xml:space="preserve">
     <value>An error occurred in the data layer.</value>
+  </data>
+  <data name="FailedOtpService" xml:space="preserve">
+    <value>It happened an error in the OTP service.</value>
+  </data>
+  <data name="FailedRecaptchaService" xml:space="preserve">
+    <value>It happened an error in the Recaptcha service.</value>
   </data>
   <data name="FailedUserDoesNotExist" xml:space="preserve">
     <value>The user does not exist.</value>
@@ -152,6 +161,15 @@
   </data>
   <data name="GlobalOkMessage" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="OtpFailedDoesNotEquals" xml:space="preserve">
+    <value>The OTP does not equal.</value>
+  </data>
+  <data name="OtpFailedDoesNotExist" xml:space="preserve">
+    <value>The OTP does not exist.</value>
+  </data>
+  <data name="OtpFailedDoesNotSubmitted" xml:space="preserve">
+    <value>The OTP was not submitted.</value>
   </data>
   <data name="SuccessfullyGeneric" xml:space="preserve">
     <value>{0} was created successfully.</value>

@@ -3,16 +3,17 @@ using AuthFlow.Domain.Entities;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http.Headers;
+using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
 
-namespace AuthFlow.Infraestructure.Repositories
+namespace AuthFlow.Infraestructure.ExternalServices
 {
-    public class ExternalLogService : IExternalLogService
+    public class LogService : ILogService
     {
         private const string user = "admin";
         private const string password = "xxnDBVrrFUhVvPWQPh7LuunDBVccFUhVvooQQWQPh7L";
         private readonly HttpClient _client;
 
-        public ExternalLogService(IHttpClientFactory clientFactory)
+        public LogService(IHttpClientFactory clientFactory)
         {
             _client = clientFactory.CreateClient();
         }
@@ -48,7 +49,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var bearerToken = await GetToken();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             var response = await _client.PostAsync(url, content);
-            if (response.IsSuccessStatusCode);
+            if (response.IsSuccessStatusCode) ;
             return string.Empty;
         }
     }

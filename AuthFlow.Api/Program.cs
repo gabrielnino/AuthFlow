@@ -3,17 +3,28 @@ using AuthFlow.Infraestructure.Repositories;
 using AuthFlow.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
-using AutoMapper;
-using AuthFlow.Application.Uses_cases.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AuthFlow.Application.Interfaces;
+using AuthFlow.Infraestructure.ExternalServices;
+using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
+using AuthFlow.Application.Uses_cases.Interface.Operations;
+using AuthFlow.Infraestructure.Operations;
+using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
 builder.Services.AddDbContext<AuthFlowDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
-builder.Services.AddScoped<IExternalLogService, ExternalLogService>();
+builder.Services.AddScoped<ILogService, LogService>();
+builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+//builder.Services.AddScoped<IDistributedCache, MemoryDistributedCache>();
+
+
+
+builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddLogging(logginBuilder =>
@@ -29,6 +40,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDistributedSqlServerCache(redisOptons =>
+{
+    string connection = builder.Configuration.GetConnectionString("Redis");
+    redisOptons.ConnectionString  = connection;
+    redisOptons.SchemaName = "dbo";
+    redisOptons.TableName = "CacheItems";
+});
 
 
 

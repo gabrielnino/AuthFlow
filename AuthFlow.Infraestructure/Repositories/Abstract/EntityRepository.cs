@@ -1,6 +1,7 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface.Repository;
 using AuthFlow.Application.Uses_cases.Interface;
+using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Domain.Interfaces;
 using AuthFlow.Persistence.Data;
@@ -13,9 +14,9 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
     // Base class for Entity Repositories, provides common CRUD operations for all entities that extend from IEntity
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity
     {
-        protected readonly IExternalLogService _externalLogService;
+        protected readonly ILogService _externalLogService;
         // Constructor that takes a AuthFlowDbContext object as a parameter
-        public EntityRepository(AuthFlowDbContext context, IExternalLogService externalLogService) : base(context)
+        public EntityRepository(AuthFlowDbContext context, ILogService externalLogService) : base(context)
         {
             _externalLogService = externalLogService;
         }

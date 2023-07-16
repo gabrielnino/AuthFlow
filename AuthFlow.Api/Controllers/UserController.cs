@@ -3,6 +3,10 @@ using AuthFlow.Application.Repositories.Interface;
 using AutoMapper;
 using AuthFlow.Domain.DTO;
 using AuthFlow.Application.DTOs;
+using AuthFlow.Application.Interfaces;
+using Newtonsoft.Json.Linq;
+using AuthFlow.Application.Uses_cases.Interface.Operations;
+using AuthFlow.Infraestructure.Operations;
 
 namespace AuthFlow.Api.Controllers
 {
@@ -13,12 +17,16 @@ namespace AuthFlow.Api.Controllers
     {
         // Defines an interface for accessing User data in the repository.
         private readonly IUserRepository _usersRepository;
+        private readonly IOtpService _otpService;
+        private readonly IReCaptchaService _reCaptchaService;
         private readonly IMapper _mapper;
 
         // Constructor for UserController, injecting the User repository.
-        public UserController(IUserRepository usersRepository, IConfiguration configuration, IMapper mapper)
+        public UserController(IUserRepository usersRepository, IOtpService otpService, IReCaptchaService reCaptchaService, IConfiguration configuration, IMapper mapper)
         {
             _usersRepository = usersRepository;
+            _otpService = otpService;
+            _reCaptchaService = reCaptchaService;
             _mapper = mapper;
         }
 
@@ -67,6 +75,24 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<User>.Success(resultDTO.FirstOrDefault(), result.Message));
         }
 
+
+
+        // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
+        [HttpGet("[action]/{email}")]
+        public async Task<IActionResult> GenerateOtp(string email)
+        {
+            var result = await _otpService.GenerateOtp(email);
+            return Ok(result);
+        }
+
+        // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
+        [HttpGet("[action]/{email}/{otp}")]
+        public async Task<IActionResult> ValidateOtp(string email, string otp)
+        {
+            var result = await _otpService.ValidateOtp(email, otp);
+            return Ok(result);
+        }
+
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
@@ -90,6 +116,14 @@ namespace AuthFlow.Api.Controllers
         public async Task<IActionResult> Login(Credential credential)
         {
             var result = await _usersRepository.Login(credential.Username, credential.Password);
+            return Ok(result);
+        }
+
+        // Creates a User. Endpoint: POST api/User
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ReCaptcha(ReCaptcha token)
+        {
+            var result = await _reCaptchaService.Validate(token);
             return Ok(result);
         }
 

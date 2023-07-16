@@ -1,9 +1,8 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
-using AuthFlow.Application.Uses_cases.Interface;
+using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
-using AuthFlow.Domain.Interfaces;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
 using FluentValidation.Results;
@@ -23,7 +22,7 @@ namespace AuthFlow.Infraestructure.Repositories
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
         private readonly IConfiguration _configuration;
-        public UsersRepository(AuthFlowDbContext context, IExternalLogService externalLogService, IConfiguration configuration) : base(context, externalLogService)
+        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration) : base(context, externalLogService)
         {
             _configuration = configuration;
         }
