@@ -1,10 +1,5 @@
-﻿using AuthFlow.Application.Uses_cases.Interface;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Repositories;
-using AuthFlow.Persistence.Data;
+﻿using AuthFlow.Domain.Entities;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace AuthFlow.Test.RepositoryTests
 {

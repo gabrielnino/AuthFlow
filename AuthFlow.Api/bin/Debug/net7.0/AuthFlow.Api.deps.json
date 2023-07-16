@@ -1020,14 +1020,6 @@
           }
         }
       },
-      "SendGrid.CSharp.HTTP.Client/3.4.12": {
-        "runtime": {
-          "lib/net45/SendGrid.CSharp.HTTP.Client.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "SshNet.Security.Cryptography/1.2.0": {
         "dependencies": {
           "System.IO": "4.3.0",
@@ -2447,8 +2439,7 @@
           "AuthFlow.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "7.0.0",
-          "Newtonsoft.Json": "11.0.2",
-          "SendGrid.CSharp.HTTP.Client": "3.4.12"
+          "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
           "AuthFlow.Infraestructure.dll": {}
@@ -3177,13 +3168,6 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
-    },
-    "SendGrid.CSharp.HTTP.Client/3.4.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MQ2WJx0ST5JzrHDRA8+d+5NHJTI8p+/MTA7J8SY5NtMiH3wYgLjHhrZHXRtd1vh+3cXSeyRM/VYbmTbqC0Aa/A==",
-      "path": "sendgrid.csharp.http.client/3.4.12",
-      "hashPath": "sendgrid.csharp.http.client.3.4.12.nupkg.sha512"
     },
     "SshNet.Security.Cryptography/1.2.0": {
       "type": "package",

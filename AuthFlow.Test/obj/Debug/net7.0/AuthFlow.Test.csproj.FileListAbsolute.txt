@@ -61,7 +61,6 @@ C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Moq.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\NuGet.Frameworks.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\nunit.framework.dll
-C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\SendGrid.CSharp.HTTP.Client.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Diagnostics.EventLog.dll
 C:\ShopFlow\AuthFlow\AuthFlow.Test\bin\Debug\net7.0\System.Drawing.Common.dll

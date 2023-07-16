@@ -5,22 +5,27 @@ using System;
 // Namespace for Persistence Data
 namespace AuthFlow.Persistence.Data
 {
-    // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model
+    // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model.
     // It manages the entity objects during runtime, which includes populating objects with data from a database,
     // change tracking, and persisting data to the database.
     public class AuthFlowDbContext : DbContext
     {
         public void Initialize()
         {
-
+            // Ensure the database for the context exists. If it exists, no action is taken.
+            // If it does not exist then the database and all its schema are created.
             Database.EnsureCreated();
+
+            // Check if any users are already present in the database
             if (!Users.Any())
             {
+                // If no users are present, add the initial list of users to the database
                 foreach (var user in Genesys.GetUsers())
                 {
                     Users.Add(user);
                 }
 
+                // Save the changes to the database
                 SaveChanges();
             }
         }
@@ -33,15 +38,18 @@ namespace AuthFlow.Persistence.Data
         // a provider to use, or other configuration.
         public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options) : base(options)
         {
+            // Initialize the database with Users if none exist
             Initialize();
+
             // Initialize the Users property with a non-null DbSet<User>
             Users = Set<User>();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure the relationship between User and Session entities
+            // Configure the properties and relationships of the User model via Fluent API
 
+            // Define properties' types, requirements, keys, and relationships.
             modelBuilder.Entity<User>().Property(u => u.Id).HasColumnType("int");
             modelBuilder.Entity<User>().Property(u => u.Username).HasColumnType("nvarchar(50)").IsRequired();
             modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(100)").IsRequired();

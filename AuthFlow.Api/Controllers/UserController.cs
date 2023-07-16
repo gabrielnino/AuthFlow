@@ -4,9 +4,7 @@ using AutoMapper;
 using AuthFlow.Domain.DTO;
 using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Interfaces;
-using Newtonsoft.Json.Linq;
-using AuthFlow.Application.Uses_cases.Interface.Operations;
-using AuthFlow.Infraestructure.Operations;
+using AuthFlow.Application.Use_cases.Interface.Operations;
 
 namespace AuthFlow.Api.Controllers
 {

@@ -12,8 +12,7 @@
           "AuthFlow.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "7.0.0",
-          "Newtonsoft.Json": "9.0.1",
-          "SendGrid.CSharp.HTTP.Client": "3.4.12"
+          "Newtonsoft.Json": "9.0.1"
         },
         "runtime": {
           "AuthFlow.Infraestructure.dll": {}
@@ -519,14 +518,6 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.1.19813"
-          }
-        }
-      },
-      "SendGrid.CSharp.HTTP.Client/3.4.12": {
-        "runtime": {
-          "lib/net45/SendGrid.CSharp.HTTP.Client.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -1293,13 +1284,6 @@
       "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
       "path": "newtonsoft.json/9.0.1",
       "hashPath": "newtonsoft.json.9.0.1.nupkg.sha512"
-    },
-    "SendGrid.CSharp.HTTP.Client/3.4.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MQ2WJx0ST5JzrHDRA8+d+5NHJTI8p+/MTA7J8SY5NtMiH3wYgLjHhrZHXRtd1vh+3cXSeyRM/VYbmTbqC0Aa/A==",
-      "path": "sendgrid.csharp.http.client/3.4.12",
-      "hashPath": "sendgrid.csharp.http.client.3.4.12.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",

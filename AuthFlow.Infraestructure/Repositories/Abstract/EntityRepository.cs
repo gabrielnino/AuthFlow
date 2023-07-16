@@ -1,7 +1,6 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface.Repository;
-using AuthFlow.Application.Uses_cases.Interface;
-using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Domain.Interfaces;
 using AuthFlow.Persistence.Data;
@@ -11,17 +10,18 @@ using System.Linq.Expressions;
 // Namespace for infrastructure repositories
 namespace AuthFlow.Infraestructure.Repositories.Abstract
 {
-    // Base class for Entity Repositories, provides common CRUD operations for all entities that extend from IEntity
+    // This class acts as a generic base for all other repository classes. 
+    // It contains all the CRUD operation methods that interact with the database.
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity
     {
         protected readonly ILogService _externalLogService;
-        // Constructor that takes a AuthFlowDbContext object as a parameter
+        // Injecting the database context and the logging service into the constructor
         public EntityRepository(AuthFlowDbContext context, ILogService externalLogService) : base(context)
         {
             _externalLogService = externalLogService;
         }
 
-        // Method to add a new entity.
+        // This method adds a new entity to the database after performing a series of validations.
         public new async Task<OperationResult<int>> Add(T entity)
         {
             try
@@ -54,7 +54,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-        // Method to modify an existing entity.
+        // This method modifies an existing entity in the database after performing a series of validations.
         public new async Task<OperationResult<bool>> Modified(T entity)
         {
             try
@@ -95,7 +95,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-        // Method to activate a specific entity by its ID.
+        // This method activates an entity by setting its 'Active' status to true.
         public async Task<OperationResult<bool>> Activate(int id)
         {
             try
@@ -133,7 +133,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
 
 
-        // Method to deactivate a specific entity by its ID.
+        // This method deactivates an entity by setting its 'Active' status to false.
         public async Task<OperationResult<bool>> Deactivate(int id)
         {
             try
@@ -169,7 +169,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-        // Method to remove a specific entity by its ID.
+        // This method deletes an entity from the database.
         public async Task<OperationResult<bool>> Remove(int id)
         {
             try
@@ -203,7 +203,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
 
-        // Method to retrieve entities based on a filter expression.
+        // This method retrieves all entities from the database that match the provided filter expression.
         public new async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
         {
             try
@@ -225,7 +225,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-        // Method to retrieve entities based on a filter expression.
+        // This method retrieves a page of entities from the database based on the provided filter expression.
         public new async Task<OperationResult<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter)
         {
             try
@@ -296,7 +296,8 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
-
+        // This method builds a filter expression based on a provided filter string.
+        // Each subclass has to provide its own implementation.
         internal abstract Expression<Func<T, bool>> GetPredicate(string filter);
 
         protected static Log GetLogError(Exception ex, object entity, OperationExecute operation)

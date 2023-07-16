@@ -6,7 +6,7 @@ using Moq;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
-using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 
 namespace AuthFlow.Test.RepositoryTests
 {

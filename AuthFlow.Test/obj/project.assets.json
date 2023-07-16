@@ -1165,15 +1165,6 @@
           "build/netcoreapp2.1/NUnit3TestAdapter.props": {}
         }
       },
-      "SendGrid.CSharp.HTTP.Client/3.4.12": {
-        "type": "package",
-        "compile": {
-          "lib/net45/SendGrid.CSharp.HTTP.Client.dll": {}
-        },
-        "runtime": {
-          "lib/net45/SendGrid.CSharp.HTTP.Client.dll": {}
-        }
-      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -2095,8 +2086,7 @@
           "AuthFlow.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "7.0.0",
-          "Newtonsoft.Json": "9.0.1",
-          "SendGrid.CSharp.HTTP.Client": "3.4.12"
+          "Newtonsoft.Json": "9.0.1"
         },
         "compile": {
           "bin/placeholder/AuthFlow.Infraestructure.dll": {}
@@ -4058,18 +4048,6 @@
         "build/netcoreapp2.1/testcentric.engine.metadata.dll",
         "nunit3testadapter.4.3.0.nupkg.sha512",
         "nunit3testadapter.nuspec"
-      ]
-    },
-    "SendGrid.CSharp.HTTP.Client/3.4.12": {
-      "sha512": "MQ2WJx0ST5JzrHDRA8+d+5NHJTI8p+/MTA7J8SY5NtMiH3wYgLjHhrZHXRtd1vh+3cXSeyRM/VYbmTbqC0Aa/A==",
-      "type": "package",
-      "path": "sendgrid.csharp.http.client/3.4.12",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net45/SendGrid.CSharp.HTTP.Client.dll",
-        "sendgrid.csharp.http.client.3.4.12.nupkg.sha512",
-        "sendgrid.csharp.http.client.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -6940,17 +6918,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'SendGrid.CSharp.HTTP.Client 3.4.12' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "SendGrid.CSharp.HTTP.Client",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    }
-  ]
+  }
 }

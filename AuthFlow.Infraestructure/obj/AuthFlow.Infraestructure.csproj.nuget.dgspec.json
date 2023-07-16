@@ -199,10 +199,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[9.0.1, )"
-            },
-            "SendGrid.CSharp.HTTP.Client": {
-              "target": "Package",
-              "version": "[3.4.12, )"
             }
           },
           "imports": [

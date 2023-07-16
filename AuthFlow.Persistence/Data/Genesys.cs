@@ -2,13 +2,19 @@
 
 namespace AuthFlow.Persistence.Data
 {
+    // The Genesys class is an internal helper class used for generating initial user data.
     internal class Genesys
     {
+        // GetUsers method generates a list of User entities to be initially populated in the database.
         public static List<User> GetUsers()
         {
+            // Common password for all initial users.
             var commonPassword = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
+
+            // Define initial users
             var users = new List<User>
-                {
+            {
+                // The properties of each user are set here including the Username, Password, Email, CreatedAt, UpdatedAt, and Active status.
                     new User { Username = "luis.nino", Password = commonPassword, Email = "luis.nino@email.com", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now, Active = false },
                     new User { Username = "maria.perez", Password = commonPassword, Email = "maria.perez@email.com", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now, Active = false },
                     new User { Username = "juan.gomez", Password = commonPassword, Email = "juan.gomez@email.com", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now, Active = false },
@@ -24,6 +30,7 @@ namespace AuthFlow.Persistence.Data
                     new User { Username = "andres.morales", Password = commonPassword, Email = "andres.morales@email.com", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now, Active = false },
                     new User { Username = "irene.gil", Password = commonPassword, Email = "irene.gil@email.com", CreatedAt = DateTime.Now, UpdatedAt = DateTime.Now, Active = false },
                 };
+            // Return the list of initial users
             return users;
         }
     }

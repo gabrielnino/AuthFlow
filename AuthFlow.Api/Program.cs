@@ -8,10 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AuthFlow.Application.Interfaces;
 using AuthFlow.Infraestructure.ExternalServices;
-using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
-using AuthFlow.Application.Uses_cases.Interface.Operations;
 using AuthFlow.Infraestructure.Operations;
-using Microsoft.Extensions.Caching.Distributed;
+using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.Operations;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
@@ -20,10 +19,6 @@ builder.Services.AddScoped<IUserRepository, UsersRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-//builder.Services.AddScoped<IDistributedCache, MemoryDistributedCache>();
-
-
-
 builder.Services.AddScoped<IOtpService, OtpService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

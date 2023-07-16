@@ -1,6 +1,6 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
-using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories.Abstract;
@@ -22,11 +22,13 @@ namespace AuthFlow.Infraestructure.Repositories
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
         private readonly IConfiguration _configuration;
+        // The constructor initializes context, externalLogService and configuration properties
         public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration) : base(context, externalLogService)
         {
             _configuration = configuration;
         }
 
+        // Login method is responsible for authenticating the user based on the provided username and password
         public async Task<OperationResult<string>> Login(string? username, string? password)
         {
             try
@@ -64,7 +66,8 @@ namespace AuthFlow.Infraestructure.Repositories
             }
         }
 
-        // Override the ValidateEntity method to provide custom validation logic for the User entity
+        // AddEntity method adds a new User entity to the database
+        // This method also validates the entity before adding it to the database
         internal override async Task<OperationResult<User>> AddEntity(User entity)
         {
 
@@ -106,7 +109,8 @@ namespace AuthFlow.Infraestructure.Repositories
             return OperationResult<User>.Success(entityAdd);
         }
 
-        // Override the CallEntity method to customize the entity before modification T entityModified, T entityUnmodified
+        // ModifyEntity method modifies an existing User entity in the database
+        // This method also validates the updated entity before updating it in the database
         internal override async Task<OperationResult<User>> ModifyEntity(User entityModified, User entityUnmodified)
         {
             var validatorModified = new ModifiedUserRequestRules();
@@ -159,17 +163,24 @@ namespace AuthFlow.Infraestructure.Repositories
             return OperationResult<User>.Success(entityUnmodified, successMessage);
         }
 
+        // GetPredicate method builds a predicate based on the provided filter
+        // This predicate can be used to filter the User entities from the database
+
         internal override Expression<Func<User, bool>> GetPredicate(string filter)
         {
             filter = filter.ToLower();
             return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
         }
 
+        // IsValidEmail method checks if the provided email string is a valid email format
+
         private bool IsValidEmail(string email)
         {
             var emailPattern = @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)*\w+[\w-]$";
             return Regex.IsMatch(email, emailPattern);
         }
+
+        // GetUser method creates a new User entity with the provided details
 
         private static User GetUser(User entity)
         {
@@ -184,6 +195,8 @@ namespace AuthFlow.Infraestructure.Repositories
             };
         }
 
+        // GetErrorMessage method generates an error message string from a ValidationResult object
+
         private static string GetErrorMessage(ValidationResult result)
         {
             var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
@@ -196,6 +209,10 @@ namespace AuthFlow.Infraestructure.Repositories
 
             return errorMessage;
         }
+
+
+        // ComputeSha256Hash method generates the SHA256 hash of a provided string
+        // This method is used to hash the password before storing it in the database
 
         private static string ComputeSha256Hash(string rawData)
         {
@@ -213,6 +230,8 @@ namespace AuthFlow.Infraestructure.Repositories
 
             return builder.ToString();
         }
+
+        // GenerateToken method generates a JWT token for the authenticated user
 
         private string GenerateToken(User user)
         {

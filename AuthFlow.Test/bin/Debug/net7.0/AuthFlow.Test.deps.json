@@ -860,14 +860,6 @@
       },
       "NUnit.Analyzers/3.5.0": {},
       "NUnit3TestAdapter/4.3.0": {},
-      "SendGrid.CSharp.HTTP.Client/3.4.12": {
-        "runtime": {
-          "lib/net45/SendGrid.CSharp.HTTP.Client.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "System.Buffers/4.5.1": {},
       "System.Collections/4.0.11": {
         "dependencies": {
@@ -1350,8 +1342,7 @@
           "AuthFlow.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.Extensions.Http": "7.0.0",
-          "Newtonsoft.Json": "9.0.1",
-          "SendGrid.CSharp.HTTP.Client": "3.4.12"
+          "Newtonsoft.Json": "9.0.1"
         },
         "runtime": {
           "AuthFlow.Infraestructure.dll": {}
@@ -1765,13 +1756,6 @@
       "sha512": "sha512-oXlDbkGW01VPPgI8P/XQ+PZHqaJoWtV90WuAkR0yN8HC3hiPivy2AaBZP3lqOql4RFqdxvF5qYSuaeWI+7/wGg==",
       "path": "nunit3testadapter/4.3.0",
       "hashPath": "nunit3testadapter.4.3.0.nupkg.sha512"
-    },
-    "SendGrid.CSharp.HTTP.Client/3.4.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MQ2WJx0ST5JzrHDRA8+d+5NHJTI8p+/MTA7J8SY5NtMiH3wYgLjHhrZHXRtd1vh+3cXSeyRM/VYbmTbqC0Aa/A==",
-      "path": "sendgrid.csharp.http.client/3.4.12",
-      "hashPath": "sendgrid.csharp.http.client.3.4.12.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
