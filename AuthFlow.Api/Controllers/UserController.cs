@@ -29,6 +29,7 @@ namespace AuthFlow.Api.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         // Gets all Users. Endpoint: GET api/User/GetUsersAll bt filter
         [HttpGet("[action]/{pageNumber}/{pageSize}/{filter}")]
         public async Task<IActionResult> GetPageByFilter(int pageNumber, int pageSize, string filter)
@@ -38,6 +39,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
+        [Authorize]
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
         [HttpGet("[action]/{pageNumber}/{pageSize}")]
         public async Task<IActionResult> GetPage(int pageNumber, int pageSize)
@@ -47,6 +49,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
+        [Authorize]
         // Gets all Users. Endpoint: GET api/User/GetCount by filter
         [HttpGet("[action]/{filter}")]
         public async Task<IActionResult> GetCountByFilter(string filter)
@@ -56,6 +59,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<int>.Success(count, result.Message));
         }
 
+        [Authorize]
         // Gets all Users. Endpoint: GET api/User/Get Count
         [HttpGet("[action]")]
         public async Task<IActionResult> GetCount()
@@ -65,6 +69,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<int>.Success(count, result.Message));
         }
 
+        [Authorize]
         // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetUserById(int id)
@@ -74,6 +79,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<User>.Success(resultDTO.FirstOrDefault(), result.Message));
         }
 
+        [Authorize]
         // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
         [HttpGet("[action]/{email}")]
         public async Task<IActionResult> GenerateOtp(string email)
@@ -82,6 +88,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
         [HttpGet("[action]/{email}/{otp}")]
         public async Task<IActionResult> ValidateOtp(string email, string otp)
