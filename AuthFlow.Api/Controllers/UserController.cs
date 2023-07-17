@@ -5,6 +5,7 @@ using AuthFlow.Domain.DTO;
 using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Interfaces;
 using AuthFlow.Application.Use_cases.Interface.Operations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AuthFlow.Api.Controllers
 {
@@ -91,6 +92,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
@@ -109,6 +111,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+       
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(Credential credential)
