@@ -29,7 +29,7 @@ namespace AuthFlow.Api.Controllers
             _mapper = mapper;
         }
 
-        // Gets all Users. Endpoint: GET api/User/GetUsersAll
+        // Gets all Users. Endpoint: GET api/User/GetUsersAll bt filter
         [HttpGet("[action]/{pageNumber}/{pageSize}/{filter}")]
         public async Task<IActionResult> GetPageByFilter(int pageNumber, int pageSize, string filter)
         {
@@ -47,7 +47,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
-        // Gets all Users. Endpoint: GET api/User/GetUsersAll
+        // Gets all Users. Endpoint: GET api/User/GetCount by filter
         [HttpGet("[action]/{filter}")]
         public async Task<IActionResult> GetCountByFilter(string filter)
         {
@@ -56,7 +56,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<int>.Success(count, result.Message));
         }
 
-        // Gets all Users. Endpoint: GET api/User/GetUsersAll
+        // Gets all Users. Endpoint: GET api/User/Get Count
         [HttpGet("[action]")]
         public async Task<IActionResult> GetCount()
         {
@@ -69,12 +69,10 @@ namespace AuthFlow.Api.Controllers
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var result = await _usersRepository.GetAllByFilter(u => u.Id.Equals(id));
+            var result = await _usersRepository.GetUserById(id);
             var resultDTO = _mapper.Map<List<User>>(result.Data);
             return Ok(OperationResult<User>.Success(resultDTO.FirstOrDefault(), result.Message));
         }
-
-
 
         // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
         [HttpGet("[action]/{email}")]
@@ -100,7 +98,7 @@ namespace AuthFlow.Api.Controllers
             var password = addUserRequest?.Password;
             var user = new Domain.Entities.User()
             {
-                Username = addUserRequest.Username,
+                Username = addUserRequest?.Username,
                 Password = password,
                 Email = addUserRequest?.Email,
                 CreatedAt = DateTime.Now,
@@ -110,7 +108,6 @@ namespace AuthFlow.Api.Controllers
             var result = await _usersRepository.Add(user);
             return Ok(result);
         }
-
        
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]

@@ -202,6 +202,33 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
+        // This method retrieves all entities from the database that match the provided filter expression.
+        public new async Task<OperationResult<T>> GetUserById(int id)
+        {
+            try
+            {
+                // Get entities from the database based on the provided filter expression
+                var validationResult = await ValidateExist(id);
+
+                // If validation is not successful, return a failure operation result
+                if (!validationResult.IsSuccessful)
+                {
+                    var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
+                    return OperationResult<T>.Failure(messageExist);
+                }
+
+                var entity = validationResult.Data;
+                // Return a success operation result
+                var messageSuccessfully = Resource.GlobalOkMessage;
+                return OperationResult<T>.Success(entity, messageSuccessfully);
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<T>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
 
         // This method retrieves all entities from the database that match the provided filter expression.
         public new async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)

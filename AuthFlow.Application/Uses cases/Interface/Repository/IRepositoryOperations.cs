@@ -11,6 +11,11 @@ namespace AuthFlow.Application.Repositories.Interface.Repository
     // It contains methods for the basic CRUD operations as well as other common operations for entities in a repository.
     public interface IRepositoryOperations<T> where T : class, IEntity
     {
+
+        // The GetUserById method returns the entity by Id.
+        // It takes a lambda expression that represents a condition the entities should meet.
+        Task<OperationResult<T>> GetUserById(int id);
+
         // The GetAllByFilter method returns all entities of type T that satisfy the provided predicate.
         // It takes a lambda expression that represents a condition the entities should meet.
         Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate);
