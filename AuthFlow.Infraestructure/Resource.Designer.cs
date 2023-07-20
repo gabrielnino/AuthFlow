@@ -151,6 +151,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The given username is not in a valid format.
+        /// </summary>
+        internal static string FailedUsernameInvalidFormat {
+            get {
+                return ResourceManager.GetString("FailedUsernameInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user was not found - unable to create the session..
         /// </summary>
         internal static string FailedUserNotFound {

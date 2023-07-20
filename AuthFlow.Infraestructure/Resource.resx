@@ -147,6 +147,9 @@
   <data name="FailedUserDoesNotExist" xml:space="preserve">
     <value>The user does not exist.</value>
   </data>
+  <data name="FailedUsernameInvalidFormat" xml:space="preserve">
+    <value>The given username is not in a valid format</value>
+  </data>
   <data name="FailedUserNotFound" xml:space="preserve">
     <value>The user was not found - unable to create the session.</value>
   </data>

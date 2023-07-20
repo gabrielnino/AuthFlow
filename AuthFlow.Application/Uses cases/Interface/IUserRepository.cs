@@ -18,5 +18,17 @@ namespace AuthFlow.Application.Repositories.Interface
         // The result encapsulates a string which is the token if the login was successful or null if it was unsuccessful.
         // The implementation of this method should handle the actual process of user authentication.
         Task<OperationResult<string>> Login(string? username, string? password);
+
+        // Method: ValidateEmail
+        // Checks the validity of the provided email.
+        // This method takes in an email, and returns an OperationResult.
+        // The specific process of email validation should be implemented in the method that implements this interface.
+        Task<OperationResult<bool>> ValidateEmail(string? email);
+
+        // Method: ValidateUsername
+        // Checks the validity of the provided username.
+        // This method takes in a username, and returns an OperationResult.
+        // The specific process of username validation should be implemented in the method that implements this interface.
+        Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username);
     }
 }

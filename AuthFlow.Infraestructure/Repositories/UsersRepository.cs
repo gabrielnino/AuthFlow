@@ -51,7 +51,7 @@ namespace AuthFlow.Infraestructure.Repositories
                 {
                     return OperationResult<string>.Failure(Resource.UserFailedPassword);
                 }
-                
+
                 var token = GenerateToken(user);
 
                 //// Return a success operation result
@@ -82,7 +82,7 @@ namespace AuthFlow.Infraestructure.Repositories
                 return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
-            if(!IsValidEmail(entity?.Email))
+            if (!IsValidEmail(entity?.Email))
             {
                 return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat);
             }
@@ -180,6 +180,14 @@ namespace AuthFlow.Infraestructure.Repositories
             return Regex.IsMatch(email, emailPattern);
         }
 
+        // IsUser method checks if the provided username string is a valid username format
+        private bool IsUser(string user)
+        {
+            var emailPattern = @"^[a-zA-Z0-9.]{0,100}$";
+            return Regex.IsMatch(user, emailPattern);
+        }
+
+
         // GetUser method creates a new User entity with the provided details
 
         private static User GetUser(User entity)
@@ -253,5 +261,136 @@ namespace AuthFlow.Infraestructure.Repositories
 
             return new JwtSecurityTokenHandler().WriteToken(securitytoken);
         }
+
+        public async Task<OperationResult<bool>> ValidateEmail(string? email)
+        {
+            try
+            {
+                if (!IsValidEmail(email))
+                {
+                    return OperationResult<bool>.Failure(Resource.FailedEmailInvalidFormat);
+                }
+
+                // Check if the email is already registered by another user
+                var userByEmail = await base.GetAllByFilter(p => p.Email == email);
+                var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
+                if (userExistByEmail is not null)
+                {
+                    return OperationResult<bool>.Failure(Resource.FailedAlreadyRegisteredEmail);
+                }
+
+                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
+
+        private static List<string> GetCommonWords()
+        {
+            return new List<string>()
+            {
+                "User",
+                "Star",
+                "Moon",
+                "Sun",
+                "Planet",
+                "Light",
+                "Night",
+                "Day",
+                "Bright",
+                "Dark",
+                "Shadow",
+                "Dream",
+                "Storm",
+                "Ocean",
+                "Mountain",
+                "River",
+                "Cloud",
+                "Spark",
+                "Fire",
+                "Ice"
+            };
+        }
+
+        private static List<string> GenerateUsernameSuggestions(string username)
+        {
+            var random = new Random();
+            var suggestions = new List<string>
+            {
+                $"{username}.AuthFlow"
+            };
+
+            do
+            {
+                var isNumberSuffix = random.Next(0, 2).Equals(1);
+                // Generate a 4-digit random number
+                var suffix = isNumberSuffix ? GetNumber(random) : GetCommonWord(random);
+                // Append the suffix to the original username
+                var suggestion = $"{username}.{suffix}";
+                suggestions.Add(suggestion);
+            } while (suggestions.Count < 100);
+
+            return suggestions;
+        }
+
+        private static string GetNumber(Random random)
+        {
+            return random.Next(1000, 9999).ToString();
+        }
+
+        private static string GetCommonWord(Random random)
+        {
+            var commonWords = GetCommonWords();
+            var indexCommonWord = random.Next(commonWords.Count());
+            return commonWords[indexCommonWord];
+        }
+
+        public async Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username)
+        {
+            try
+            {
+                if (!IsUser(username))
+                {
+                    return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedUsernameInvalidFormat);
+                }
+
+                // Check if the username is already registered by another user
+                var userByUserName = await base.GetAllByFilter(p => p.Username.Equals(username));
+                var userExistByUserName = userByUserName?.Data?.FirstOrDefault();
+                if (userExistByUserName is not null)
+                {
+                    var userSuggestions = GenerateUsernameSuggestions(username);
+                    var userList = new List<string>();
+                    var index = 0;
+                    do
+                    {
+                        var userSuggestion = userSuggestions[index];
+                        var user = await base.GetAllByFilter(p => p.Username.Equals(userSuggestion));
+                        if (user.IsSuccessful.Equals(true) && user.Data.Count().Equals(0))
+                        {
+                            userList.Add(userSuggestion);
+                        }
+                        index++;
+                    } while (userList.Count()<10);
+
+                    var resultFailed = new Tuple<bool, IEnumerable<string>>(false, userList);
+                    return OperationResult<Tuple<bool, IEnumerable<string>>>.Success(resultFailed, Resource.FailedAlreadyRegisteredUser);
+                }
+
+                var resultOk = new Tuple<bool, IEnumerable<string>>(true, new List<string>());
+                return OperationResult<Tuple<bool, IEnumerable<string>>>.Success(resultOk, Resource.GlobalOkMessage);
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedOccurredDataLayer);
+            }
+        }
+
     }
 }
