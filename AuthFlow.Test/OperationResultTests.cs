@@ -29,10 +29,11 @@ namespace AuthFlow.Application.Tests
             var message = "Operation failed";
 
             // When
-            var result = OperationResult<string>.Failure(message);
+            var result = OperationResult<string>.Failure(message, ErrorTypes.BusinessValidationError);
 
             // Then
             result.Message.Should().Be(message);
+            result.ErrorTypes.Should().Be(ErrorTypes.BusinessValidationError);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().Be(null);
 

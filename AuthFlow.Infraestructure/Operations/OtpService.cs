@@ -51,7 +51,7 @@ namespace AuthFlow.Infraestructure.Operations
                 if (!result.IsSuccessful)
                 {
                     // If the email sending fails, return a failure result
-                    return OperationResult<bool>.Failure(result.Message);
+                    return OperationResult<bool>.Failure(result.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 // Return a success result if the OTP is generated and sent successfully
@@ -62,7 +62,7 @@ namespace AuthFlow.Infraestructure.Operations
                 // Log the error and return a failure result if there's an exception
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOtpService);
+                return OperationResult<bool>.Failure(Resource.FailedOtpService, ErrorTypes.DatabaseError);
             }
         }
 
@@ -106,7 +106,7 @@ namespace AuthFlow.Infraestructure.Operations
                 // Log the error and return a failure result if there's an exception
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOtpService);
+                return OperationResult<bool>.Failure(Resource.FailedOtpService, ErrorTypes.DatabaseError);
             }
         }
 

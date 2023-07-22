@@ -35,7 +35,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
-                    return OperationResult<string>.Failure(Resource.FailedNecesaryData);
+                    return OperationResult<string>.Failure(Resource.FailedNecesaryData, ErrorTypes.BusinessValidationError);
                 }
 
                 // Get entities from the database based on the provided filter expression
@@ -43,13 +43,13 @@ namespace AuthFlow.Infraestructure.Repositories
                 var user = result?.Data?.FirstOrDefault();
                 if (user is null)
                 {
-                    return OperationResult<string>.Failure(Resource.FailedUserNotFound);
+                    return OperationResult<string>.Failure(Resource.FailedUserNotFound, ErrorTypes.BusinessValidationError);
                 }
 
                 var passwordCipher = ComputeSha256Hash(password);
                 if (!passwordCipher.Equals(user.Password))
                 {
-                    return OperationResult<string>.Failure(Resource.UserFailedPassword);
+                    return OperationResult<string>.Failure(Resource.UserFailedPassword, ErrorTypes.BusinessValidationError);
                 }
 
                 var token = GenerateToken(user);
@@ -62,7 +62,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<string>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<string>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -79,12 +79,12 @@ namespace AuthFlow.Infraestructure.Repositories
             if (!result.IsValid)
             {
                 var errorMessage = GetErrorMessage(result);
-                return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
+                return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage), ErrorTypes.BusinessValidationError);
             }
 
             if (!IsValidEmail(entity?.Email))
             {
-                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat);
+                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat, ErrorTypes.BusinessValidationError);
             }
 
             // Check if the email is already registered by another user
@@ -92,7 +92,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
             if (userExistByEmail is not null)
             {
-                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredEmail);
+                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredEmail, ErrorTypes.BusinessValidationError);
             }
 
             // Check if the username is already registered by another user
@@ -100,7 +100,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var userExistByUserName = userByUserName?.Data?.FirstOrDefault();
             if (userExistByUserName is not null)
             {
-                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredUser);
+                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredUser, ErrorTypes.BusinessValidationError);
             }
 
             User entityAdd = GetUser(entity);
@@ -119,12 +119,12 @@ namespace AuthFlow.Infraestructure.Repositories
             if (!result.IsValid)
             {
                 var errorMessage = GetErrorMessage(result);
-                return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
+                return OperationResult<User>.Failure(string.Format(Resource.FailedDataSizeCharacter, errorMessage), ErrorTypes.BusinessValidationError);
             }
 
             if (!IsValidEmail(entityModified?.Email))
             {
-                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat);
+                return OperationResult<User>.Failure(Resource.FailedEmailInvalidFormat, ErrorTypes.BusinessValidationError);
             }
 
             // Check if the email is already registered by another user
@@ -132,7 +132,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
             if (userExistByEmail is not null)
             {
-                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredEmail);
+                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredEmail, ErrorTypes.BusinessValidationError);
             }
 
             // Check if the username is already registered by another user
@@ -140,7 +140,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var userExistByUserName = userByUserName?.Data?.FirstOrDefault();
             if (userExistByUserName is not null)
             {
-                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredUser);
+                return OperationResult<User>.Failure(Resource.FailedAlreadyRegisteredUser, ErrorTypes.BusinessValidationError);
             }
 
             // Update the username, email, and active status if they are different from the provided entity
@@ -268,7 +268,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 if (!IsValidEmail(email))
                 {
-                    return OperationResult<bool>.Failure(Resource.FailedEmailInvalidFormat);
+                    return OperationResult<bool>.Failure(Resource.FailedEmailInvalidFormat, ErrorTypes.DatabaseError);
                 }
 
                 // Check if the email is already registered by another user
@@ -276,7 +276,7 @@ namespace AuthFlow.Infraestructure.Repositories
                 var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
                 if (userExistByEmail is not null)
                 {
-                    return OperationResult<bool>.Failure(Resource.FailedAlreadyRegisteredEmail);
+                    return OperationResult<bool>.Failure(Resource.FailedAlreadyRegisteredEmail, ErrorTypes.DatabaseError);
                 }
 
                 return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
@@ -285,7 +285,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -355,7 +355,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 if (!IsUser(username))
                 {
-                    return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedUsernameInvalidFormat);
+                    return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedUsernameInvalidFormat, ErrorTypes.DatabaseError);
                 }
 
                 // Check if the username is already registered by another user
@@ -388,7 +388,7 @@ namespace AuthFlow.Infraestructure.Repositories
             {
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<Tuple<bool, IEnumerable<string>>>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 

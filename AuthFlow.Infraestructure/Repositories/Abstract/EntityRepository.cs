@@ -29,14 +29,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return OperationResult<int>.Failure(hasEntity.Message);
+                    return OperationResult<int>.Failure(hasEntity.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 // Validate the entity
                 var validationResult = await AddEntity(entity);
                 if (!validationResult.IsSuccessful)
                 {
-                    return OperationResult<int>.Failure(validationResult?.Message);
+                    return OperationResult<int>.Failure(validationResult?.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 // If validation is successful, add the entity to the database
@@ -50,7 +50,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, entity, OperationExecute.Add);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.BusinessValidationError);
             }
         }
 
@@ -62,19 +62,19 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return OperationResult<bool>.Failure(hasEntity.Message);
+                    return OperationResult<bool>.Failure(hasEntity.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 var resultExist = await ValidateExist(entity.Id);
                 if (!resultExist.IsSuccessful)
                 {
-                    return OperationResult<bool>.Failure(resultExist.Message);
+                    return OperationResult<bool>.Failure(resultExist.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 var resultModifyEntity = await ModifyEntity(entity, resultExist.Data);
                 if (!resultModifyEntity.IsSuccessful)
                 {
-                    return OperationResult<bool>.Failure(resultModifyEntity.Message);
+                    return OperationResult<bool>.Failure(resultModifyEntity.Message, ErrorTypes.BusinessValidationError);
                 }
 
                 // If validation is successful, update the entity in the database
@@ -91,7 +91,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, entity, OperationExecute.Modified);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -107,7 +107,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.GenericToActiveNotExist, typeof(T).Name);
-                    return OperationResult<bool>.Failure(messageExist);
+                    return OperationResult<bool>.Failure(messageExist, ErrorTypes.BusinessValidationError);
                 }
 
                 // If validation is successful, set the entity as active
@@ -127,7 +127,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, id, OperationExecute.Activate);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -145,7 +145,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
-                    return OperationResult<bool>.Failure(messageExist);
+                    return OperationResult<bool>.Failure(messageExist, ErrorTypes.BusinessValidationError);
                 }
 
                 // If validation is successful, set the entity as inactive
@@ -165,7 +165,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, id, OperationExecute.Deactivate);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -181,7 +181,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.GenericToDeleteNotExist, typeof(T).Name);
-                    return OperationResult<bool>.Failure(messageExist);
+                    return OperationResult<bool>.Failure(messageExist, ErrorTypes.BusinessValidationError);
                 }
 
                 // If validation is successful, delete the entity from the database
@@ -198,7 +198,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, id, OperationExecute.Remove);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -214,7 +214,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
-                    return OperationResult<T>.Failure(messageExist);
+                    return OperationResult<T>.Failure(messageExist, ErrorTypes.BusinessValidationError);
                 }
 
                 var entity = validationResult.Data;
@@ -226,7 +226,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<T>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<T>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.BusinessValidationError);
             }
         }
 
@@ -248,7 +248,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -272,7 +272,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<IQueryable<T>>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -295,7 +295,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, "GetCountByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -319,7 +319,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer);
+                return OperationResult<int>.Failure(Resource.FailedOccurredDataLayer, ErrorTypes.DatabaseError);
             }
         }
 
@@ -349,7 +349,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             if (entity is null)
             {
-                return OperationResult<T>.Failure(Resource.FailedNecesaryData);
+                return OperationResult<T>.Failure(Resource.FailedNecesaryData, ErrorTypes.BusinessValidationError);
             }
             return OperationResult<T>.Success(entity,Resource.GlobalOkMessage);
         }
@@ -361,7 +361,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             // Validate the provided ID
             if (id.Equals(0))
             {
-                return OperationResult<T>.Failure(Resource.FailedNecesaryData);
+                return OperationResult<T>.Failure(Resource.FailedNecesaryData, ErrorTypes.BusinessValidationError);
             }
 
             // Get the existing user from the repository
@@ -370,7 +370,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             var hasEntity = entityUnmodified is not null;
             if (!hasEntity)
             {
-                return OperationResult<T>.Failure(Resource.FailedNecesaryData);
+                return OperationResult<T>.Failure(Resource.FailedNecesaryData, ErrorTypes.BusinessValidationError);
             }
 
             // If the entity exists, return a success operation result

@@ -12,6 +12,8 @@ namespace AuthFlow.Application.DTOs
         // This may be null if no message is set.
         public string? Message { get; set; }
 
+        public ErrorTypes? ErrorTypes { get; set; }
+
         // The actual data associated with the operation result. This can be any type as specified by T.
         // This may be null if no data is associated with the operation.
         public T? Data { get; set; }
@@ -26,9 +28,9 @@ namespace AuthFlow.Application.DTOs
 
         // Factory method for creating a failed operation result with the given message.
         // "message" parameter is a failure message describing the reason of operation failure
-        public static OperationResult<T> Failure(string message)
+        public static OperationResult<T> Failure(string message, ErrorTypes errorTypes)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message };
+            return new OperationResult<T> { IsSuccessful = false, Message = message, ErrorTypes = errorTypes };
         }
     }
 }
