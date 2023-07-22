@@ -321,7 +321,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var random = new Random();
             var suggestions = new List<string>
             {
-                $"{username}.AuthFlow"
+                $"{username}.authflow"
             };
 
             do
@@ -346,7 +346,7 @@ namespace AuthFlow.Infraestructure.Repositories
         {
             var commonWords = GetCommonWords();
             var indexCommonWord = random.Next(commonWords.Count());
-            return commonWords[indexCommonWord];
+            return commonWords[indexCommonWord].ToLower();
         }
 
         public async Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username)

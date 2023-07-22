@@ -97,7 +97,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        //[Authorize]
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
@@ -172,21 +172,21 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
+        // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
+        [HttpGet("[action]/{username}")]
+        public async Task<IActionResult> ValidateUsername(string username)
+        {
+            var result = await _usersRepository.ValidateUsername(username);
+            return Ok(result);
+        }
+
         //[Authorize]
         // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
         [HttpGet("[action]/{email}")]
         public async Task<IActionResult> ValidateEmail(string? email)
         {
             var result = await _usersRepository.ValidateEmail(email);
-            return Ok(result);
-        }
-
-        //[Authorize]
-        // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
-        [HttpGet("[action]/{username}")]
-        public async Task<IActionResult> ValidateUsername(string username)
-        {
-            var result = await _usersRepository.ValidateUsername(username);
             return Ok(result);
         }
     }
