@@ -39,7 +39,7 @@ namespace AuthFlow.Infraestructure.Repositories
                 }
 
                 // Get entities from the database based on the provided filter expression
-                var result = await base.GetAllByFilter(u => u.Username.Equals(username));
+                var result = await base.GetAllByFilter(u => u.Username.Equals(username) || u.Email.Equals(username));
                 var user = result?.Data?.FirstOrDefault();
                 if (user is null)
                 {
