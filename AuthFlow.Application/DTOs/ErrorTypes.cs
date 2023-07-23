@@ -3,6 +3,7 @@
     public enum ErrorTypes
     {
         DatabaseError,
+        ExternalServicesError,
         BusinessValidationError,
         NetworkError,
         UserInputError,

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http.Headers;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+using Microsoft.Extensions.Configuration;
 
 // The namespace for external services in the infrastructure layer
 namespace AuthFlow.Infraestructure.ExternalServices
@@ -10,18 +11,22 @@ namespace AuthFlow.Infraestructure.ExternalServices
     // The LogService class handles the interactions with the logging service
     public class LogService : ILogService
     {
+        private readonly IConfiguration _configuration;
         // Constants for the user and password
-        private const string user = "admin";
-        private const string password = "xxnDBVrrFUhVvPWQPh7LuunDBVccFUhVvooQQWQPh7L";
+        private readonly string username;
+        private readonly string password;
 
         // HttpClient is a modern, fast and highly configurable class used for sending HTTP requests and receiving HTTP responses from a resource identified by a URI
         private readonly HttpClient _client;
 
         // Constructor that takes an IHttpClientFactory as a parameter
-        public LogService(IHttpClientFactory clientFactory)
+        public LogService(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             // Create an HttpClient instance from the factory
             _client = clientFactory.CreateClient();
+            _configuration = configuration;
+            username = _configuration.GetSection("mongodb:username").Value ?? string.Empty;
+            password = _configuration.GetSection("mongodb:password").Value ?? string.Empty;
         }
 
         // Asynchronously creates a log entry in the external log service
@@ -42,7 +47,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
         private async Task<string> GetToken()
         {
             // Create the url for the token request
-            var url = $"https://localhost:7060/api/Log/Login?user={user}&password={password}";
+            var url = $"https://localhost:7060/api/Log/Login?user={username}&password={password}";
 
             // Send a POST request to the url
             var response = await _client.PostAsync(url, null);

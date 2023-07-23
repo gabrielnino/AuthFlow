@@ -59,7 +59,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
                 // Log the error and return a failure result if there's an exception
                 var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.Failure(Resource.FailedRecaptchaService, ErrorTypes.DatabaseError);
+                return OperationResult<bool>.FailureExtenalService(Resource.FailedRecaptchaService);
             }
         }
 
