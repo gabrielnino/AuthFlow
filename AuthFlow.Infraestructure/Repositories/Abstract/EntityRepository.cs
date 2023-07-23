@@ -219,7 +219,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
                 var entity = validationResult.Data;
                 // Return a success operation result
-                var messageSuccessfully = Resource.GlobalOkMessage;
+                var messageSuccessfully = Resource.SuccessfullyFind;
                 return OperationResult<T>.Success(entity, messageSuccessfully);
             }
             catch (Exception ex)

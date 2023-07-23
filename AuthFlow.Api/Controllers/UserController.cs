@@ -97,7 +97,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> CreateEntity(AddUserRequest addUserRequest)
@@ -115,6 +115,7 @@ namespace AuthFlow.Api.Controllers
             var result = await _usersRepository.Add(user);
             return Ok(result);
         }
+
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> Login(Credential credential)
@@ -123,7 +124,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         // Creates a User. Endpoint: POST api/User
         [HttpPost("[action]")]
         public async Task<IActionResult> ReCaptcha(ReCaptcha token)
@@ -132,6 +133,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Updates a specific User. Endpoint: PUT api/User
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Update(int id, ModifiedUserRequest modifiedUserRequest)
@@ -148,6 +150,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> ActivateUser(int id)
@@ -156,6 +159,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Disables a specific User by ID. Endpoint: GET api/User/DisableUser/{id}
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> DisableUser(int id)
@@ -164,6 +168,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         // Deletes a specific User by ID. Endpoint: DELETE api/User/Delete/{id}
         [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -181,7 +186,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
-        //[Authorize]
+        [Authorize]
         // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
         [HttpGet("[action]/{email}")]
         public async Task<IActionResult> ValidateEmail(string? email)

@@ -23,6 +23,8 @@
             {
                 case ErrorTypes.DatabaseError:
                     return "DATABASE_ERROR";
+                case ErrorTypes.ExternalServicesError:
+                    return "EXTERNAL_SERVICE_ERROR";
                 case ErrorTypes.BusinessValidationError:
                     return "BUSINESS_VALIDATION_ERROR";
                 case ErrorTypes.NetworkError:
@@ -46,5 +48,4 @@
             }
         }
     }
-
 }

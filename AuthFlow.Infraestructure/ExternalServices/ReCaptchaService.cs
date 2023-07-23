@@ -52,7 +52,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
                 var jsonData = JsonConvert.DeserializeObject<ReCaptchaResponse>(jsonString);
 
                 // Return the result of the validation
-                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyRecaptcha);
             }
             catch (Exception ex)
             {

@@ -55,7 +55,7 @@ namespace AuthFlow.Infraestructure.Operations
                 }
 
                 // Return a success result if the OTP is generated and sent successfully
-                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyOTPGenerate);
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace AuthFlow.Infraestructure.Operations
                 }
 
                 // Return a success result if the OTP is validated successfully
-                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyOTPValidate);
             }
             catch (Exception ex)
             {

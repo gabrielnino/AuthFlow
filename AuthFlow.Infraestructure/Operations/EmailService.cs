@@ -38,13 +38,13 @@ namespace AuthFlow.Infraestructure.Operations
                 // Prepare the mail message
                 using (var mailMessage = new MailMessage())
                 {
-                    mailMessage.From = new MailAddress(mailAddress);
+                    mailMessage.From = new MailAddress(mailAddress ?? string.Empty);
                     mailMessage.Subject = subject;
                     mailMessage.Body = message;
                     mailMessage.To.Add(email);
 
                     // Send the email via SMTP
-                    using (var client = new SmtpClient(smtp, int.Parse(port)))
+                    using (var client = new SmtpClient(smtp, int.Parse(port ?? "0000")))
                     {
                         client.Credentials = new NetworkCredential(username, password);
                         client.EnableSsl = true;
@@ -52,7 +52,7 @@ namespace AuthFlow.Infraestructure.Operations
                     };
                 };
                 // Return the result of the operation
-                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyEmail);
             }
             catch (Exception ex)
             {

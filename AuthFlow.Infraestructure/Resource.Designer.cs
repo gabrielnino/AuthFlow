@@ -232,6 +232,24 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email was sent successfully..
+        /// </summary>
+        internal static string SuccessfullyEmail {
+            get {
+                return ResourceManager.GetString("SuccessfullyEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entity was found by id successfully.
+        /// </summary>
+        internal static string SuccessfullyFind {
+            get {
+                return ResourceManager.GetString("SuccessfullyFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} was created successfully..
         /// </summary>
         internal static string SuccessfullyGeneric {
@@ -282,6 +300,33 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullyLogin {
             get {
                 return ResourceManager.GetString("SuccessfullyLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OTP code was generated successfully..
+        /// </summary>
+        internal static string SuccessfullyOTPGenerate {
+            get {
+                return ResourceManager.GetString("SuccessfullyOTPGenerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The OTP code was validated successfully..
+        /// </summary>
+        internal static string SuccessfullyOTPValidate {
+            get {
+                return ResourceManager.GetString("SuccessfullyOTPValidate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The reCAPTCHA code was validated successfully..
+        /// </summary>
+        internal static string SuccessfullyRecaptcha {
+            get {
+                return ResourceManager.GetString("SuccessfullyRecaptcha", resourceCulture);
             }
         }
         
@@ -345,6 +390,15 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullyUserUpdated {
             get {
                 return ResourceManager.GetString("SuccessfullyUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email was validated successfully..
+        /// </summary>
+        internal static string SuccessfullyValidateEmail {
+            get {
+                return ResourceManager.GetString("SuccessfullyValidateEmail", resourceCulture);
             }
         }
         
