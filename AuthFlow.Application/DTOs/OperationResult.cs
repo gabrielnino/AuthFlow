@@ -26,7 +26,6 @@ namespace AuthFlow.Application.DTOs
             return new OperationResult<T> { IsSuccessful = true, Message = message, Data = data };
         }
 
-        
         public static OperationResult<T> FailureBusinessValidation(string message)
         {
             return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.BusinessValidationError };

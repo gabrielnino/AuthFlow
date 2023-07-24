@@ -135,6 +135,9 @@
   <data name="FailedNecesaryData" xml:space="preserve">
     <value>Necessary data was not provided.</value>
   </data>
+  <data name="FailedNotRegisteredEmail" xml:space="preserve">
+    <value>This email is not registered by any user.</value>
+  </data>
   <data name="FailedOccurredDataLayer" xml:space="preserve">
     <value>An error occurred in the data layer.</value>
   </data>
@@ -212,6 +215,9 @@
   </data>
   <data name="SuccessfullySearchUser" xml:space="preserve">
     <value>The search in the User entity completed successfully.</value>
+  </data>
+  <data name="SuccessfullySetNewPassword" xml:space="preserve">
+    <value>The password was updated successfully.</value>
   </data>
   <data name="SuccessfullyUser" xml:space="preserve">
     <value>User was created successfully.</value>

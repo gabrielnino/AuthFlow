@@ -30,5 +30,7 @@ namespace AuthFlow.Application.Repositories.Interface
         // This method takes in a username, and returns an OperationResult.
         // The specific process of username validation should be implemented in the method that implements this interface.
         Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username);
+
+        Task<OperationResult<bool>> SetNewPassword(string? email, string? password);
     }
 }

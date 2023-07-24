@@ -100,5 +100,15 @@ namespace AuthFlow.Api.Controllers
             var result = await _usersRepository.Activate(id);
             return Ok(result);
         }
+        //SetNewPassword
+
+        [Authorize]
+        // Creates a User. Endpoint: POST api/User
+        [HttpGet("[action]/{email}/{password}")]
+        public async Task<IActionResult> SetNewPassword(string? email, string? password)
+        {
+            var result = await _usersRepository.SetNewPassword(email, password);
+            return Ok(result);
+        }
     }
 }

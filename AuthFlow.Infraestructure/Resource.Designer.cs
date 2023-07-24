@@ -115,6 +115,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This email is not registered by any user..
+        /// </summary>
+        internal static string FailedNotRegisteredEmail {
+            get {
+                return ResourceManager.GetString("FailedNotRegisteredEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred in the data layer..
         /// </summary>
         internal static string FailedOccurredDataLayer {
@@ -345,6 +354,15 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullySearchUser {
             get {
                 return ResourceManager.GetString("SuccessfullySearchUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password was updated successfully..
+        /// </summary>
+        internal static string SuccessfullySetNewPassword {
+            get {
+                return ResourceManager.GetString("SuccessfullySetNewPassword", resourceCulture);
             }
         }
         

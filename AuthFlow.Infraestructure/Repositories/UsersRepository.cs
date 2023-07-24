@@ -392,5 +392,34 @@ namespace AuthFlow.Infraestructure.Repositories
             }
         }
 
+        public async Task<OperationResult<bool>> SetNewPassword(string? email, string? password)
+        {
+            try
+            {
+                if (!IsValidEmail(email))
+                {
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
+                }
+
+                // Check if the email is already registered by another user
+                var userByEmail = await base.GetAllByFilter(p => p.Email == email);
+                var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
+                if (userExistByEmail is null)
+                {
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedNotRegisteredEmail);
+                }
+
+                userExistByEmail.Password = password;
+                await this.Modified(userExistByEmail);
+
+                return OperationResult<bool>.Success(true, Resource.SuccessfullySetNewPassword);
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+            }
+        }
     }
 }
