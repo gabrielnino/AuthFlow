@@ -19,14 +19,19 @@ namespace AuthFlow.Persistence.Data
             // Check if any users are already present in the database
             if (!Users.Any())
             {
-                // If no users are present, add the initial list of users to the database
-                foreach (var user in Genesys.GetUsers())
+                var users = Genesys.GetUsers();//Genesys.GetMasiveUsers();
+                var pageSize = 10000;
+                var result = (double)(users.Count()/pageSize);
+                var countPage = (int)Math.Ceiling(result);
+                for (int pageNumber = 0; pageNumber<=countPage; pageNumber++)
                 {
-                    Users.Add(user);
+                    int skip = pageNumber * pageSize;
+                    var pageUsers = users.Skip(skip)
+                      .Take(pageSize);
+                    Users.AddRange(pageUsers);
+                    SaveChanges();
                 }
-
                 // Save the changes to the database
-                SaveChanges();
             }
         }
 

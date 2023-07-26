@@ -9,7 +9,7 @@ using System.Text;
 namespace AuthFlow.Infraestructure.Operations
 {
     // The OtpService class handles operations related to OTP (One Time Password)
-    public class OtpService : IOtpService
+    public class OtpService : ILoginServices
     {
         // Dependencies injected via constructor
         private readonly Random _random = new Random();
@@ -71,7 +71,7 @@ namespace AuthFlow.Infraestructure.Operations
         {
             try
             {
-                if (string.IsNullOrEmpty(otp))
+                if (string.IsNullOrWhiteSpace(otp))
                 {
                     // If no OTP is submitted, return a failure result
                     return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotSubmitted);
@@ -86,7 +86,7 @@ namespace AuthFlow.Infraestructure.Operations
 
                 // Retrieve the OTP from the cache
                 string storeOtp = Encoding.UTF8.GetString(byteArray);
-                if (string.IsNullOrEmpty(storeOtp))
+                if (string.IsNullOrWhiteSpace(storeOtp))
                 {
                     // If no OTP is found in the cache for the given email, return a failure result
                     return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotExist);

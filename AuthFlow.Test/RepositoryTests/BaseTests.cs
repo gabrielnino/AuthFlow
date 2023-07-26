@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.Operations;
+using AuthFlow.Infraestructure.Operations;
 
 namespace AuthFlow.Test.RepositoryTests
 {
@@ -19,12 +21,15 @@ namespace AuthFlow.Test.RepositoryTests
         protected Mock<ILogService> _externalLogService;
         protected Mock<IConfiguration> _configuration;
         protected Mock<IConfigurationSection> _configurationSection;
+        protected Mock<ILoginServices> _otpService;
 
         [SetUp]
         public void Setup()
         {
             _externalLogService = new Mock<ILogService>();
             _configuration = new Mock<IConfiguration>();
+            _otpService = new Mock<ILoginServices>();
+
             _configurationSection = new Mock<IConfigurationSection>();
             _configurationSection.SetupGet(m => m.Value).Returns("ssnDBVccFUhVvPWQPh7LssnDBVccFUhVvPWQPh7L");
             _configuration.Setup(config => config.GetSection(It.IsAny<string>())).Returns(_configurationSection.Object);
@@ -33,7 +38,7 @@ namespace AuthFlow.Test.RepositoryTests
                .UseInMemoryDatabase(databaseName: "testdb")
                .Options;
             _dbContextMock =  new AuthFlowDbContext(_options);
-            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object);
+            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object, _otpService.Object);
         }
 
 

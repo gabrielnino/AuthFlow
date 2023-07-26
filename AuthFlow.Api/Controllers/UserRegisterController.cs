@@ -17,11 +17,11 @@ namespace AuthFlow.Api.Controllers
     {
         // Defines an interface for accessing User data in the repository.
         private readonly IUserRepository _usersRepository;
-        private readonly IOtpService _otpService;
+        private readonly ILoginServices _otpService;
         private readonly IReCaptchaService _reCaptchaService;
 
         // Constructor for UserController, injecting the User repository.
-        public UserRegisterController(IUserRepository usersRepository, IOtpService otpService, IReCaptchaService reCaptchaService, IConfiguration configuration, IMapper mapper)
+        public UserRegisterController(IUserRepository usersRepository, ILoginServices otpService, IReCaptchaService reCaptchaService, IConfiguration configuration, IMapper mapper)
         {
             _usersRepository = usersRepository;
             _otpService = otpService;
@@ -37,6 +37,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(result);
         }
 
+        //LoginOtp
         [Authorize]
         // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
         [HttpGet("[action]/{email}/{otp}")]
@@ -45,6 +46,7 @@ namespace AuthFlow.Api.Controllers
             var result = await _otpService.ValidateOtp(email, otp);
             return Ok(result);
         }
+
 
         [Authorize]
         // Activates a specific User by ID. Endpoint: GET api/User/ActivateUser/{id}
@@ -104,10 +106,10 @@ namespace AuthFlow.Api.Controllers
 
         [Authorize]
         // Creates a User. Endpoint: POST api/User
-        [HttpGet("[action]/{email}/{password}")]
-        public async Task<IActionResult> SetNewPassword(string? email, string? password)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> SetNewPassword(Credential credential)
         {
-            var result = await _usersRepository.SetNewPassword(email, password);
+            var result = await _usersRepository.SetNewPassword(credential.Username, credential.Password);
             return Ok(result);
         }
     }

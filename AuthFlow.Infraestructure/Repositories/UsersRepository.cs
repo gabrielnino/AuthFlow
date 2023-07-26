@@ -1,6 +1,7 @@
 ﻿using AuthFlow.Application.DTOs;
 using AuthFlow.Application.Repositories.Interface;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+using AuthFlow.Application.Use_cases.Interface.Operations;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
 using AuthFlow.Infraestructure.Repositories.Abstract;
@@ -22,18 +23,54 @@ namespace AuthFlow.Infraestructure.Repositories
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
         private readonly IConfiguration _configuration;
+        private readonly ILoginServices _otpService;
         // The constructor initializes context, externalLogService and configuration properties
-        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration) : base(context, externalLogService)
+        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration, ILoginServices otpService) : base(context, externalLogService)
         {
             _configuration = configuration;
+            _otpService = otpService;
         }
+        public async Task<OperationResult<string>> LoginOtp(string email, string otp)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(otp))
+                {
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                }
 
+                // Get entities from the database based on the provided filter expression
+                var result = await base.GetAllByFilter(u => u.Username.Equals(email) || u.Email.Equals(email));
+                var user = result?.Data?.FirstOrDefault();
+                if (user is null)
+                {
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedUserNotFound);
+                }
+
+                var resultOtp = await this._otpService.ValidateOtp(email, otp);
+                if(!resultOtp.IsSuccessful)
+                {
+                    return OperationResult<string>.FailureBusinessValidation(resultOtp.Message);
+                }
+
+                var token = GenerateToken(user);
+
+                //// Return a success operation result
+                return OperationResult<string>.Success(token, Resource.SuccessfullyLogin);
+            }
+            catch (Exception ex)
+            {
+                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                await _externalLogService.CreateLog(log);
+                return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
+            }
+        }
         // Login method is responsible for authenticating the user based on the provided username and password
         public async Task<OperationResult<string>> Login(string? username, string? password)
         {
             try
             {
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
                     return OperationResult<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
                 }
@@ -169,7 +206,7 @@ namespace AuthFlow.Infraestructure.Repositories
         internal override Expression<Func<User, bool>> GetPredicate(string filter)
         {
             filter = filter.ToLower();
-            return u => string.IsNullOrEmpty(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
+            return u => string.IsNullOrWhiteSpace(filter) || u.Username.ToLower().Contains(filter) || u.Email.ToLower().Contains(filter);
         }
 
         // IsValidEmail method checks if the provided email string is a valid email format
@@ -211,7 +248,7 @@ namespace AuthFlow.Infraestructure.Repositories
             var errorMessage = string.Empty;
             foreach (var error in errors)
             {
-                var messageValidation = string.IsNullOrEmpty(errorMessage) ? error : ", " + error;
+                var messageValidation = string.IsNullOrWhiteSpace(errorMessage) ? error : ", " + error;
                 errorMessage += messageValidation;
             }
 

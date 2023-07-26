@@ -19,7 +19,7 @@ builder.Services.AddScoped<IUserRepository, UsersRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IOtpService, OtpService>();
+builder.Services.AddScoped<ILoginServices, OtpService>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddLogging(logginBuilder =>

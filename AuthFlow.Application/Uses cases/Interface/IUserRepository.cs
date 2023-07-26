@@ -32,5 +32,7 @@ namespace AuthFlow.Application.Repositories.Interface
         Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username);
 
         Task<OperationResult<bool>> SetNewPassword(string? email, string? password);
+
+        Task<OperationResult<string>> LoginOtp(string email, string otp);
     }
 }

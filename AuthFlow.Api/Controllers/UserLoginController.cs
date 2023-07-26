@@ -31,5 +31,15 @@ namespace AuthFlow.Api.Controllers
             var result = await _usersRepository.Login(credential.Username, credential.Password);
             return Ok(result);
         }
+
+        //LoginOtp
+        [Authorize]
+        // Gets a specific User by ID. Endpoint: GET api/User/GetUserById/{id}
+        [HttpGet("[action]/{email}/{otp}")]
+        public async Task<IActionResult> LoginOtp(string email, string otp)
+        {
+            var result = await _usersRepository.LoginOtp(email, otp);
+            return Ok(result);
+        }
     }
 }
