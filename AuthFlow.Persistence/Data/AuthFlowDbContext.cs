@@ -16,10 +16,13 @@ namespace AuthFlow.Persistence.Data
             // If it does not exist then the database and all its schema are created.
             Database.EnsureCreated();
 
+           
+
             // Check if any users are already present in the database
             if (!Users.Any())
             {
-                var users = Genesys.GetUsers();//Genesys.GetMasiveUsers();
+                GetUserAnonymous();
+                var users = Genesys.GetMasiveUsers();//Genesys.GetUsers();
                 var pageSize = 10000;
                 var result = (double)(users.Count()/pageSize);
                 var countPage = (int)Math.Ceiling(result);
@@ -32,6 +35,19 @@ namespace AuthFlow.Persistence.Data
                     SaveChanges();
                 }
                 // Save the changes to the database
+            }
+        }
+
+        private void GetUserAnonymous()
+        {
+            var userSearch = Users.Where(user => user.Username.Equals("usernameanonymous"));
+            var user = userSearch.FirstOrDefault();
+            if (user == null)
+            {
+                var userAnonymousSearch = Genesys.GetUsers().Where(user => user.Username.Equals("usernameanonymous"));
+                var userAnonymous = userAnonymousSearch.FirstOrDefault();
+                Users.Add(userAnonymous);
+                SaveChanges();
             }
         }
 

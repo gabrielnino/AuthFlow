@@ -11,6 +11,8 @@ using AuthFlow.Infraestructure.ExternalServices;
 using AuthFlow.Infraestructure.Operations;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Use_cases.Interface.Operations;
+using AuthFlow.Infraestructure.Wrapper;
+using AuthFlow.Application.Uses_cases.Interface.Wrapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
@@ -20,6 +22,7 @@ builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ILoginServices, OtpService>();
+builder.Services.AddScoped<IHttpContentWrapper, HttpContentWrapper>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddLogging(logginBuilder =>

@@ -37,7 +37,8 @@ namespace AuthFlow.Persistence.Data
         }
         public static List<User> GetMasiveUsers()
         {
-           var firstNames = new List<string>
+          
+            var firstNames = new List<string>
             {
                 "Michael", "Sarah", "Jessica", "Jacob", "Mohamed", "Emily", "Joshua", "Amanda", "Andrew", "David",
                 "Ashley", "Brian", "Jennifer", "Daniel", "Nicole", "Matthew", "Samantha", "Christopher", "Emma", "Anthony",
@@ -96,13 +97,13 @@ namespace AuthFlow.Persistence.Data
 
             var users = new List<User>();
 
-            foreach (var first in firstNames)
+            foreach (var first in firstNames.Take(300))
             {
-                foreach(var middleName in middleNames)
+                foreach(var middleName in middleNames.Take(10))
                 {
-                    foreach(var lastName in lastNames)
+                    foreach(var lastName in lastNames.Take(10))
                     {
-                        foreach (var secondLastname in secondLastNames)
+                        foreach (var secondLastname in secondLastNames.Take(10))
                         {
                             var name = $"{first}.{middleName}.{lastName}.{secondLastname}";
                             name = name.Length > 50 ? name.Substring(0, 48) : name;

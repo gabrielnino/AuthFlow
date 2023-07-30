@@ -4,6 +4,7 @@ using System.Text;
 using System.Net.Http.Headers;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using Microsoft.Extensions.Configuration;
+using AuthFlow.Application.Uses_cases.Interface.Wrapper;
 
 // The namespace for external services in the infrastructure layer
 namespace AuthFlow.Infraestructure.ExternalServices
@@ -13,20 +14,24 @@ namespace AuthFlow.Infraestructure.ExternalServices
     {
         private readonly IConfiguration _configuration;
         // Constants for the user and password
-        private readonly string username;
-        private readonly string password;
+        private readonly string _username;
+        private readonly string _password;
+        private readonly string _urlLogservice;
+        private readonly IHttpContentWrapper _httpContentWrapper;
 
         // HttpClient is a modern, fast and highly configurable class used for sending HTTP requests and receiving HTTP responses from a resource identified by a URI
         private readonly HttpClient _client;
 
         // Constructor that takes an IHttpClientFactory as a parameter
-        public LogService(IHttpClientFactory clientFactory, IConfiguration configuration)
+        public LogService(IHttpClientFactory clientFactory, IConfiguration configuration, IHttpContentWrapper httpContentWrapper)
         {
             // Create an HttpClient instance from the factory
             _client = clientFactory.CreateClient();
             _configuration = configuration;
-            username = _configuration.GetSection("mongodb:username").Value ?? string.Empty;
-            password = _configuration.GetSection("mongodb:password").Value ?? string.Empty;
+            _username = _configuration.GetSection("mongodb:username").Value ?? string.Empty;
+            _password = _configuration.GetSection("mongodb:password").Value ?? string.Empty;
+            _urlLogservice = _configuration.GetSection("logService:urlLogservice").Value ?? string.Empty;
+            _httpContentWrapper = httpContentWrapper;
         }
 
         // Asynchronously creates a log entry in the external log service
@@ -47,16 +52,16 @@ namespace AuthFlow.Infraestructure.ExternalServices
         private async Task<string> GetToken()
         {
             // Create the url for the token request
-            var url = $"https://localhost:7060/api/Log/Login?user={username}&password={password}";
+            var url = $"{_urlLogservice}/Login?user={_username}&password={_password}";
 
             // Send a POST request to the url
-            var response = await _client.PostAsync(url, null);
+            var response = await _httpContentWrapper.PostAsync(_client, url, null, null);
 
             // If the response indicates success, process the token
             if (response.IsSuccessStatusCode)
             {
                 // Read the content of the response
-                var result = await response.Content.ReadAsStringAsync();
+                var result = await _httpContentWrapper.ReadAsStringAsync(response.Content);
 
                 // Deserialize the token from the response content
                 var _tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
@@ -73,7 +78,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
         private async Task<string> SetLog(Log log)
         {
             // Create the url for the log entry
-            var url = "https://localhost:7060/api/Log";
+            var url = $"{_urlLogservice}";
 
             // Serialize the log to JSON
             var json = JsonConvert.SerializeObject(log);
@@ -85,10 +90,10 @@ namespace AuthFlow.Infraestructure.ExternalServices
             var bearerToken = await GetToken();
 
             // Add the bearer token to the request headers
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
 
             // Send a POST request to the url with the content
-            var response = await _client.PostAsync(url, content);
+            var response = await _httpContentWrapper.PostAsync(_client, url, content, authorization);
 
             // If the response indicates success, return an empty string
             // If the response indicates failure, return an empty string
