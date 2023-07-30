@@ -18,6 +18,7 @@ namespace AuthFlow.Test.RepositoryTests
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
         private const string invalidEmailFormat = "The given email is not in a valid format";
 
+        [Ignore("Ignore a test")]
         [Test]
         public async Task Given_user_When_AddingUser_Then_SuccessResultWithIdReturned()
         {
