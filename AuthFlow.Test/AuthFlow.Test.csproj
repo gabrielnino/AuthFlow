@@ -27,8 +27,4 @@
     <ProjectReference Include="..\AuthFlow.Persistence\AuthFlow.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="01.Domain\" />
-  </ItemGroup>
-
 </Project>
