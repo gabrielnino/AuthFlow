@@ -5,6 +5,8 @@ using System.Net.Http.Headers;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using Microsoft.Extensions.Configuration;
 using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+using AuthFlow.Application.DTOs;
+using AuthFlow.Infraestructure.Other;
 
 // The namespace for external services in the infrastructure layer
 namespace AuthFlow.Infraestructure.ExternalServices
@@ -17,13 +19,13 @@ namespace AuthFlow.Infraestructure.ExternalServices
         private readonly string _username;
         private readonly string _password;
         private readonly string _urlLogservice;
-        private readonly IHttpContentWrapper _httpContentWrapper;
+        private readonly IWrapper _httpContentWrapper;
 
         // HttpClient is a modern, fast and highly configurable class used for sending HTTP requests and receiving HTTP responses from a resource identified by a URI
         private readonly HttpClient _client;
 
         // Constructor that takes an IHttpClientFactory as a parameter
-        public LogService(IHttpClientFactory clientFactory, IConfiguration configuration, IHttpContentWrapper httpContentWrapper)
+        public LogService(IHttpClientFactory clientFactory, IConfiguration configuration, IWrapper httpContentWrapper)
         {
             // Create an HttpClient instance from the factory
             _client = clientFactory.CreateClient();
@@ -35,22 +37,34 @@ namespace AuthFlow.Infraestructure.ExternalServices
         }
 
         // Asynchronously creates a log entry in the external log service
-        public async Task CreateLog(Log log)
+        public async Task<OperationResult<string>> CreateLog(Log log)
         {
             try
             {
                 // Call SetLog to create the log entry
-                await SetLog(log);
+                var result = SetLog(log);
+                if (!result.Result.IsSuccessful)
+                {
+                    return result.Result;
+                }
+
+                return OperationResult<string>.Success(string.Empty, Resource.SuccessfullyLogCreate);
             }
-            catch
+            catch (Exception ex)
             {
-                // Silent catch for exceptions, this may be improved by adding logging or rethrowing the exception after handling it
+                var message = string.Format(Resource.FailedGolbalException, ex.Message, ex.StackTrace);
+                return OperationResult<string>.FailureUnexpectedError(Resource.SuccessfullyLogCreate);
             }
         }
 
         // Asynchronously gets a token for authentication with the logging service
-        private async Task<string> GetToken()
+        private async Task<OperationResult<string>> GetToken()
         {
+            if (!Util.HasString(_urlLogservice) || !Util.HasString(_username) || !Util.HasString(_password))
+            {
+                return OperationResult<string>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingError);
+            }
+
             // Create the url for the token request
             var url = $"{_urlLogservice}/Login?user={_username}&password={_password}";
 
@@ -67,38 +81,46 @@ namespace AuthFlow.Infraestructure.ExternalServices
                 var _tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
 
                 // Return the token
-                return _tokenResponse.Token;
+                return OperationResult<string>.Success(_tokenResponse.Token, Resource.SuccessfullyGetToken);
             }
 
             // If the response indicates failure, return an empty string
-            return string.Empty;
+            return OperationResult<string>.FailureExtenalService(Resource.FailedGetToken);
         }
 
         // Asynchronously creates a log entry in the external log service
-        private async Task<string> SetLog(Log log)
+        private async Task<OperationResult<string>> SetLog(Log log)
         {
-            // Create the url for the log entry
-            var url = $"{_urlLogservice}";
-
-            // Serialize the log to JSON
-            var json = JsonConvert.SerializeObject(log);
-
-            // Create the content for the request
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
             // Get the bearer token for the request
             var bearerToken = await GetToken();
 
-            // Add the bearer token to the request headers
-            var authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            if (bearerToken.IsSuccessful)
+            {
+                // Create the url for the log entry
+                var url = $"{_urlLogservice}";
 
-            // Send a POST request to the url with the content
-            var response = await _httpContentWrapper.PostAsync(_client, url, content, authorization);
+                // Serialize the log to JSON
+                var json = JsonConvert.SerializeObject(log);
 
-            // If the response indicates success, return an empty string
-            // If the response indicates failure, return an empty string
-            if (response.IsSuccessStatusCode) ;
-            return string.Empty;
+                // Create the content for the request
+                var content = new StringContent(json ?? "NOT_POSIBLE_GET_A_VALID_LOG", Encoding.UTF8, "application/json");
+                // Add the bearer token to the request headers
+                var authorization = new AuthenticationHeaderValue("Bearer", bearerToken.Data);
+
+                // Send a POST request to the url with the content
+                var response = await _httpContentWrapper.PostAsync(_client, url, content, authorization);
+
+                // If the response indicates success, return an empty string
+                // If the response indicates failure, return an empty string
+                if (!response.IsSuccessStatusCode)
+                {
+                    return OperationResult<string>.FailureExtenalService(Resource.FailedSetLog);
+                }
+
+                return OperationResult<string>.Success(string.Empty, Resource.SuccessfullySetLog);
+            }
+
+            return bearerToken;
         }
     }
 }

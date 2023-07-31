@@ -106,6 +106,42 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The log services token got failed..
+        /// </summary>
+        internal static string FailedGetToken {
+            get {
+                return ResourceManager.GetString("FailedGetToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception Unknowled message:{0} stacktrace {1}.
+        /// </summary>
+        internal static string FailedGolbalException {
+            get {
+                return ResourceManager.GetString("FailedGolbalException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The message or enitty was not submitted..
+        /// </summary>
+        internal static string FailedLogBuilderDataNotExist {
+            get {
+                return ResourceManager.GetString("FailedLogBuilderDataNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Exception was not submitted..
+        /// </summary>
+        internal static string FailedLogValidException {
+            get {
+                return ResourceManager.GetString("FailedLogValidException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Necessary data was not provided..
         /// </summary>
         internal static string FailedNecesaryData {
@@ -151,6 +187,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The log creation got failed..
+        /// </summary>
+        internal static string FailedSetLog {
+            get {
+                return ResourceManager.GetString("FailedSetLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user does not exist..
         /// </summary>
         internal static string FailedUserDoesNotExist {
@@ -174,6 +219,42 @@ namespace AuthFlow.Infraestructure {
         internal static string FailedUserNotFound {
             get {
                 return ResourceManager.GetString("FailedUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Log validation failed Exception Unknowled.
+        /// </summary>
+        internal static string FailedValidationLogUnknowled {
+            get {
+                return ResourceManager.GetString("FailedValidationLogUnknowled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The configuration for the log services is missing the username, password, or URL..
+        /// </summary>
+        internal static string FailureConfigurationMissingError {
+            get {
+                return ResourceManager.GetString("FailureConfigurationMissingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The configuration for the ReCaptcha services is missing the secretKey or URL..
+        /// </summary>
+        internal static string FailureConfigurationMissingErrorReCaptcha {
+            get {
+                return ResourceManager.GetString("FailureConfigurationMissingErrorReCaptcha", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The configuration for the Email services is missing one of the necessary parameters..
+        /// </summary>
+        internal static string FailureConfigurationMissingErrorSendEmail {
+            get {
+                return ResourceManager.GetString("FailureConfigurationMissingErrorSendEmail", resourceCulture);
             }
         }
         
@@ -304,6 +385,24 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Token got successfully..
+        /// </summary>
+        internal static string SuccessfullyGetToken {
+            get {
+                return ResourceManager.GetString("SuccessfullyGetToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The log was create successfully..
+        /// </summary>
+        internal static string SuccessfullyLogCreate {
+            get {
+                return ResourceManager.GetString("SuccessfullyLogCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The user was loging successfully..
         /// </summary>
         internal static string SuccessfullyLogin {
@@ -354,6 +453,15 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullySearchUser {
             get {
                 return ResourceManager.GetString("SuccessfullySearchUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The successfully SetLog..
+        /// </summary>
+        internal static string SuccessfullySetLog {
+            get {
+                return ResourceManager.GetString("SuccessfullySetLog", resourceCulture);
             }
         }
         
@@ -417,6 +525,15 @@ namespace AuthFlow.Infraestructure {
         internal static string SuccessfullyValidateEmail {
             get {
                 return ResourceManager.GetString("SuccessfullyValidateEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Log validation of the OperationResult was successfully..
+        /// </summary>
+        internal static string SuccessfullyValidationOperationResult {
+            get {
+                return ResourceManager.GetString("SuccessfullyValidationOperationResult", resourceCulture);
             }
         }
         

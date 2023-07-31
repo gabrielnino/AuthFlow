@@ -17,11 +17,11 @@ namespace AuthFlow.Api.Controllers
     {
         // Defines an interface for accessing User data in the repository.
         private readonly IUserRepository _usersRepository;
-        private readonly ILoginServices _otpService;
+        private readonly IOTPServices _otpService;
         private readonly IReCaptchaService _reCaptchaService;
 
         // Constructor for UserController, injecting the User repository.
-        public UserRegisterController(IUserRepository usersRepository, ILoginServices otpService, IReCaptchaService reCaptchaService, IConfiguration configuration, IMapper mapper)
+        public UserRegisterController(IUserRepository usersRepository, IOTPServices otpService, IReCaptchaService reCaptchaService, IConfiguration configuration, IMapper mapper)
         {
             _usersRepository = usersRepository;
             _otpService = otpService;

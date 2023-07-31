@@ -2,6 +2,7 @@
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Use_cases.Interface.Operations;
 using AuthFlow.Domain.Entities;
+using AuthFlow.Infraestructure.Other;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
 
@@ -9,7 +10,7 @@ using System.Text;
 namespace AuthFlow.Infraestructure.Operations
 {
     // The OtpService class handles operations related to OTP (One Time Password)
-    public class OtpService : ILoginServices
+    public class OtpService : IOTPServices
     {
         // Dependencies injected via constructor
         private readonly Random _random = new Random();
@@ -18,11 +19,11 @@ namespace AuthFlow.Infraestructure.Operations
         private readonly ILogService _externalLogService;
 
         // Constructor that accepts IDistributedCache, IEmailService and ILogService as parameters
-        public OtpService(IDistributedCache distributedCache, IEmailService emailService, ILogService externalLogService)
+        public OtpService(IDistributedCache distributedCache, IEmailService emailService, ILogService logService)
         {
             _distributedCache = distributedCache;
             _emailService = emailService;
-            _externalLogService = externalLogService;
+            _externalLogService = logService;
         }
 
         // Generate a one time password (OTP) and send it via email
@@ -33,7 +34,9 @@ namespace AuthFlow.Infraestructure.Operations
                 // Generate an OTP
                 var otp = new string(Enumerable.Range(0, 6).Select(x => (char)('0' + _random.Next(0, 10))).ToArray());
                 var byteArray = _distributedCache.Get(email);
-                if (byteArray != null)
+                var empty = new byte[0];
+
+                if (byteArray != null && byteArray.Length > 0)
                 {
                     // Retrieve the OTP from the cache if it exists
                     otp = Encoding.UTF8.GetString(byteArray);
@@ -60,7 +63,7 @@ namespace AuthFlow.Infraestructure.Operations
             catch (Exception ex)
             {
                 // Log the error and return a failure result if there's an exception
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -71,31 +74,31 @@ namespace AuthFlow.Infraestructure.Operations
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(otp))
+                if (!HasStrig(otp))
                 {
                     // If no OTP is submitted, return a failure result
-                    return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotSubmitted);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotSubmitted);
                 }
 
                 var byteArray = _distributedCache.Get(email);
                 if (byteArray == null)
                 {
                     // If no OTP is found in the cache for the given email, return a failure result
-                    return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotExist);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
                 }
 
                 // Retrieve the OTP from the cache
                 string storeOtp = Encoding.UTF8.GetString(byteArray);
-                if (string.IsNullOrWhiteSpace(storeOtp))
+                if (!HasStrig(storeOtp))
                 {
                     // If no OTP is found in the cache for the given email, return a failure result
-                    return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotExist);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
                 }
 
                 if (!storeOtp.Equals(otp))
                 {
                     // If the submitted OTP does not match the stored OTP, return a failure result
-                    return OperationResult<bool>.Success(false, Resource.OtpFailedDoesNotEquals);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotEquals);
                 }
 
                 // Return a success result if the OTP is validated successfully
@@ -104,23 +107,15 @@ namespace AuthFlow.Infraestructure.Operations
             catch (Exception ex)
             {
                 // Log the error and return a failure result if there's an exception
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedRecaptchaService);
             }
         }
 
-        // Creates a log entry for an exception
-        protected static Log GetLogError(Exception ex, object entity, OperationExecute operation)
+        private bool HasStrig(string str)
         {
-            // Prepare the message for the log entry
-            var message = $"Error Message: {ex.Message}  StackTrace: {ex.StackTrace}";
-
-            // Create the log entry
-            var log = Log.Error(message, entity, operation);
-
-            // Return the log entry
-            return log;
+            return !(string.IsNullOrWhiteSpace(str) || string.IsNullOrEmpty(str));
         }
     }
 }

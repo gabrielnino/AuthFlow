@@ -2,17 +2,21 @@
 {
     public enum ErrorTypes
     {
+        BusinessValidationError,
         DatabaseError,
         ExternalServicesError,
-        BusinessValidationError,
+        UnexpectedError,
+        DataSubmittedInvalid,
+        ConfigurationMissingError,
+
         NetworkError,
         UserInputError,
         NotFoundError,
         AuthenticationError,
         AuthorizationError,
         ResourceError,
-        TimeoutError,
-        UnexpectedError
+        TimeoutError
+
     }
 
     public static class ErrorTypesExtensions
@@ -21,12 +25,19 @@
         {
             switch (error)
             {
+                case ErrorTypes.BusinessValidationError:
+                    return "BUSINESS_VALIDATION_ERROR";
                 case ErrorTypes.DatabaseError:
                     return "DATABASE_ERROR";
                 case ErrorTypes.ExternalServicesError:
                     return "EXTERNAL_SERVICE_ERROR";
-                case ErrorTypes.BusinessValidationError:
-                    return "BUSINESS_VALIDATION_ERROR";
+                case ErrorTypes.UnexpectedError:
+                    return "UNEXPECTED_ERROR";
+                case ErrorTypes.DataSubmittedInvalid:
+                    return "DATA_SUBMITTED_INVALID";
+                case ErrorTypes.ConfigurationMissingError:
+                    return "CONFIGURATION_MISSING_ERROR";
+
                 case ErrorTypes.NetworkError:
                     return "NETWORK_ERROR";
                 case ErrorTypes.UserInputError:
@@ -41,8 +52,6 @@
                     return "RESOURCE_ERROR";
                 case ErrorTypes.TimeoutError:
                     return "TIMEOUT_ERROR";
-                case ErrorTypes.UnexpectedError:
-                    return "UNEXPECTED_ERROR";
                 default:
                     return "UNKNOWN_ERROR";
             }

@@ -1,6 +1,7 @@
 ﻿// The namespace AuthFlow.Application.Use_cases.Interface.ExternalServices contains interfaces for external service integrations.
 // This is part of the application layer in the Clean Architecture approach and is used to define contracts or services needed by the application, 
 // but implemented externally.
+using AuthFlow.Application.DTOs;
 using AuthFlow.Domain.Entities;
 
 namespace AuthFlow.Application.Use_cases.Interface.ExternalServices
@@ -14,6 +15,6 @@ namespace AuthFlow.Application.Use_cases.Interface.ExternalServices
         // The CreateLog method takes in a log object, which encapsulates the details of an event that occurred in the system.
         // The implementation of this method should handle the actual logging of the event, 
         // for example, writing it to a database or sending it to an external logging service.
-        Task CreateLog(Log log);
+        Task<OperationResult<string>> CreateLog(Log log);
     }
 }

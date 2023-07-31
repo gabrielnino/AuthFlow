@@ -132,6 +132,18 @@
   <data name="FailedEmailService" xml:space="preserve">
     <value>It happened an error in the email service.</value>
   </data>
+  <data name="FailedGetToken" xml:space="preserve">
+    <value>The log services token got failed.</value>
+  </data>
+  <data name="FailedGolbalException" xml:space="preserve">
+    <value>Exception Unknowled message:{0} stacktrace {1}</value>
+  </data>
+  <data name="FailedLogBuilderDataNotExist" xml:space="preserve">
+    <value>The message or enitty was not submitted.</value>
+  </data>
+  <data name="FailedLogValidException" xml:space="preserve">
+    <value>The Exception was not submitted.</value>
+  </data>
   <data name="FailedNecesaryData" xml:space="preserve">
     <value>Necessary data was not provided.</value>
   </data>
@@ -147,6 +159,9 @@
   <data name="FailedRecaptchaService" xml:space="preserve">
     <value>It happened an error in the Recaptcha service.</value>
   </data>
+  <data name="FailedSetLog" xml:space="preserve">
+    <value>The log creation got failed.</value>
+  </data>
   <data name="FailedUserDoesNotExist" xml:space="preserve">
     <value>The user does not exist.</value>
   </data>
@@ -155,6 +170,18 @@
   </data>
   <data name="FailedUserNotFound" xml:space="preserve">
     <value>The user was not found - unable to create the session.</value>
+  </data>
+  <data name="FailedValidationLogUnknowled" xml:space="preserve">
+    <value>The Log validation failed Exception Unknowled</value>
+  </data>
+  <data name="FailureConfigurationMissingError" xml:space="preserve">
+    <value>The configuration for the log services is missing the username, password, or URL.</value>
+  </data>
+  <data name="FailureConfigurationMissingErrorReCaptcha" xml:space="preserve">
+    <value>The configuration for the ReCaptcha services is missing the secretKey or URL.</value>
+  </data>
+  <data name="FailureConfigurationMissingErrorSendEmail" xml:space="preserve">
+    <value>The configuration for the Email services is missing one of the necessary parameters.</value>
   </data>
   <data name="GenericToActiveNotExist" xml:space="preserve">
     <value>The {0} you are trying to active does not exist.</value>
@@ -198,6 +225,12 @@
   <data name="SuccessfullyGenericUpdated" xml:space="preserve">
     <value>{0} was updated successfully.</value>
   </data>
+  <data name="SuccessfullyGetToken" xml:space="preserve">
+    <value>Token got successfully.</value>
+  </data>
+  <data name="SuccessfullyLogCreate" xml:space="preserve">
+    <value>The log was create successfully.</value>
+  </data>
   <data name="SuccessfullyLogin" xml:space="preserve">
     <value>The user was loging successfully.</value>
   </data>
@@ -215,6 +248,9 @@
   </data>
   <data name="SuccessfullySearchUser" xml:space="preserve">
     <value>The search in the User entity completed successfully.</value>
+  </data>
+  <data name="SuccessfullySetLog" xml:space="preserve">
+    <value>The successfully SetLog.</value>
   </data>
   <data name="SuccessfullySetNewPassword" xml:space="preserve">
     <value>The password was updated successfully.</value>
@@ -236,6 +272,9 @@
   </data>
   <data name="SuccessfullyValidateEmail" xml:space="preserve">
     <value>The email was validated successfully.</value>
+  </data>
+  <data name="SuccessfullyValidationOperationResult" xml:space="preserve">
+    <value>The Log validation of the OperationResult was successfully.</value>
   </data>
   <data name="UserFailedPassword" xml:space="preserve">
     <value>The given username or password is incorrect.</value>

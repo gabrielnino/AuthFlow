@@ -27,60 +27,6 @@ namespace AuthFlow.Domain.Entities
 
         // CreatedAt property stores the date and time when the log entry was created.
         public DateTime CreatedAt { get; set; }
-
-        // Private constructor ensures that Log instances can only be created through the static methods.
-        private Log()
-        {
-
-        }
-
-        // Below are static methods that create new log instances for various log levels. Each method
-        // accepts a message, an entity, and an operation. It uses these values to create a new Log instance 
-        // with the appropriate level.
-        public static Log Trace(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Trace, operation);
-        }
-
-        public static Log Debug(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Debug, operation);
-        }
-
-        public static Log Information(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Information, operation);
-        }
-
-        public static Log Warning(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Warning, operation);
-        }
-
-        public static Log Error(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Error, operation);
-        }
-
-        public static Log Fatal(string message, object entity, OperationExecute operation)
-        {
-            return GetLog(message, entity, LogLevel.Fatal, operation);
-        }
-
-        // GetLog is a private method used by the static methods to create a new Log instance. It sets
-        // all the properties of the Log instance based on the parameters it receives.
-        private static Log GetLog(string message, object entity, LogLevel level, OperationExecute operation)
-        {
-            return new Log
-            {
-                Message = message,
-                EntityName = entity.GetType().Name,
-                EntityValue = JsonConvert.SerializeObject(entity),
-                Level = level,
-                Operation = operation,
-                CreatedAt = DateTime.UtcNow
-            };
-        }
     }
 
     // LogLevel is an enumeration of possible log levels. The level of a log entry indicates its severity.

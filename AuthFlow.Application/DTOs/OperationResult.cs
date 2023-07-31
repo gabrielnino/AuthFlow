@@ -40,5 +40,20 @@ namespace AuthFlow.Application.DTOs
         {
             return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.ExternalServicesError };
         }
+
+        public static OperationResult<T> FailureUnexpectedError(string message)
+        {
+            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.UnexpectedError };
+        }
+
+        public static OperationResult<T> FailureDataSubmittedInvalid(string message)
+        {
+            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.DataSubmittedInvalid };
+        }
+
+        public static OperationResult<T> FailureConfigurationMissingError(string message)
+        {
+            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.ConfigurationMissingError };
+        }
     }
 }

@@ -4,6 +4,7 @@ using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Use_cases.Interface.Operations;
 using AuthFlow.Application.Validators.UserValidators;
 using AuthFlow.Domain.Entities;
+using AuthFlow.Infraestructure.Other;
 using AuthFlow.Infraestructure.Repositories.Abstract;
 using AuthFlow.Persistence.Data;
 using FluentValidation.Results;
@@ -23,9 +24,9 @@ namespace AuthFlow.Infraestructure.Repositories
     public class UsersRepository : EntityRepository<User>, IUserRepository
     {
         private readonly IConfiguration _configuration;
-        private readonly ILoginServices _otpService;
+        private readonly IOTPServices _otpService;
         // The constructor initializes context, externalLogService and configuration properties
-        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration, ILoginServices otpService) : base(context, externalLogService)
+        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration, IOTPServices otpService) : base(context, externalLogService)
         {
             _configuration = configuration;
             _otpService = otpService;
@@ -60,7 +61,7 @@ namespace AuthFlow.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -97,7 +98,7 @@ namespace AuthFlow.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -320,7 +321,7 @@ namespace AuthFlow.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -423,7 +424,7 @@ namespace AuthFlow.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -453,7 +454,7 @@ namespace AuthFlow.Infraestructure.Repositories
             }
             catch (Exception ex)
             {
-                var log = GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
