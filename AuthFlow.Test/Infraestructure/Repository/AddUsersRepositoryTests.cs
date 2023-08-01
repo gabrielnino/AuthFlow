@@ -1,4 +1,5 @@
-﻿using AuthFlow.Domain.Entities;
+﻿using AuthFlow.Application.DTOs;
+using AuthFlow.Domain.Entities;
 using AuthFlow.Test.Infraestructure.Repository.BaseTest;
 using FluentAssertions;
 
@@ -73,6 +74,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().Be(emailMustNotEmpty);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -93,6 +95,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().Be(usernameMustNotEmpty);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -113,6 +116,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().Be(passwordMustNotEmpty);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -130,6 +134,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result.Message.Should().Be(necessaryData);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -146,6 +151,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result.Message.Should().Be(lengthMinimun);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -162,6 +168,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result.Message.Should().Be(lengthOverMaximum);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -179,6 +186,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().Be(alreadyRegisteredUsername);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
         [Test]
@@ -196,6 +204,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().Be(alreadyRegisteredEmail);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
 
 
@@ -213,6 +222,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result?.Message.Should().BeEquivalentTo(invalidEmailFormat);
             result.IsSuccessful.Should().BeFalse();
             result.Data.Should().BeGreaterThanOrEqualTo(0);
+            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
         }
     }
 }

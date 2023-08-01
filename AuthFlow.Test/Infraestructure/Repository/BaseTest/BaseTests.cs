@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Infraestructure.Operations;
+using AuthFlow.Application.Repositories.Interface;
 
 namespace AuthFlow.Test.Infraestructure.Repository.BaseTest
 {
