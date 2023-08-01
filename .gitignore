@@ -209,3 +209,9 @@
 /AuthFlow.Test/bin/Debug/net7.0/*.*.log
 /AuthFlow.Test/bin/Debug/net7.0/*.*.log
 /.vs/AuthFlow/FileContentIndex/*.vsidx
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Infraestructure.pdb
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Infraestructure.dll
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Application.pdb
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Application.dll
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Api.pdb
+/AuthFlow.Api/bin/Debug/net7.0/AuthFlow.Api.dll

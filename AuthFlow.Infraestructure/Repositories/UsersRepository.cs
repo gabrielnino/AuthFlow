@@ -21,7 +21,7 @@ namespace AuthFlow.Infraestructure.Repositories
 {
     // UsersRepository is a concrete implementation of IUserRepository
     // It provides repository operations for the User entity using the EntityRepository base class
-    public class UsersRepository : EntityRepository<User>, IUserRepository
+    public class UsersRepository : EntityRepository<User>, IUsersRepository
     {
         private readonly IConfiguration _configuration;
         private readonly IOTPServices _otpService;

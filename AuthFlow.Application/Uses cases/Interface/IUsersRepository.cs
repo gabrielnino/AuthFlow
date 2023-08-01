@@ -11,7 +11,7 @@ namespace AuthFlow.Application.Repositories.Interface
     // This interface extends IRepositoryOperations<User>, meaning it inherits all the CRUD and other operations 
     // defined in IRepositoryOperations.
     // In addition, it includes user-specific operations like Login.
-    public interface IUserRepository : IRepositoryOperations<User>
+    public interface IUsersRepository : IRepositoryOperations<User>
     {
         // The Login method is responsible for checking the user credentials and returning a token if the credentials are correct.
         // It takes the username and password provided by the user and returns an OperationResult.

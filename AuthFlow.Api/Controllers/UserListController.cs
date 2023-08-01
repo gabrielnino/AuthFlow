@@ -14,11 +14,11 @@ namespace AuthFlow.Api.Controllers
     public class UserListController : ControllerBase
     {
         // Defines an interface for accessing User data in the repository.
-        private readonly IUserRepository _usersRepository;
+        private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;
 
         // Constructor for UserController, injecting the User repository.
-        public UserListController(IUserRepository usersRepository, IMapper mapper)
+        public UserListController(IUsersRepository usersRepository, IMapper mapper)
         {
             _usersRepository = usersRepository;
             _mapper = mapper;

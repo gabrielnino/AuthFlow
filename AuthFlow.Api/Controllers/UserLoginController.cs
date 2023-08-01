@@ -16,10 +16,10 @@ namespace AuthFlow.Api.Controllers
     public class UserLoginController : ControllerBase
     {
         // Defines an interface for accessing User data in the repository.
-        private readonly IUserRepository _usersRepository;
+        private readonly IUsersRepository _usersRepository;
 
         // Constructor for UserController, injecting the User repository.
-        public UserLoginController(IUserRepository usersRepository)
+        public UserLoginController(IUsersRepository usersRepository)
         {
             _usersRepository = usersRepository;
         }
