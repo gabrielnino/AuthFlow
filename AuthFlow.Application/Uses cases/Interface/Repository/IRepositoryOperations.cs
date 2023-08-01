@@ -45,5 +45,7 @@ namespace AuthFlow.Application.Repositories.Interface.Repository
         // The Activate method activates a deactivated entity in the repository.
         // It takes the ID of the entity to be activated, and returns a boolean indicating whether the operation was successful.
         Task<OperationResult<bool>> Activate(int id);
+
+        Task<OperationResult<int>> GetCountFilter(string filter);
     }
 }

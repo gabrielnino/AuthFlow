@@ -83,6 +83,5 @@ namespace AuthFlow.Persistence.Data
             modelBuilder.Entity<User>().HasIndex(u => u.Username, "UC_Users_Username").IsUnique(true);
             modelBuilder.Entity<User>().HasIndex(u => u.Email, "UC_Users_Email").IsUnique(true);
         }
-
     }
 }

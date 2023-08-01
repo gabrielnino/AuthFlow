@@ -8,13 +8,14 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using AuthFlow.Application.Use_cases.Interface.ExternalServices;
 using AuthFlow.Application.Use_cases.Interface.Operations;
+using AuthFlow.Application.Repositories.Interface;
 
 namespace AuthFlow.Test.Infraestructure.Repository.BaseTest
 {
     [TestFixture]
     public class BaseTests
     {
-        protected UsersRepository _userRepository;
+        protected IUsersRepository _userRepository;
         protected AuthFlowDbContext _dbContextMock;
         protected DbContextOptions<AuthFlowDbContext> _options;
         protected Mock<ILogService> _externalLogService;
