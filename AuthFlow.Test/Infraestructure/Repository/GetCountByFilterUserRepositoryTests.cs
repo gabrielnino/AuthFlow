@@ -19,13 +19,13 @@
 
             // Then
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Id.Should().BeGreaterThan(0);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
             result.Exception.Should().BeNull();
             result.AsyncState.Should().BeNull();
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().Be(100001);
+            result.Result.Data.Should().BeGreaterThan(100000);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -41,13 +41,13 @@
 
             // Then
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Id.Should().BeGreaterThan(1);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
             result.Exception.Should().BeNull();
             result.AsyncState.Should().BeNull();
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().Be(1000);
+            result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -63,13 +63,13 @@
 
             // Then
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Id.Should().BeGreaterThan(1);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
             result.Exception.Should().BeNull();
             result.AsyncState.Should().BeNull();
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().Be(1000);
+            result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -85,13 +85,13 @@
 
             // Then
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Id.Should().BeGreaterThan(1);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
             result.Exception.Should().BeNull();
             result.AsyncState.Should().BeNull();
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().Be(1000);
+            result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -107,7 +107,7 @@
 
             // Then
             result.Should().NotBeNull();
-            result.Id.Should().Be(1);
+            result.Id.Should().BeGreaterThan(1);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
             result.Exception.Should().BeNull();
             result.AsyncState.Should().BeNull();

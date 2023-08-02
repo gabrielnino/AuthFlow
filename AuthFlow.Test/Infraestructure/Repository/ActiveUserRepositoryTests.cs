@@ -13,43 +13,59 @@ namespace AuthFlow.Test.Infraestructure.Repository
 
 
         [Test]
-        public async Task When_Activate_ValidParameter_Then_Success()
+        public Task When_Activate_ValidParameter_Then_Success()
         {
             // Given
             var name = "77e167cc-2340-46ef-b333-5e4aa57aaccc";
             User user = GetUser(name);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo =  _userRepository.Add(user);
+            user.Id =  repo.Result.Data;
 
             // When
-            var result = await _userRepository.Activate(user.Id);
+            var result =  _userRepository.Activate(user.Id);
+            var userRepo =  _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
+            var userFound = userRepo.Result.Data.FirstOrDefault();
 
-            var userRepo = await _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
-            var userFound = userRepo.Data.FirstOrDefault();
             // Then
-            result?.Message.Should().Be(success);
             userFound.Active.Should().BeTrue();
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeTrue();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeTrue();
+            result.Should().NotBeNull();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Activate_InvalidParameter_Then_Failed()
+        public Task When_Activate_InvalidParameter_Then_Failed()
         {
             // Given
             var name = "ab7c2296-bf1e-4f0a-9d5a-35ad767d0d12";
             User user = GetUser(name);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo =  _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Activate(99999999);
+            var result =  _userRepository.Activate(99999999);
 
             // Then
-            result?.Message.Should().Be(userTryingActiveDoesNotExist);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeFalse();
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(userTryingActiveDoesNotExist);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeFalse();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeFalse();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
     }
 }

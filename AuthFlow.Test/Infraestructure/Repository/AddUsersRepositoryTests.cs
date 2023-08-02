@@ -19,45 +19,67 @@ namespace AuthFlow.Test.Infraestructure.Repository
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
         private const string invalidEmailFormat = "The given email is not in a valid format";
+        private const string lengMinimumEmail = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
 
         [Ignore("Ignore a test")]
         [Test]
-        public async Task When_Add_ValidParameter_Then_Success()
+        public Task When_Add_ValidParameter_Then_Success()
         {
             // Given
             var name = "549f726e-3fe5-4f87-af14-95d36e5ee9d8";
             User user = GetUser(name);
 
             // When
-            var result = await _userRepository.Add(user);
+            var result =  _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().BeEquivalentTo(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeGreaterThan(0);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_ValidParameter_Then_DoubleCheck_Success()
+        public Task When_Add_ValidParameter_Then_DoubleCheck_Success()
         {
             // Given
             var name = "83997f50-1748-4991-9d9b-2d96e1337db9";
             User user = GetUser(name);
             var passwordhash = ComputeSha256Hash(user.Password);
+
             // When
-            var result = await _userRepository.Add(user);
-            user.Id = result.Data;
-            var resultRepo = await _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
-            var userCompute = resultRepo.Data.FirstOrDefault();
+            var result =  _userRepository.Add(user);
+            user.Id = result.Result.Data;
+            var resultRepo =  _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
+            var userCompute = resultRepo.Result.Data.FirstOrDefault();
+
             // Then
-            result?.Message.Should().BeEquivalentTo(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeGreaterThan(0);
             userCompute.Password.Should().Be(passwordhash);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidEmail_Then_Failed()
+        public Task When_Add_InvalidEmail_Then_Failed()
         {
             // Given
             var name = "5309395a-ab03-45c1-bdf6-d85fe9f2b967";
@@ -68,13 +90,22 @@ namespace AuthFlow.Test.Infraestructure.Repository
             };
             
             // When
-            var result = await _userRepository.Add(user);
+            var result =  _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().Be(emailMustNotEmpty);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(lengMinimumEmail);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
