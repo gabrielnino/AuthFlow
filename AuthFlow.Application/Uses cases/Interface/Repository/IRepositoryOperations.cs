@@ -1,12 +1,12 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Interfaces;
-using System.Linq.Expressions;
-
-// The namespace AuthFlow.Application.Repositories.Interface.Repository contains the interface definitions 
+﻿// The namespace AuthFlow.Application.Repositories.Interface.Repository contains the interface definitions 
 // for the repository layer in the application. This repository layer handles the interaction between the application 
 // and the data source (like a database).
 namespace AuthFlow.Application.Repositories.Interface.Repository
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Interfaces;
+    using System.Linq.Expressions;
+
     // The IRepositoryOperations<T> interface defines the contract for a generic repository, where T is an entity in the domain.
     // It contains methods for the basic CRUD operations as well as other common operations for entities in a repository.
     public interface IRepositoryOperations<T> where T : class, IEntity

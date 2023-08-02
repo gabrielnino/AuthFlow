@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-namespace AuthFlow.Api.Profiles
+﻿namespace AuthFlow.Api.Profiles
 {
+    using AutoMapper;
     public class UserProfile: Profile
     {
         public UserProfile()

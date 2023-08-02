@@ -1,9 +1,9 @@
-﻿using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using System.Net.Http.Headers;
-using System.Net.Mail;
-
-namespace AuthFlow.Infraestructure.Wrapper
+﻿namespace AuthFlow.Infraestructure.Wrapper
 {
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using System.Net.Http.Headers;
+    using System.Net.Mail;
+
     public class Wrapper : IWrapper
     {
         public Task<HttpResponseMessage> PostAsync(HttpClient client, string url, HttpContent? content, AuthenticationHeaderValue? authenticationHeaderValue)

@@ -1,10 +1,10 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
-using AuthFlow.Domain.Entities;
-using Newtonsoft.Json;
-
-namespace AuthFlow.Infraestructure.ExternalServices
+﻿namespace AuthFlow.Infraestructure.ExternalServices
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Uses_cases.Interface.ExternalServices;
+    using AuthFlow.Domain.Entities;
+    using Newtonsoft.Json;
+
     public class LogBuilder : ILogBuilder<Log>
     {
         private LogBuilder()

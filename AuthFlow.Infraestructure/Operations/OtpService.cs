@@ -1,14 +1,14 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Other;
-using Microsoft.Extensions.Caching.Distributed;
-using System.Text;
-
-// The namespace for operations in the infrastructure layer
+﻿// The namespace for operations in the infrastructure layer
 namespace AuthFlow.Infraestructure.Operations
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Infraestructure.Other;
+    using Microsoft.Extensions.Caching.Distributed;
+    using System.Text;
+
     // The OtpService class handles operations related to OTP (One Time Password)
     public class OtpService : IOTPServices
     {

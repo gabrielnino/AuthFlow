@@ -1,10 +1,10 @@
-﻿// The namespace AuthFlow.Application.Interfaces contains all the interface definitions for the application layer.
-// This is part of the application layer in the Clean Architecture approach and is used to define contracts or services needed by the application.
-using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.DTO;
-
-namespace AuthFlow.Application.Interfaces
+﻿namespace AuthFlow.Application.Interfaces
 {
+    // The namespace AuthFlow.Application.Interfaces contains all the interface definitions for the application layer.
+    // This is part of the application layer in the Clean Architecture approach and is used to define contracts or services needed by the application.
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.DTO;
+
     // The IReCaptchaService interface defines the contract for a reCAPTCHA validation service.
     // reCAPTCHA is a Google service that helps protect websites from spam and abuse. This service 
     // is responsible for validating the reCAPTCHA token generated on the client side.

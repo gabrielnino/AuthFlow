@@ -1,11 +1,12 @@
-﻿// The namespace AuthFlow.Application.Use_cases.Interface.ExternalServices contains interfaces for external service integrations.
-// This is part of the application layer in the Clean Architecture approach and is used to define contracts or services needed by the application, 
-// but implemented externally.
-using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Entities;
-
-namespace AuthFlow.Application.Use_cases.Interface.ExternalServices
+﻿namespace AuthFlow.Application.Use_cases.Interface.ExternalServices
 {
+    // The namespace AuthFlow.Application.Use_cases.Interface.ExternalServices contains interfaces for external service integrations.
+    // This is part of the application layer in the Clean Architecture approach and is used to define contracts or services needed by the application, 
+    // but implemented externally.
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Entities;
+
+
     // The ILogService interface defines the contract for a logging service.
     // The logging service is responsible for recording the events or actions that occur within the application.
     // By following this interface, different implementations can be swapped in and out as needed,

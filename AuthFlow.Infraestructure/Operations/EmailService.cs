@@ -1,17 +1,17 @@
-﻿using System.Net.Mail;
-using System.Net;
-using Microsoft.Extensions.Configuration;
-using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Infraestructure.ExternalServices;
-using AuthFlow.Infraestructure.Other;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-
-// The namespace for operations in the infrastructure layer
+﻿// The namespace for operations in the infrastructure layer
 namespace AuthFlow.Infraestructure.Operations
 {
+    using System.Net.Mail;
+    using System.Net;
+    using Microsoft.Extensions.Configuration;
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using AuthFlow.Infraestructure.ExternalServices;
+    using AuthFlow.Infraestructure.Other;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+
     // The EmailService class handles the sending of emails
     public class EmailService : IEmailService
     {

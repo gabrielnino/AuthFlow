@@ -1,9 +1,9 @@
-﻿using AuthFlow.Domain.Interfaces;
-using System.Linq.Expressions;
-
-// Namespace for persistence repository interfaces
+﻿// Namespace for persistence repository interfaces
 namespace AuthFlow.Persistence.Repositories.Interface
 {
+    using AuthFlow.Domain.Interfaces;
+    using System.Linq.Expressions;
+
     // Interface for generic repository operations.
     // This interface defines common methods for interacting with the data in the repository.
     public interface IRepository<T> where T : class, IEntity

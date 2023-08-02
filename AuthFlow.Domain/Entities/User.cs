@@ -1,8 +1,9 @@
-﻿using AuthFlow.Domain.Interfaces;
-
-// Namespace holding all the domain entities
+﻿// Namespace holding all the domain entities
 namespace AuthFlow.Domain.Entities
 {
+    using AuthFlow.Domain.Interfaces;
+
+
     /// <summary>
     /// User is a domain entity that represents a user in the system.
     /// This entity contains information necessary for user authentication and identification.

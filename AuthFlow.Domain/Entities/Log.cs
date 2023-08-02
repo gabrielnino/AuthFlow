@@ -1,9 +1,9 @@
-﻿// The namespace AuthFlow.Domain.Entities contains all the entity classes used in the authentication flow.
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace AuthFlow.Domain.Entities
+﻿namespace AuthFlow.Domain.Entities
 {
+    // The namespace AuthFlow.Domain.Entities contains all the entity classes used in the authentication flow.
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     // The Log class represents a log entry in the system. It stores information about a particular event 
     // that occurred in the system, such as an operation performed on an entity.
     public class Log

@@ -1,16 +1,17 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Repositories.Interface.Repository;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Domain.Interfaces;
-using AuthFlow.Infraestructure.Other;
-using AuthFlow.Persistence.Data;
-using AuthFlow.Persistence.Repositories;
-using System.Linq.Expressions;
-
-// Namespace for infrastructure repositories
+﻿// Namespace for infrastructure repositories
 namespace AuthFlow.Infraestructure.Repositories.Abstract
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Repositories.Interface.Repository;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Domain.Interfaces;
+    using AuthFlow.Infraestructure.Other;
+    using AuthFlow.Persistence.Data;
+    using AuthFlow.Persistence.Repositories;
+    using System.Linq.Expressions;
+
+
     // This class acts as a generic base for all other repository classes. 
     // It contains all the CRUD operation methods that interact with the database.
     public abstract class EntityRepository<T> : Repository<T>, IRepositoryOperations<T> where T : class, IEntity

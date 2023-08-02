@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AuthFlow.Application.Repositories.Interface;
-using AutoMapper;
-using AuthFlow.Domain.DTO;
-using AuthFlow.Application.Interfaces;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using Microsoft.AspNetCore.Authorization;
-
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace AuthFlow.Api.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using AuthFlow.Application.Repositories.Interface;
+    using AutoMapper;
+    using AuthFlow.Domain.DTO;
+    using AuthFlow.Application.Interfaces;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using Microsoft.AspNetCore.Authorization;
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class UserRegisterController : ControllerBase

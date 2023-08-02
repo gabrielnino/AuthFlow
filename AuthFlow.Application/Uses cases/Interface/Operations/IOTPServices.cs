@@ -1,9 +1,10 @@
-﻿// The AuthFlow.Application.Use_cases.Interface.Operations namespace contains interface definitions for various operations in the application.
-// These interfaces define contracts for services provided by the application, abstracting the underlying implementation details.
-using AuthFlow.Application.DTOs;
-
-namespace AuthFlow.Application.Use_cases.Interface.Operations
+﻿namespace AuthFlow.Application.Use_cases.Interface.Operations
 {
+    // The AuthFlow.Application.Use_cases.Interface.Operations namespace contains interface definitions for various operations in the application.
+    // These interfaces define contracts for services provided by the application, abstracting the underlying implementation details.
+    using AuthFlow.Application.DTOs;
+
+
     // The IOtpService interface defines the contract for an OTP (One-Time Password) service.
     // This service is responsible for generating and validating OTPs, which are usually used for verification processes in the application.
     // Different implementations of this interface can be swapped in and out as needed, allowing for flexibility and maintainability.

@@ -1,24 +1,24 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Repositories.Interface;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Application.Validators.UserValidators;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Other;
-using AuthFlow.Infraestructure.Repositories.Abstract;
-using AuthFlow.Persistence.Data;
-using FluentValidation.Results;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace AuthFlow.Infraestructure.Repositories
+﻿namespace AuthFlow.Infraestructure.Repositories
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Repositories.Interface;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using AuthFlow.Application.Validators.UserValidators;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Infraestructure.Other;
+    using AuthFlow.Infraestructure.Repositories.Abstract;
+    using AuthFlow.Persistence.Data;
+    using FluentValidation.Results;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq.Expressions;
+    using System.Security.Claims;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     // UsersRepository is a concrete implementation of IUserRepository
     // It provides repository operations for the User entity using the EntityRepository base class
     public class UsersRepository : EntityRepository<User>, IUsersRepository

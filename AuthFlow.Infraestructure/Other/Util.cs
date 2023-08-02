@@ -1,14 +1,14 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.ExternalServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuthFlow.Infraestructure.Other
+﻿namespace AuthFlow.Infraestructure.Other
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Infraestructure.ExternalServices;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public static class Util
     {
         // Creates a log entry for an exception

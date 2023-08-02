@@ -1,9 +1,9 @@
-﻿using AuthFlow.Domain.Entities;
-using FluentValidation;
-
-// The AuthFlow.Application.Validators.UserValidators namespace contains classes that validate User entities or related data.
+﻿// The AuthFlow.Application.Validators.UserValidators namespace contains classes that validate User entities or related data.
 namespace AuthFlow.Application.Validators.UserValidators
 {
+    using AuthFlow.Domain.Entities;
+    using FluentValidation;
+
     // The AddUserRequestRules class defines the validation rules for creating a User.
     // It extends the AbstractValidator<User> from FluentValidation, which provides a fluent interface for defining validation rules.
     public class AddUserRequestRules : AbstractValidator<User>

@@ -1,8 +1,8 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Entities;
-
-namespace AuthFlow.Application.Uses_cases.Interface.ExternalServices
+﻿namespace AuthFlow.Application.Uses_cases.Interface.ExternalServices
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Entities;
+
     public interface ILogBuilder<T>
     {
         OperationResult<T> Trace(string message, object entity, OperationExecute operation);

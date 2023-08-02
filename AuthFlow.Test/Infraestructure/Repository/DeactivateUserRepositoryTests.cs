@@ -1,4 +1,4 @@
-﻿namespace AAuthFlow.Test.Infraestructure.Repository
+﻿namespace AuthFlow.Test.Infraestructure.Repository
 {
     using AuthFlow.Domain.Entities;
     using AuthFlow.Test.Infraestructure.Repository.BaseTest;

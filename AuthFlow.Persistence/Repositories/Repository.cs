@@ -1,11 +1,11 @@
-﻿using AuthFlow.Domain.Interfaces;
-using AuthFlow.Persistence.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
-// Namespace for persistence repository implementations
+﻿// Namespace for persistence repository implementations
 namespace AuthFlow.Persistence.Repositories
 {
+    using AuthFlow.Domain.Interfaces;
+    using AuthFlow.Persistence.Repositories.Interface;
+    using Microsoft.EntityFrameworkCore;
+    using System.Linq.Expressions;
+
     // Abstract base class for a generic repository.
     // This class defines methods for interacting with data in the repository using DbContext.
     public abstract class Repository<T> : IRepository<T> where T : class, IEntity

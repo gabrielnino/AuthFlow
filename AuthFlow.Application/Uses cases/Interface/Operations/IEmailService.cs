@@ -1,9 +1,10 @@
-﻿// The AuthFlow.Application.Use_cases.Interface.Operations namespace contains interface definitions for various operations in the application.
-// These interfaces are used to define contracts for services provided by the application, and they abstract the underlying implementation details.
-using AuthFlow.Application.DTOs;
-
-namespace AuthFlow.Application.Use_cases.Interface.Operations
+﻿namespace AuthFlow.Application.Use_cases.Interface.Operations
 {
+    // The AuthFlow.Application.Use_cases.Interface.Operations namespace contains interface definitions for various operations in the application.
+    // These interfaces are used to define contracts for services provided by the application, and they abstract the underlying implementation details.
+    using AuthFlow.Application.DTOs;
+
+
     // The IEmailService interface defines the contract for an email sending service.
     // This service is responsible for sending emails on behalf of the application.
     // By following this interface, different implementations can be swapped in and out as needed,

@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Mail;
-
-namespace AuthFlow.Application.Uses_cases.Interface.Wrapper
+﻿namespace AuthFlow.Application.Uses_cases.Interface.Wrapper
 {
+    using System.Net.Http.Headers;
+    using System.Net.Mail;
+
     public interface IWrapper
     {
         Task<string> ReadAsStringAsync(HttpContent content);

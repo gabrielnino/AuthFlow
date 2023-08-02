@@ -1,10 +1,10 @@
-﻿using AuthFlow.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-
-// Namespace for Persistence Data
+﻿// Namespace for Persistence Data
 namespace AuthFlow.Persistence.Data
 {
+    using AuthFlow.Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+    using System;
+
     // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model.
     // It manages the entity objects during runtime, which includes populating objects with data from a database,
     // change tracking, and persisting data to the database.

@@ -1,16 +1,16 @@
-﻿using AuthFlow.Domain.Entities;
-using Newtonsoft.Json;
-using System.Text;
-using System.Net.Http.Headers;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using Microsoft.Extensions.Configuration;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using AuthFlow.Application.DTOs;
-using AuthFlow.Infraestructure.Other;
-
-// The namespace for external services in the infrastructure layer
+﻿// The namespace for external services in the infrastructure layer
 namespace AuthFlow.Infraestructure.ExternalServices
 {
+    using AuthFlow.Domain.Entities;
+    using Newtonsoft.Json;
+    using System.Text;
+    using System.Net.Http.Headers;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using Microsoft.Extensions.Configuration;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Infraestructure.Other;
+
     // The LogService class handles the interactions with the logging service
     public class LogService : ILogService
     {

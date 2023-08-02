@@ -1,16 +1,16 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Interfaces;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using AuthFlow.Domain.DTO;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Other;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-
-// The namespace for external services in the infrastructure layer
+﻿// The namespace for external services in the infrastructure layer
 namespace AuthFlow.Infraestructure.ExternalServices
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Interfaces;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using AuthFlow.Domain.DTO;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Infraestructure.Other;
+    using Microsoft.Extensions.Configuration;
+    using Newtonsoft.Json;
+
     // The ReCaptchaService class handles the interactions with Google's ReCaptcha service
     public class ReCaptchaService : IReCaptchaService
     {
