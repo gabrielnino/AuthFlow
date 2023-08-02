@@ -1,8 +1,8 @@
-﻿using AuthFlow.Test.Infraestructure.Repository.BaseTest;
-using FluentAssertions;
-
-namespace AuthFlow.Test.Infraestructure.Repository
+﻿namespace AuthFlow.Test.Infraestructure.Repository
 {
+    using AuthFlow.Test.Infraestructure.Repository.BaseTest;
+    using FluentAssertions;
+
     public class SetNewPasswordUserRepositoryTests : BaseTests
     {
         [Test]

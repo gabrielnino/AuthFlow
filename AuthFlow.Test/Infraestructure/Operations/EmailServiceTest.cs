@@ -248,7 +248,6 @@ namespace AuthFlow.Test.Infraestructure.Operations
             mockConfiguration
                 .Setup(section => section.GetSection("email:port"))
                 .Returns(mockConfigSectionPort.Object);
-            //SmtpClient smtpClient, MailMessage message
             mockIHttpContentWrapper
                 .Setup(response => response.SendMailAsync(It.IsAny<SmtpClient>(), It.IsAny<MailMessage>()))
                 .Returns(Task.FromResult(""));

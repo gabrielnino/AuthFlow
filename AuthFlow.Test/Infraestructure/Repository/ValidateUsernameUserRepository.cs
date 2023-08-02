@@ -1,13 +1,8 @@
-﻿using AuthFlow.Test.Infraestructure.Repository.BaseTest;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuthFlow.Test.Infraestructure.Repository
+﻿namespace AuthFlow.Test.Infraestructure.Repository
 {
+    using AuthFlow.Test.Infraestructure.Repository.BaseTest;
+    using FluentAssertions;
+
     public class ValidateUsernameUserRepository : BaseTests
     {
         [Test]

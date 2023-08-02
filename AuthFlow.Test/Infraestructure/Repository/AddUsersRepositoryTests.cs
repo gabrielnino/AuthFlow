@@ -15,7 +15,6 @@ namespace AuthFlow.Test.Infraestructure.Repository
         private const string lengthMinimun = "One or more data from the User have been submitted with errors The length of 'Username' must be at least 6 characters. You entered 3 characters., The length of 'Password' must be at least 6 characters. You entered 3 characters., The length of 'Email' must be at least 10 characters. You entered 3 characters.";
         private const string lengthOverMaximum = "One or more data from the User have been submitted with errors The length of 'Username' must be 50 characters or fewer. You entered 111 characters., The length of 'Password' must be 100 characters or fewer. You entered 111 characters., The length of 'Email' must be 100 characters or fewer. You entered 111 characters.";
         private const string alreadyRegisteredEmail = "A user is already registered with this email.";
-        private const string emailMustNotEmpty = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
         private const string invalidEmailFormat = "The given email is not in a valid format";

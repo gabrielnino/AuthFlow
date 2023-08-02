@@ -1,6 +1,5 @@
 ﻿namespace AuthFlow.Test.Infraestructure.Repository
 {
-    using AuthFlow.Domain.DTO;
     using AuthFlow.Test.Infraestructure.Repository.BaseTest;
     using FluentAssertions;
 
