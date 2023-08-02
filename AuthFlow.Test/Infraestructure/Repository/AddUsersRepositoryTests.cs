@@ -21,7 +21,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
         private const string invalidEmailFormat = "The given email is not in a valid format";
         private const string lengMinimumEmail = "One or more data from the User have been submitted with errors 'Email' must not be empty.";
 
-        [Ignore("Ignore a test")]
+
         [Test]
         public Task When_Add_ValidParameter_Then_Success()
         {
@@ -36,9 +36,6 @@ namespace AuthFlow.Test.Infraestructure.Repository
             result.Should().NotBeNull();
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(0);
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
-            result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(0);
             result.Id.Should().BeGreaterThan(0);
             result.Status.Should().Be(TaskStatus.RanToCompletion);
@@ -109,7 +106,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
         }
 
         [Test]
-        public async Task When_Add_InvalidUsername_Then_Failed()
+        public Task When_Add_InvalidUsername_Then_Failed()
         {
             // Given
             var name = "559b767c-162c-49a6-acf7-90fb600a5d27";
@@ -120,17 +117,24 @@ namespace AuthFlow.Test.Infraestructure.Repository
             };
 
             // When
-            var result = await _userRepository.Add(user);
+            var result =  _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().Be(usernameMustNotEmpty);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(usernameMustNotEmpty);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidPassword_Then_Failed()
+        public Task When_Add_InvalidPassword_Then_Failed()
         {
             // Given
             var name = "70e5c921-5c33-40cf-b859-bb85f6fa7def";
@@ -141,17 +145,24 @@ namespace AuthFlow.Test.Infraestructure.Repository
             };
 
             // When
-            var result = await _userRepository.Add(user);
+            var result =  _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().Be(passwordMustNotEmpty);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(passwordMustNotEmpty);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidUser_Then_Failed()
+        public Task When_Add_InvalidUser_Then_Failed()
         {
             // Given
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -159,101 +170,143 @@ namespace AuthFlow.Test.Infraestructure.Repository
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
             // When
-            var result = await _userRepository.Add(user);
+            var result =  _userRepository.Add(user);
 
             // Then
-            result.Message.Should().Be(necessaryData);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(necessaryData);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidUserLength4_Then_Failed()
+        public Task When_Add_InvalidUserLength4_Then_Failed()
         {
             // Given
             var name = "cd391035-0927-45d5-826f-72b41fb1fcc8";
             User user = GetUser(name, 4);
 
             // When
-            var result = await _userRepository.Add(user);
+            var result = _userRepository.Add(user);
 
             // Then
-            result.Message.Should().Be(lengthMinimun);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(lengthMinimun);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidUserLength110_Then_Failed()
+        public Task When_Add_InvalidUserLength110_Then_Failed()
         {
             // Given
             var name = "ac2d4ea5-5d48-49ce-9d8e-04438798abb6";
             User user = GetUser(name, 0, 110);
 
             // When
-            var result = await _userRepository.Add(user);
+            var result = _userRepository.Add(user);
 
             // Then
-            result.Message.Should().Be(lengthOverMaximum);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(lengthOverMaximum);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidUsernameAlreadyRegister_Then_Failed()
+        public Task When_Add_InvalidUsernameAlreadyRegister_Then_Failed()
         {
             // Given
             var name = "2485eac5-7c39-4c66-b324-facb0915fb89";
             User user = GetUser(name);
-            _ = await _userRepository.Add(user);
+            _ =  _userRepository.Add(user);
             user.Email = $"john.{name}.jr@example.com";
             // When
-            var result = await _userRepository.Add(user);
+            var result = _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().Be(alreadyRegisteredUsername);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(alreadyRegisteredUsername);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Add_InvalidEmailAlreadyRegister_Then_Failed()
+        public Task When_Add_InvalidEmailAlreadyRegister_Then_Failed()
         {
             // Given
             var name = "26ce5a07-ddcb-4026-b229-eaa0df6c3597";
             User user = GetUser(name);
-            _ = await _userRepository.Add(user);
+            _ =  _userRepository.Add(user);
             user.Username = $"john.{name}.jr";
             // When
-            Application.DTOs.OperationResult<int>? result = await _userRepository.Add(user);
+            var result = _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().Be(alreadyRegisteredEmail);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(alreadyRegisteredEmail);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
 
 
         [Test]
-        public async Task When_Add_InvalidEmailInvalid_Then_Failed()
+        public Task When_Add_InvalidEmailInvalid_Then_Failed()
         {
             // Given
             var name = "549f726e-3fe5-4f87-af14-9r35te5ee9d8";
             User user = GetUser(name);
             user.Email = "not_is_an_email";
             // When
-            var result = await _userRepository.Add(user);
+            var result = _userRepository.Add(user);
 
             // Then
-            result?.Message.Should().BeEquivalentTo(invalidEmailFormat);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeGreaterThanOrEqualTo(0);
-            result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(invalidEmailFormat);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeGreaterThan(-1);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            return Task.CompletedTask;
         }
     }
 }

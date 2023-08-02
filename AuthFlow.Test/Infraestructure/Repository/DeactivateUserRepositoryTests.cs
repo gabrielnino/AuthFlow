@@ -11,43 +11,56 @@ namespace AAuthFlow.Test.Infraestructure.Repository
         private const string userTryingInactiveDoesNotExist = "The user you are trying to inactive does not exist.";
 
         [Test]
-        public async Task When_Deactivate_ValidParameters_Then_Success()
+        public Task When_Deactivate_ValidParameters_Then_Success()
         {
             // Given
             var name = "1e8a562d-1a7f-4848-9bee-a82b438dfe4b";
             User user = GetUser(name);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo = _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Deactivate(user.Id);
+            var result = _userRepository.Deactivate(user.Id);
 
-            var userRepo = await _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
-            var userFound = userRepo.Data.FirstOrDefault();
+            var userRepo = _userRepository.GetAllByFilter(u => u.Id.Equals(user.Id));
+            var userFound = userRepo.Result.Data.FirstOrDefault();
 
             // Then
-            result?.Message.Should().Be(success);
-            userFound.Active.Should().BeFalse();
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().BeTrue();
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeTrue();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Deactivate_InvalidId_Then_Failed()
+        public Task When_Deactivate_InvalidId_Then_Failed()
         {
             // Given
             var name = "5a910d91-68d9-400d-b093-2519ed4701a3";
             User user = GetUser(name);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo = _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Deactivate(999999);
+            var result = _userRepository.Deactivate(999999);
 
             // Then
-            result?.Message.Should().Be(userTryingInactiveDoesNotExist);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeFalse();
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(userTryingInactiveDoesNotExist);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeFalse();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
     }
 }

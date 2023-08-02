@@ -12,90 +12,121 @@ namespace AuthFlow.Test.Infraestructure.Repository
 
 
         [Test]
-        public async Task When_GetPageByFilter_FilterAndrePage0Size3_Then_Success()
+        public Task When_GetPageByFilter_FilterAndrePage0Size3_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetPageByFilter(0, 3, "Andrea");
+            var result = _userRepository.GetPageByFilter(0, 3, "Andrea");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Count().Should().Be(1);
-            result.Data.FirstOrDefault().Username.Should().Be("Andrea");
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Count().Should().Be(1);
+            result.Result.Data.FirstOrDefault().Username.Should().Be("Andrea");
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_GetPageByFilter_FilterEmptyPage0Size3_Then_Success()
+        public Task When_GetPageByFilter_FilterEmptyPage0Size3_Then_Success()
         {
             // Given
-            await GetAllPeople();
+            GetAllPeople();
 
             // When
-            var result = await _userRepository.GetPageByFilter(0, 3, string.Empty);
+            var result = _userRepository.GetPageByFilter(0, 3, string.Empty);
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Count().Should().Be(3);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Count().Should().Be(3);
+            result.Result.Data.FirstOrDefault().Username.Should().Be("usernameanonymous");
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
 
 
         [Test]
-        public async Task When_GetPageByFilter_FilterRicardoMoPage0Size3_Then_Success()
+        public Task When_GetPageByFilter_FilterRicardoMoPage0Size3_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetPageByFilter(0, 3, "ricardo.morales@email.com");
+            var result = _userRepository.GetPageByFilter(0, 3, "ricardo.morales@email.com");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Count().Should().Be(1);
-            result.Data.FirstOrDefault().Email.Should().Be("ricardo.morales@email.com");
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Count().Should().Be(1);
+            result.Result.Data.FirstOrDefault().Email.Should().Be("ricardo.morales@email.com");
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
 
         [Test]
-        public async Task When_GetPageByFilter_FilterDanielaPage0Size13_Then_Success()
+        public Task When_GetPageByFilter_FilterDanielaPage0Size13_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetPageByFilter(0, 13, "Daniela");
+            var result = _userRepository.GetPageByFilter(0, 13, "Daniela");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Count().Should().Be(1);
-            result.Data.FirstOrDefault().Email.Should().Be("daniela.martinez@email.com");
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Count().Should().Be(1);
+            result.Result.Data.FirstOrDefault().Email.Should().Be("daniela.martinez@email.com");
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_GetPageByFilter_FilterRuizPage0Size13_Then_Success()
+        public Task When_GetPageByFilter_FilterRuizPage0Size13_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetPageByFilter(0, 13, "ruiz");
+            var result =  _userRepository.GetPageByFilter(0, 13, "ruiz");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Count().Should().Be(3);
-            result.Data.FirstOrDefault().Email.Should().Be("fernanda.ruiz@email.com");
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Count().Should().Be(3);
+            result.Result.Data.FirstOrDefault().Email.Should().Be("fernanda.ruiz@email.com");
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         private async Task GetAllPeople()

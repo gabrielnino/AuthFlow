@@ -12,7 +12,7 @@ namespace AuthFlow.Test.Infraestructure.Repository
         private const string failedWrongUser = "The user was not found - unable to create the session.";
 
         [Test]
-        public async Task When_Login_ValidParameter_Then_Success()
+        public Task When_Login_ValidParameter_Then_Success()
         {
             // Given
             var key = "261c2aab-b974-4d41-b56c-6010247465c2";
@@ -20,21 +20,28 @@ namespace AuthFlow.Test.Infraestructure.Repository
             var email = $"john.doe.{key}@example.com";
             var password = $"password.{key}";
             User user = GetUser(userName, email, password );
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo =  _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Login(user.Username, user.Password);
+            var result = _userRepository.Login(user.Username, user.Password);
 
             // Then
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().NotBeNullOrEmpty();
-            
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().NotBeNullOrEmpty();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
+
         }
 
         [Test]
-        public async Task When_Login_InvalidPassword_Then_Failed()
+        public Task When_Login_InvalidPassword_Then_Failed()
         {
             // Given
             var key = "261c2aab-4rfd-4d41-b56c-6010247465c2";
@@ -42,20 +49,27 @@ namespace AuthFlow.Test.Infraestructure.Repository
             var email = $"john.doe.{key}@example.com";
             var password = $"password.{key}";
             User user = GetUser(userName, email, password);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo =  _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Login(user.Username, user.Password + "PasswordWrong");
+            var result =  _userRepository.Login(user.Username, user.Password + "PasswordWrong");
 
             // Then
-            result?.Message.Should().Be(failedWrongPassword);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeNullOrEmpty();
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(failedWrongPassword);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeNullOrEmpty();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_Login_InvalidUsername_Then_Failed()
+        public Task When_Login_InvalidUsername_Then_Failed()
         {
             // Given
             var key = "261c2aab-4rfd-4d41-yu72-6010247465c2";
@@ -63,16 +77,23 @@ namespace AuthFlow.Test.Infraestructure.Repository
             var email = $"john.doe.{key}@example.com";
             var password = $"password.{key}";
             User user = GetUser(userName, email, password);
-            var repo = await _userRepository.Add(user);
-            user.Id = repo.Data;
+            var repo =  _userRepository.Add(user);
+            user.Id = repo.Result.Data;
 
             // When
-            var result = await _userRepository.Login(user.Username + "UserWrong", user.Password );
+            var result = _userRepository.Login(user.Username + "UserWrong", user.Password );
 
             // Then
-            result?.Message.Should().Be(failedWrongUser);
-            result.IsSuccessful.Should().BeFalse();
-            result.Data.Should().BeNullOrEmpty();
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(failedWrongUser);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeNullOrEmpty();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
     }

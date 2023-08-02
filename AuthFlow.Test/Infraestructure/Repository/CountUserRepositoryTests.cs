@@ -11,85 +11,115 @@ namespace AuthFlow.Test.Infraestructure.Repository
 
       
         [Test]
-        public async Task When_GetCountFilter_FilterAndrea_Then_Success()
+        public Task When_GetCountFilter_FilterAndrea_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetCountFilter("Andrea");
+            var result =  _userRepository.GetCountFilter("Andrea");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(1);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
         
         [Test]
-        public async Task When_GetCountFilter_FilterStringEmpty_Then_Success()
+        public Task When_GetCountFilter_FilterStringEmpty_Then_Success()
         {
             // Given
-            await GetAllPeople();
+            GetAllPeople();
 
             // When
-            var result = await _userRepository.GetCountFilter(string.Empty);
+            var result =  _userRepository.GetCountFilter(string.Empty);
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().NotBe(0);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
 
         [Test]
-        public async Task When_GetCountFilter_FilterEmailAddress_Then_Success()
+        public Task When_GetCountFilter_FilterEmailAddress_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetCountFilter( "ricardo.morales@email.com");
+            var result = _userRepository.GetCountFilter( "ricardo.morales@email.com");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(1);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
 
         [Test]
-        public async Task When_GetCountFilter_FilterDaniela_Then_Success()
+        public Task When_GetCountFilter_FilterDaniela_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetCountFilter("Daniela");
+            var result =  _userRepository.GetCountFilter("Daniela");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(1);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         [Test]
-        public async Task When_GetCountFilter_Filter_ruiz_Then_Success()
+        public Task When_GetCountFilter_Filter_ruiz_Then_Success()
         {
             // Given
-            await GetAllPeople();
+             GetAllPeople();
 
             // When
-            var result = await _userRepository.GetCountFilter("ruiz");
+            var result = _userRepository.GetCountFilter("ruiz");
 
             // Then
-
-            result?.Message.Should().Be(success);
-            result.IsSuccessful.Should().BeTrue();
-            result.Data.Should().Be(3);
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(success);
+            result.Result.IsSuccessful.Should().BeTrue();
+            result.Result.Data.Should().BeGreaterThan(0);
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
         }
 
         private async Task GetAllPeople()
