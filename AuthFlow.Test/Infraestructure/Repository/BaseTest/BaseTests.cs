@@ -1,17 +1,17 @@
-﻿using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Repositories;
-using AuthFlow.Persistence.Data;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Application.Repositories.Interface;
-
-namespace AuthFlow.Test.Infraestructure.Repository.BaseTest
+﻿namespace AuthFlow.Test.Infraestructure.Repository.BaseTest
 {
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Infraestructure.Repositories;
+    using AuthFlow.Persistence.Data;
+    using Microsoft.EntityFrameworkCore;
+    using Moq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using Microsoft.Extensions.Configuration;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using AuthFlow.Application.Repositories.Interface;
+
     [TestFixture]
     public class BaseTests
     {

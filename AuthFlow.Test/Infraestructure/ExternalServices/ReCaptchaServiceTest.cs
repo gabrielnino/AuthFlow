@@ -1,16 +1,16 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Interfaces;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using AuthFlow.Domain.DTO;
-using AuthFlow.Infraestructure.ExternalServices;
-using FluentAssertions;
-using Microsoft.Extensions.Configuration;
-using Moq;
-using Newtonsoft.Json;
-
-namespace AuthFlow.Test.Infraestructure.ExternalServices
+﻿namespace AuthFlow.Test.Infraestructure.ExternalServices
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Interfaces;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using AuthFlow.Domain.DTO;
+    using AuthFlow.Infraestructure.ExternalServices;
+    using FluentAssertions;
+    using Microsoft.Extensions.Configuration;
+    using Moq;
+    using Newtonsoft.Json;
+
     internal class ReCaptchaServiceTest
     {
         private const string MessageReCaptchaSuccessfully = "The reCAPTCHA code was validated successfully.";

@@ -1,16 +1,14 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Application.Use_cases.Interface.Operations;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Infraestructure.Operations;
-using FluentAssertions;
-using Microsoft.Extensions.Configuration;
-using Moq;
-using System.Net.Mail;
-
-namespace AuthFlow.Test.Infraestructure.Operations
+﻿namespace AuthFlow.Test.Infraestructure.Operations
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Application.Use_cases.Interface.Operations;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using AuthFlow.Infraestructure.Operations;
+    using FluentAssertions;
+    using Microsoft.Extensions.Configuration;
+    using Moq;
+    using System.Net.Mail;
 
     public class EmailServiceTests
     {

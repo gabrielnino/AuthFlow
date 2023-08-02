@@ -1,10 +1,7 @@
-﻿using AuthFlow.Application.DTOs;
-using FluentAssertions;
-
-namespace AuthFlow.Test.Core.DTOs
+﻿namespace AuthFlow.Test.Core.DTOs
 {
-    using NUnit.Framework;
     using FluentAssertions;
+    using global::AuthFlow.Application.DTOs;
 
     namespace AuthFlow.Test.Application.DTOs
     {

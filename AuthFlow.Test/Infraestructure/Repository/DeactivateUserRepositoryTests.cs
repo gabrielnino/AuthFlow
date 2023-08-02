@@ -1,9 +1,9 @@
-﻿using AuthFlow.Domain.Entities;
-using AuthFlow.Test.Infraestructure.Repository.BaseTest;
-using FluentAssertions;
-
-namespace AAuthFlow.Test.Infraestructure.Repository
+﻿namespace AAuthFlow.Test.Infraestructure.Repository
 {
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Test.Infraestructure.Repository.BaseTest;
+    using FluentAssertions;
+
     [TestFixture]
     public class DeactivateUserRepositoryTests : BaseTests
     {

@@ -1,10 +1,10 @@
-﻿using AuthFlow.Application.DTOs;
-using AuthFlow.Domain.Entities;
-using AuthFlow.Test.Infraestructure.Repository.BaseTest;
-using FluentAssertions;
-
-namespace AuthFlow.Test.Infraestructure.Repository
+﻿namespace AuthFlow.Test.Infraestructure.Repository
 {
+    using AuthFlow.Application.DTOs;
+    using AuthFlow.Domain.Entities;
+    using AuthFlow.Test.Infraestructure.Repository.BaseTest;
+    using FluentAssertions;
+
     [TestFixture]
     public class ActiveUserRepositoryTests : BaseTests
     {

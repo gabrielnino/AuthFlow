@@ -1,17 +1,17 @@
-﻿using Moq;
-using AuthFlow.Application.Use_cases.Interface.ExternalServices;
-using AuthFlow.Domain.Entities;
-using Microsoft.Extensions.Configuration;
-using AuthFlow.Infraestructure.ExternalServices;
-using FluentAssertions;
-using AuthFlow.Application.Uses_cases.Interface.Wrapper;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using AuthFlow.Infraestructure.Other;
-using AuthFlow.Application.DTOs;
-
-namespace AuthFlow.Test.Infraestructure.ExternalServices
+﻿namespace AuthFlow.Test.Infraestructure.ExternalServices
 {
+    using Moq;
+    using AuthFlow.Application.Use_cases.Interface.ExternalServices;
+    using AuthFlow.Domain.Entities;
+    using Microsoft.Extensions.Configuration;
+    using AuthFlow.Infraestructure.ExternalServices;
+    using FluentAssertions;
+    using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using System.Net.Http.Headers;
+    using Newtonsoft.Json;
+    using AuthFlow.Infraestructure.Other;
+    using AuthFlow.Application.DTOs;
+
     internal class LogServiceTest
     {
         private const string MessageSuccessful = "The log was create successfully.";
