@@ -12,7 +12,7 @@
     using AuthFlow.Infraestructure.Other;
     using AuthFlow.Application.DTOs;
 
-    internal class LogServiceTest
+    internal class LogServiceTests
     {
         private const string MessageSuccessful = "The log was create successfully.";
         private ILogService? logService;

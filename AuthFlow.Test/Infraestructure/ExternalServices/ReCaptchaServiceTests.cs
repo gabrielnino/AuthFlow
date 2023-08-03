@@ -11,7 +11,7 @@
     using Moq;
     using Newtonsoft.Json;
 
-    internal class ReCaptchaServiceTest
+    internal class ReCaptchaServiceTests
     {
         private const string MessageReCaptchaSuccessfully = "The reCAPTCHA code was validated successfully.";
         private const string MessageReCaptchaFailed = "The configuration for the ReCaptcha services is missing the secretKey or URL.";

@@ -8,7 +8,7 @@
     using Microsoft.Extensions.Caching.Distributed;
     using Moq;
 
-    public class OTPServicesTest
+    public class OTPServicesTests
     {
         private const string MessageEmailSuccessfully = "The email was sent successfully.";
         private const string MessageGenerateOTPSuccessfully = "The OTP code was generated successfully.";
@@ -32,7 +32,7 @@
         private void SetBehavior(OperationResult<bool>? success = null, string? otp = null)
         {
             var result = success ?? OperationResult<bool>.Success(true, MessageEmailSuccessfully);
-            var otpSend =  otp ?? OTPServicesTest.otp;
+            var otpSend =  otp ?? OTPServicesTests.otp;
             SetConfigurationValues(result, otpSend);
             mockIOtpService = new OtpService(mockIDistributedCache.Object, mockIEmailService.Object, mocklogService.Object);
         }
@@ -42,7 +42,7 @@
         {
             // Given
             SetBehavior();
-            string email = OTPServicesTest.email;
+            string email = OTPServicesTests.email;
 
             // When
             var result = mockIOtpService.GenerateOtp(email);
@@ -66,7 +66,7 @@
             // Given
             var resultSendEnmailFailed = OperationResult<bool>.FailureExtenalService("FailureExtenalService");
             SetBehavior(resultSendEnmailFailed);
-            string email = OTPServicesTest.email;
+            string email = OTPServicesTests.email;
 
             // When
             var result = mockIOtpService.GenerateOtp(email);
@@ -90,7 +90,7 @@
         {
             // Given
             SetBehavior();
-            string email = OTPServicesTest.email;
+            string email = OTPServicesTests.email;
             string otp = string.Empty; 
 
             // When
@@ -115,7 +115,7 @@
             // Given
             SetBehavior(otp: string.Empty);
             string email = string.Empty;
-            string otp = OTPServicesTest.otp;
+            string otp = OTPServicesTests.otp;
 
             // When
             var result = mockIOtpService.ValidateOtp(email, otp);
