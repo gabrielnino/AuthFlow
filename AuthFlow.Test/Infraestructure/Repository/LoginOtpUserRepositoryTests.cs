@@ -6,14 +6,17 @@
     [TestFixture]
     public class LoginOtpUserRepositoryTests : BaseTests
     {
+        private const string MessageFailed = "The user was not found - unable to create the session.";
+
         [Test]
         public Task When_LoginOtp_ValidParameters_Then_Success()
         {
             // Given
-            var filter = string.Empty;
+            var email = "withoutemail@notserver.mail.com";
+            var password = "123456";
 
             // When
-            var result = _userRepository.LoginOtp("withoutemail@notserver.mail.com","123456");
+            var result = _userRepository.LoginOtp(email,password);
 
             // Then
             result.Should().NotBeNull();
@@ -24,7 +27,7 @@
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
-            result.Result.Message.Should().Be("The user was not found - unable to create the session.");
+            result.Result.Message.Should().Be(MessageFailed);
             return Task.CompletedTask;
         }
 
@@ -32,10 +35,11 @@
         public Task When_LoginOtp_InvalidParameters_Then_Success()
         {
             // Given
-            var filter = string.Empty;
+            var email = "with123oute456mail@notserver.mail.com";
+            var password = "1AAA23456";
 
             // When
-            var result = _userRepository.LoginOtp("with123oute456mail@notserver.mail.com", "1AAA23456");
+            var result = _userRepository.LoginOtp(email, password);
 
             // Then
             result.Should().NotBeNull();
@@ -46,7 +50,7 @@
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
-            result.Result.Message.Should().Be("The user was not found - unable to create the session.");
+            result.Result.Message.Should().Be(MessageFailed);
             return Task.CompletedTask;
         }
 
@@ -54,10 +58,11 @@
         public Task When_LoginOtp_InvalidParameters02_Then_Success()
         {
             // Given
-            var filter = string.Empty;
+            var email = "witutenotserver.mail.com";
+            var password = "12EE56";
 
             // When
-            var result = _userRepository.LoginOtp("witutenotserver.mail.com", "12EE56");
+            var result = _userRepository.LoginOtp(email, password);
 
             // Then
             result.Should().NotBeNull();
@@ -68,7 +73,7 @@
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
-            result.Result.Message.Should().Be("The user was not found - unable to create the session.");
+            result.Result.Message.Should().Be(MessageFailed);
             return Task.CompletedTask;
         }
 
@@ -76,10 +81,11 @@
         public Task When_LoginOtp_InvalidParameters03_Then_Success()
         {
             // Given
-            var filter = string.Empty;
+            var email = "witutenotSSSSr.mail.com";
+            var password = "1SSWE56";
 
             // When
-            var result = _userRepository.LoginOtp("witutenotSSSSr.mail.com", "1SSWE56");
+            var result = _userRepository.LoginOtp(email, password);
 
             // Then
             result.Should().NotBeNull();
@@ -90,7 +96,7 @@
             result.Result.Should().NotBeNull();
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
-            result.Result.Message.Should().Be("The user was not found - unable to create the session.");
+            result.Result.Message.Should().Be(MessageFailed);
             return Task.CompletedTask;
         }
     }

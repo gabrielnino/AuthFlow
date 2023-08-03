@@ -10,6 +10,7 @@
         private const string success = "The user was loging successfully.";
         private const string failedWrongPassword = "The given username or password is incorrect.";
         private const string failedWrongUser = "The user was not found - unable to create the session.";
+        private const string necessaryData = "Necessary data was not provided.";
 
         [Test]
         public Task When_Login_ValidParameter_Then_Success()
@@ -19,7 +20,7 @@
             var userName = $"john.doe.{key}";
             var email = $"john.doe.{key}@example.com";
             var password = $"password.{key}";
-            User user = GetUser(userName, email, password );
+            var user = GetUser(userName, email, password );
             var repo =  _userRepository.Add(user);
             user.Id = repo.Result.Data;
 
@@ -86,6 +87,34 @@
             // Then
             result.Should().NotBeNull();
             result.Result.Message.Should().Be(failedWrongUser);
+            result.Result.IsSuccessful.Should().BeFalse();
+            result.Result.Data.Should().BeNullOrEmpty();
+            result.Id.Should().BeGreaterThan(0);
+            result.Status.Should().Be(TaskStatus.RanToCompletion);
+            result.Exception.Should().BeNull();
+            result.AsyncState.Should().BeNull();
+            result.Result.Should().NotBeNull();
+            return Task.CompletedTask;
+        }
+
+        [Test]
+        public Task When_Login_InvalidParameters_Then_Failed()
+        {
+            // Given
+            var key = "261c2aab-4rfd-4d41-yu72-6010247465c2";
+            var userName = $"john.doe.{key}";
+            var email = $"john.doe.{key}@example.com";
+            var password = $"password.{key}";
+            User user = GetUser(userName, email, password);
+            var repo = _userRepository.Add(user);
+            user.Id = repo.Result.Data;
+
+            // When
+            var result = _userRepository.Login(string.Empty, string.Empty);
+
+            // Then
+            result.Should().NotBeNull();
+            result.Result.Message.Should().Be(necessaryData);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNullOrEmpty();
             result.Id.Should().BeGreaterThan(0);
