@@ -280,3 +280,5 @@
 /AuthFlow.Infraestructure/ExternalServices/LogBuilder.cs
 /AuthFlow.Persistence/obj/Debug/net7.0/AuthFlow.Persistence.pdb
 /AuthFlow.Persistence/obj/Debug/net7.0/AuthFlow.Persistence.dll
+/AuthFlow.Api/obj/Debug/net7.0/AuthFlow.Api.dll
+/AuthFlow.Api/obj/Debug/net7.0/AuthFlow.Api.pdb
