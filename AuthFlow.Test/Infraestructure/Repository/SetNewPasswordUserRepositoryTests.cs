@@ -15,12 +15,7 @@
             var result = _userRepository.SetNewPassword("withoutemail@notserver.mail.com", "123456");
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be("This email is not registered by any user.");
@@ -38,12 +33,7 @@
             var result = _userRepository.SetNewPassword(email, password);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be("This email is not registered by any user.");

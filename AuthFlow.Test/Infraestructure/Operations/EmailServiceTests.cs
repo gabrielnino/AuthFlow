@@ -71,17 +71,13 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
             result.Result.Message.Should().Be(MessageSendEmailAsync);
             return Task.CompletedTask;
         }
+
 
         [Test]
         public Task When_SendEmailAsync_InvalidSmtp_Then_Failed()
@@ -96,12 +92,7 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
@@ -122,12 +113,7 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
@@ -148,12 +134,7 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
@@ -174,12 +155,7 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
@@ -200,12 +176,7 @@
             var result = mockIEmailService.SendEmailAsync(email, subject, message);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);

@@ -39,15 +39,10 @@
             var result = _userRepository.Modified(userFound);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -63,15 +58,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -85,15 +75,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
         
@@ -108,15 +93,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
         
@@ -134,15 +114,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(emailMustNotEmpty);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -161,15 +136,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(usernameMustNotEmpty);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -187,15 +157,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(passwordMustNotEmpty);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -219,15 +184,10 @@
             var result = _userRepository.Modified(user_two);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(alreadyRegisteredUsername);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -250,15 +210,10 @@
             var result =  _userRepository.Modified(user_two);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(alreadyRegisteredEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -275,15 +230,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lengthMinimunUsername);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -300,15 +250,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lengthMinimunEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -325,15 +270,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lengthMinimunPassword);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -352,15 +292,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lengthMinimunAllField);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -377,15 +312,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lengthMaximunUsername);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -402,15 +332,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lenghtMaximunEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -427,15 +352,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lenghtMaximunPassword);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -454,15 +374,10 @@
             var result = _userRepository.Modified(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(lenghtAllField);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -483,15 +398,10 @@
             var result =  _userRepository.Modified(userFound);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -512,15 +422,10 @@
             var result = _userRepository.Modified(userFound);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(invalidEmailFormat);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
     }

@@ -63,17 +63,13 @@
             var result = logService.CreateLog(log);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().Be(string.Empty);
             result.Result.Message.Should().Be(MessageSuccessful);
             return Task.CompletedTask;
         }
+
 
         [Test]
         public Task When_CreateLog_InvalidLogObject_Then_Success()
@@ -88,12 +84,7 @@
             var result = logService.CreateLog(log);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().Be(string.Empty);
             result.Result.Message.Should().Be("The log was create successfully.");
@@ -107,12 +98,11 @@
             // Given
             object? myObject = null;
             var ex = default(Exception);
- 
+
             // When
 
             // Then
-            Assert.ThrowsAsync<Exception>(async () => Util.GetLogError(ex, myObject, OperationExecute.Activate));
-
+            NUnit.Framework.Assert.ThrowsAsync<Exception>(async () => Util.GetLogError(ex, myObject, OperationExecute.Activate));
             return Task.CompletedTask;
         }
 
@@ -134,12 +124,7 @@
             var result = logService.CreateLog(log);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
             result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);

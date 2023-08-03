@@ -21,16 +21,11 @@
             var result = _userRepository.GetPageByFilter(0, 3, "Andrea");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<IQueryable<User>>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Count().Should().Be(1);
             result.Result.Data.FirstOrDefault().Username.Should().Be("Andrea");
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -44,16 +39,11 @@
             var result = _userRepository.GetPageByFilter(0, 3, string.Empty);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<IQueryable<User>>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Count().Should().Be(3);
             result.Result.Data.FirstOrDefault().Username.Should().Be("usernameanonymous");
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -69,16 +59,11 @@
             var result = _userRepository.GetPageByFilter(0, 3, "ricardo.morales@email.com");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<IQueryable<User>>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Count().Should().Be(1);
             result.Result.Data.FirstOrDefault().Email.Should().Be("ricardo.morales@email.com");
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -93,16 +78,11 @@
             var result = _userRepository.GetPageByFilter(0, 13, "Daniela");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<IQueryable<User>>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Count().Should().Be(1);
             result.Result.Data.FirstOrDefault().Email.Should().Be("daniela.martinez@email.com");
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -116,16 +96,11 @@
             var result =  _userRepository.GetPageByFilter(0, 13, "ruiz");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<IQueryable<User>>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Count().Should().Be(3);
             result.Result.Data.FirstOrDefault().Email.Should().Be("fernanda.ruiz@email.com");
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 

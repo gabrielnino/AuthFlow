@@ -48,12 +48,7 @@
             var result = mockIOtpService.GenerateOtp(email);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
             result.Result.Message.Should().Be(MessageGenerateOTPSuccessfully);
@@ -72,12 +67,7 @@
             var result = mockIOtpService.GenerateOtp(email);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be("FailureExtenalService");
@@ -97,12 +87,7 @@
             var result = mockIOtpService.ValidateOtp(email, otp);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageOTPFailed);
@@ -121,12 +106,7 @@
             var result = mockIOtpService.ValidateOtp(email, otp);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageInvalidOtpFailed);

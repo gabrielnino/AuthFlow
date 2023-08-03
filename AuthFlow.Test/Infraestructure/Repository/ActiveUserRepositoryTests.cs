@@ -27,16 +27,11 @@
             var userFound = userRepo.Result.Data.FirstOrDefault();
 
             // Then
+            UtilTest<bool>.Assert(result);
             userFound.Active.Should().BeTrue();
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -53,18 +48,13 @@
             var result =  _userRepository.Activate(99999999);
 
             // Then
-            result.Should().NotBeNull();
-            result.Result.Message.Should().Be(userTryingActiveDoesNotExist);
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
     }

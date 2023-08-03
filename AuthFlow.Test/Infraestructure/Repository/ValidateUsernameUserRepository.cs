@@ -15,12 +15,7 @@
             var result = _userRepository.ValidateUsername("withoutemail@notserver.mail.com");
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(-1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<Tuple<bool, IEnumerable<string>>>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Message.Should().Be("The given username is not in a valid format");
             return Task.CompletedTask;

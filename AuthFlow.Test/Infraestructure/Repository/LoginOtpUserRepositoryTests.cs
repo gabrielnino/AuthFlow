@@ -19,12 +19,7 @@
             var result = _userRepository.LoginOtp(email,password);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
             result.Result.Message.Should().Be(MessageFailed);
@@ -42,12 +37,7 @@
             var result = _userRepository.LoginOtp(email, password);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
             result.Result.Message.Should().Be(MessageFailed);
@@ -65,12 +55,7 @@
             var result = _userRepository.LoginOtp(email, password);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
             result.Result.Message.Should().Be(MessageFailed);
@@ -88,12 +73,7 @@
             var result = _userRepository.LoginOtp(email, password);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
             result.Result.Message.Should().Be(MessageFailed);

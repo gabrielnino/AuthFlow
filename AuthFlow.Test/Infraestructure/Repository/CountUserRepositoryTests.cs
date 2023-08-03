@@ -20,15 +20,10 @@
             var result =  _userRepository.GetCountFilter("Andrea");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(0);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
         
@@ -42,15 +37,10 @@
             var result =  _userRepository.GetCountFilter(string.Empty);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(0);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -65,15 +55,10 @@
             var result = _userRepository.GetCountFilter( "ricardo.morales@email.com");
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(0);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 

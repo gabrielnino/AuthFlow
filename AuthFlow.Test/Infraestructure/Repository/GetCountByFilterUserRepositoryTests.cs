@@ -17,12 +17,7 @@
             var result =  _userRepository.GetCountByFilter(filter);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(100000);
             result.Result.Message.Should().Be(MessageSucess);
@@ -39,12 +34,7 @@
             var result = _userRepository.GetCountByFilter(filter);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
@@ -61,12 +51,7 @@
             var result = _userRepository.GetCountByFilter(filter);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
@@ -83,12 +68,7 @@
             var result = _userRepository.GetCountByFilter(filter);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(100);
             result.Result.Message.Should().Be(MessageSucess);
@@ -105,12 +85,7 @@
             var result = _userRepository.GetCountByFilter(filter);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().BeGreaterThan(1);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().Be(0);
             result.Result.Message.Should().Be(MessageSucess);

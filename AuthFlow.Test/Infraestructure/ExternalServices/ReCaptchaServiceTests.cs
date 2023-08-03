@@ -47,12 +47,7 @@
             var result = reCaptchaService.Validate(token);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
             result.Result.Message.Should().Be(MessageReCaptchaSuccessfully);
@@ -70,12 +65,7 @@
             var result = reCaptchaService.Validate(token);
 
             // Then
-            result.Should().NotBeNull();
-            result.Id.Should().NotBe(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageReCaptchaFailed);

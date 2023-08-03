@@ -112,16 +112,10 @@
             // When
             var result = _userRepository.Login(string.Empty, string.Empty);
 
-            // Then
-            result.Should().NotBeNull();
+            UtilTest<string>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNullOrEmpty();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 

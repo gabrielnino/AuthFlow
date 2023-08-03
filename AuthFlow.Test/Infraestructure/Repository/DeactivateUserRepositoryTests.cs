@@ -26,15 +26,10 @@
             var userFound = userRepo.Result.Data.FirstOrDefault();
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(success);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeTrue();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -51,15 +46,10 @@
             var result = _userRepository.Deactivate(999999);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<bool>.Assert(result);
             result.Result.Message.Should().Be(userTryingInactiveDoesNotExist);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
     }

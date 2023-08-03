@@ -32,15 +32,9 @@
             var result =  _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
-            result.Result.Message.Should().Be(success);
+            UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
             result.Result.Data.Should().BeGreaterThan(0);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             return Task.CompletedTask;
         }
 
@@ -60,17 +54,9 @@
 
             // Then
             userCompute.Password.Should().Be(passwordhash);
-            result.Should().NotBeNull();
-            result.Result.Message.Should().Be(success);
-            result.Result.IsSuccessful.Should().BeTrue();
+            UtilTest<int>.Assert(result);
             result.Result.Data.Should().BeGreaterThan(0);
-            result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(0);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
+            result.Result.IsSuccessful.Should().BeTrue(); 
             return Task.CompletedTask;
         }
 
@@ -89,18 +75,11 @@
             var result =  _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(lengMinimumEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Result.IsSuccessful.Should().BeFalse();
-            result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+
             return Task.CompletedTask;
         }
 
@@ -119,16 +98,9 @@
             var result =  _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(usernameMustNotEmpty);
-            result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
 
@@ -147,16 +119,10 @@
             var result =  _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(passwordMustNotEmpty);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
 
@@ -172,15 +138,9 @@
             var result =  _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
-            result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
@@ -196,15 +156,10 @@
             var result = _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(lengthMinimun);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
@@ -220,15 +175,10 @@
             var result = _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(lengthOverMaximum);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
@@ -245,15 +195,9 @@
             var result = _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(alreadyRegisteredUsername);
-            result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
@@ -270,15 +214,10 @@
             var result = _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(alreadyRegisteredEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
@@ -295,15 +234,10 @@
             var result = _userRepository.Add(user);
 
             // Then
-            result.Should().NotBeNull();
+            UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(invalidEmailFormat);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            result.Id.Should().BeGreaterThan(0);
-            result.Status.Should().Be(TaskStatus.RanToCompletion);
-            result.Exception.Should().BeNull();
-            result.AsyncState.Should().BeNull();
-            result.Result.Should().NotBeNull();
             result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
