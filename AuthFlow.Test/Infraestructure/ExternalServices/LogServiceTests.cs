@@ -60,7 +60,7 @@
             var log = Util.GetLogError(ex, myObject, OperationExecute.Activate);
 
             // When
-            var result = logService.CreateLog(log);
+            var result = logService?.CreateLog(log);
 
             // Then
             UtilTest<string>.Assert(result);
