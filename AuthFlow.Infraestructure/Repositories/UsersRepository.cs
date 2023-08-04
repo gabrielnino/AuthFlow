@@ -18,6 +18,7 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
+    using static System.Net.WebRequestMethods;
 
     // UsersRepository is a concrete implementation of IUserRepository
     // It provides repository operations for the User entity using the EntityRepository base class
@@ -61,7 +62,13 @@
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var loginOTP = new
+                {
+                    Email = email,
+                    Otp = otp
+                };
+
+                var log = Util.GetLogError(ex, loginOTP, OperationExecute.LoginOtp);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -98,7 +105,12 @@
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var login = new
+                {
+                    Username = username,
+                    Password = password
+                };
+                var log = Util.GetLogError(ex, login, OperationExecute.Login);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -321,7 +333,7 @@
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, email, OperationExecute.ValidateEmail);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -424,7 +436,7 @@
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, username, OperationExecute.ValidateUsername);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -454,7 +466,13 @@
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var employee = new 
+                {
+                    Email = email,
+                    Password = password
+                };
+
+                var log = Util.GetLogError(ex, employee, OperationExecute.SetNewPassword);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }

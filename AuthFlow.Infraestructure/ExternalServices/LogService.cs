@@ -72,20 +72,20 @@ namespace AuthFlow.Infraestructure.ExternalServices
             var response = await _httpContentWrapper.PostAsync(_client, url, null, null);
 
             // If the response indicates success, process the token
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
-                // Read the content of the response
-                var result = await _httpContentWrapper.ReadAsStringAsync(response.Content);
-
-                // Deserialize the token from the response content
-                var _tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
-
-                // Return the token
-                return OperationResult<string>.Success(_tokenResponse.Token, Resource.SuccessfullyGetToken);
+                // If the response indicates failure, return an empty string
+                return OperationResult<string>.FailureExtenalService(Resource.FailedGetToken);
             }
 
-            // If the response indicates failure, return an empty string
-            return OperationResult<string>.FailureExtenalService(Resource.FailedGetToken);
+            // Read the content of the response
+            var result = await _httpContentWrapper.ReadAsStringAsync(response.Content);
+
+            // Deserialize the token from the response content
+            var _tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
+
+            // Return the token
+            return OperationResult<string>.Success(_tokenResponse.Token, Resource.SuccessfullyGetToken);
         }
 
         // Asynchronously creates a log entry in the external log service
@@ -94,33 +94,33 @@ namespace AuthFlow.Infraestructure.ExternalServices
             // Get the bearer token for the request
             var bearerToken = await GetToken();
 
-            if (bearerToken.IsSuccessful)
+            if (!bearerToken.IsSuccessful)
             {
-                // Create the url for the log entry
-                var url = $"{_urlLogservice}";
-
-                // Serialize the log to JSON
-                var json = JsonConvert.SerializeObject(log);
-
-                // Create the content for the request
-                var content = new StringContent(json ?? "NOT_POSIBLE_GET_A_VALID_LOG", Encoding.UTF8, "application/json");
-                // Add the bearer token to the request headers
-                var authorization = new AuthenticationHeaderValue("Bearer", bearerToken.Data);
-
-                // Send a POST request to the url with the content
-                var response = await _httpContentWrapper.PostAsync(_client, url, content, authorization);
-
-                // If the response indicates success, return an empty string
-                // If the response indicates failure, return an empty string
-                if (!response.IsSuccessStatusCode)
-                {
-                    return OperationResult<string>.FailureExtenalService(Resource.FailedSetLog);
-                }
-
-                return OperationResult<string>.Success(string.Empty, Resource.SuccessfullySetLog);
+                return bearerToken;
             }
 
-            return bearerToken;
+            // Create the url for the log entry
+            var url = $"{_urlLogservice}";
+
+            // Serialize the log to JSON
+            var json = JsonConvert.SerializeObject(log);
+
+            // Create the content for the request
+            var content = new StringContent(json ?? "NOT_POSIBLE_GET_A_VALID_LOG", Encoding.UTF8, "application/json");
+            // Add the bearer token to the request headers
+            var authorization = new AuthenticationHeaderValue("Bearer", bearerToken.Data);
+
+            // Send a POST request to the url with the content
+            var response = await _httpContentWrapper.PostAsync(_client, url, content, authorization);
+
+            // If the response indicates success, return an empty string
+            // If the response indicates failure, return an empty string
+            if (!response.IsSuccessStatusCode)
+            {
+                return OperationResult<string>.FailureExtenalService(Resource.FailedSetLog);
+            }
+
+            return OperationResult<string>.Success(string.Empty, Resource.SuccessfullySetLog);
         }
     }
 }

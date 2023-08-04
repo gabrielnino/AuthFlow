@@ -43,13 +43,25 @@
     // OperationExecute is an enumeration of possible operations that can be performed on an entity.
     public enum OperationExecute
     {
-        GetAllByFilter,
-        GetPageByFilter,
-        GetCountByFilter,
+        // Crud
         Add,
         Modified,
         Remove,
         Deactivate,
-        Activate
+        Activate,
+        // Others
+        GetUserById,
+        GetAllByFilter,
+        GetPageByFilter,
+        GetCountFilter,
+        GenerateOtp,
+        LoginOtp,
+        Login,
+        Validate,
+        ValidateEmail,
+        ValidateOtp,
+        ValidateUsername,
+        SetNewPassword,
+        SendEmailAsync
     }
 }

@@ -1,6 +1,4 @@
-﻿using AuthFlow.Domain.Interfaces;
-
-namespace AuthFlow.Domain.DTO
+﻿namespace AuthFlow.Domain.DTO
 {
     /// <summary>
     /// Represents a user in the context of the application.

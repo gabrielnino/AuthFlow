@@ -1,13 +1,9 @@
 ﻿namespace AuthFlow.Infraestructure.Other
 {
-    using AuthFlow.Application.DTOs;
     using AuthFlow.Domain.Entities;
     using AuthFlow.Infraestructure.ExternalServices;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using System.Runtime.CompilerServices;
 
     public static class Util
     {
@@ -31,6 +27,11 @@
         public static bool HasString(string str)
         {
             return !(string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str));
+        }
+
+        public static string GetMethodName([CallerMemberName] string memberName = "")
+        {
+            return memberName;
         }
 
     }

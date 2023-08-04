@@ -63,7 +63,7 @@ namespace AuthFlow.Infraestructure.Operations
             catch (Exception ex)
             {
                 // Log the error and return a failure result if there's an exception
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, email, OperationExecute.GenerateOtp);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -106,8 +106,14 @@ namespace AuthFlow.Infraestructure.Operations
             }
             catch (Exception ex)
             {
+                var otpClass = new
+                {
+                    Email = email,
+                    Otp = otp
+                };
+
                 // Log the error and return a failure result if there's an exception
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, otpClass, OperationExecute.ValidateOtp);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedRecaptchaService);
             }

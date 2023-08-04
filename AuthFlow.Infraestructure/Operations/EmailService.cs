@@ -66,8 +66,15 @@ namespace AuthFlow.Infraestructure.Operations
             }
             catch (Exception ex)
             {
+                var sendEmailAsync = new
+                {
+                    Email = email,
+                    Subject = subject,
+                    Message = message,
+                };
+
                 // Log the error and return a failure result if there's an exception
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, sendEmailAsync, OperationExecute.SendEmailAsync);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedEmailService);
             }

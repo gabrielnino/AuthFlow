@@ -56,6 +56,8 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
         }
 
+
+
         // This method modifies an existing entity in the database after performing a series of validations.
         public new async Task<OperationResult<bool>> Modified(T entity)
         {
@@ -226,7 +228,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, id, OperationExecute.GetUserById);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<T>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -248,7 +250,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetAllByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, predicate, OperationExecute.GetAllByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -272,7 +274,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var filterValue = new 
+                { 
+                    PageNumber = pageNumber, 
+                    PageSize = pageSize, 
+                    Filter = filter 
+                };
+
+                var log = Util.GetLogError(ex, filterValue, OperationExecute.GetPageByFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -295,7 +304,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetCountByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, filter, OperationExecute.GetCountFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
@@ -319,7 +328,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             }
             catch (Exception ex)
             {
-                var log = Util.GetLogError(ex, "GetByFilter", OperationExecute.GetAllByFilter);
+                var log = Util.GetLogError(ex, filter, OperationExecute.GetCountFilter);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
