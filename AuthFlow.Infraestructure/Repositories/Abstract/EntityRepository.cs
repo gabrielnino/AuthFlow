@@ -31,14 +31,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return OperationResult<int>.FailureBusinessValidation(hasEntity.Message);
+                    return hasEntity.GetInt();
                 }
                
                 // Validate the entity
                 var validationResult = await AddEntity(entity);
                 if (!validationResult.IsSuccessful)
                 {
-                    return OperationResult<int>.FailureBusinessValidation(validationResult?.Message);
+                    return validationResult.GetInt();
                 }
 
                 // If validation is successful, add the entity to the database
@@ -51,7 +51,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch(Exception ex)
             {
                 var log = Util.GetLogError(ex, entity, OperationExecute.Add);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if(!result.IsSuccessful)
+                {
+                    result.GetInt();
+                }
+                
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -66,19 +71,19 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return OperationResult<bool>.FailureBusinessValidation(hasEntity.Message);
+                    return hasEntity.GetBool();
                 }
 
                 var resultExist = await ValidateExist(entity.Id);
                 if (!resultExist.IsSuccessful)
                 {
-                    return OperationResult<bool>.FailureBusinessValidation(resultExist.Message);
+                    return resultExist.GetBool();
                 }
 
                 var resultModifyEntity = await ModifyEntity(entity, resultExist.Data);
                 if (!resultModifyEntity.IsSuccessful)
                 {
-                    return OperationResult<bool>.FailureBusinessValidation(resultModifyEntity.Message);
+                    return resultModifyEntity.GetBool();
                 }
 
                 // If validation is successful, update the entity in the database
@@ -94,7 +99,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, entity, OperationExecute.Modified);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -130,7 +140,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, id, OperationExecute.Activate);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -168,7 +183,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, id, OperationExecute.Deactivate);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -201,7 +221,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, id, OperationExecute.Remove);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -229,7 +254,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, id, OperationExecute.GetUserById);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<T>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -251,7 +281,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, predicate, OperationExecute.GetAllByFilter);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -282,7 +317,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 };
 
                 var log = Util.GetLogError(ex, filterValue, OperationExecute.GetPageByFilter);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -305,7 +345,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, filter, OperationExecute.GetCountFilter);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -329,7 +374,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, filter, OperationExecute.GetCountFilter);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetInt();
+                }
+
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -356,6 +406,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             {
                 return OperationResult<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
             }
+
             return OperationResult<T>.Success(entity,Resource.GlobalOkMessage);
         }
 

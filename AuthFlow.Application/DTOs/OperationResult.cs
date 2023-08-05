@@ -55,5 +55,55 @@ namespace AuthFlow.Application.DTOs
         {
             return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.ConfigurationMissingError };
         }
+        private OperationResult()
+        {
+            
+        }
+
+        public OperationResult<bool> GetBool()
+        { 
+            if (IsSuccessful.Equals(true))
+            {
+                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
+            }
+
+            return new OperationResult<bool> 
+            { 
+                IsSuccessful = false, 
+                Message = this.Message, 
+                Types = this.Types
+            };
+        }
+
+        public OperationResult<string> GetString()
+        {
+            if (IsSuccessful.Equals(true))
+            {
+                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
+            }
+
+            return new OperationResult<string>
+            {
+                IsSuccessful = false,
+                Message = this.Message,
+                Types = this.Types
+            };
+        }
+
+        public OperationResult<int> GetInt()
+        {
+            if (IsSuccessful.Equals(true))
+            {
+                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
+            }
+
+            return new OperationResult<int>
+            {
+                IsSuccessful = false,
+                Message = this.Message,
+                Types = this.Types
+            };
+        }
+
     }
 }

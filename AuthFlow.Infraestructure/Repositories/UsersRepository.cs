@@ -69,7 +69,12 @@
                 };
 
                 var log = Util.GetLogError(ex, loginOTP, OperationExecute.LoginOtp);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -111,7 +116,12 @@
                     Password = password
                 };
                 var log = Util.GetLogError(ex, login, OperationExecute.Login);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -334,7 +344,12 @@
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, email, OperationExecute.ValidateEmail);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -437,7 +452,12 @@
             catch (Exception ex)
             {
                 var log = Util.GetLogError(ex, username, OperationExecute.ValidateUsername);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
@@ -473,7 +493,12 @@
                 };
 
                 var log = Util.GetLogError(ex, employee, OperationExecute.SetNewPassword);
-                await _externalLogService.CreateLog(log);
+                var result = await _externalLogService.CreateLog(log);
+                if (!result.IsSuccessful)
+                {
+                    result.GetBool();
+                }
+
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
