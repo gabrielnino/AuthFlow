@@ -259,6 +259,15 @@ namespace AuthFlow.Infraestructure {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} does not exist..
+        /// </summary>
+        internal static string GenericExistValidation {
+            get {
+                return ResourceManager.GetString("GenericExistValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The {0} you are trying to active does not exist..
         /// </summary>
         internal static string GenericToActiveNotExist {

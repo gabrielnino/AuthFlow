@@ -114,14 +114,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         {
             try
             {
+                
                 // Validate if the entity with the provided ID exists
                 var validationResult = await ValidateExist(id);
 
                 // If validation is not successful, return a failure operation result
                 if (!validationResult.IsSuccessful)
                 {
-                    var messageExist = string.Format(Resource.GenericToActiveNotExist, typeof(T).Name);
-                    return OperationResult<bool>.FailureBusinessValidation(messageExist);
+                    return validationResult.ToResultWithBoolType();
                 }
 
                 // If validation is successful, set the entity as active
@@ -242,8 +242,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 // If validation is not successful, return a failure operation result
                 if (!validationResult.IsSuccessful)
                 {
-                    var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
-                    return OperationResult<T>.FailureBusinessValidation(messageExist);
+                    return validationResult.ToResultWithGenericType();
                 }
 
                 var entity = validationResult.Data;
@@ -426,7 +425,8 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             var hasEntity = entityUnmodified is not null;
             if (!hasEntity)
             {
-                return OperationResult<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                var messageExist = string.Format(Resource.GenericExistValidation, typeof(T).Name);
+                return OperationResult<T>.FailureBusinessValidation(messageExist);
             }
 
             // If the entity exists, return a success operation result

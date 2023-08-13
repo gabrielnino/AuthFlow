@@ -183,6 +183,9 @@
   <data name="FailureConfigurationMissingErrorSendEmail" xml:space="preserve">
     <value>The configuration for the Email services is missing one of the necessary parameters.</value>
   </data>
+  <data name="GenericExistValidation" xml:space="preserve">
+    <value>The {0} does not exist.</value>
+  </data>
   <data name="GenericToActiveNotExist" xml:space="preserve">
     <value>The {0} you are trying to active does not exist.</value>
   </data>

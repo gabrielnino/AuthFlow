@@ -23,6 +23,7 @@
         private const string usernameMustNotEmpty = "One or more data from the User have been submitted with errors 'Username' must not be empty.";
         private const string passwordMustNotEmpty = "One or more data from the User have been submitted with errors 'Password' must not be empty.";
         private const string invalidEmailFormat = "The given email is not in a valid format";
+        private const string UserDoesNotExist = "The User does not exist.";
 
         [Test]
         public Task When_Modified_ValidUser_Then_Success()
@@ -94,7 +95,7 @@
 
             // Then
             UtilTest<bool>.Assert(result);
-            result.Result.Message.Should().Be(necessaryData);
+            result.Result.Message.Should().Be(UserDoesNotExist);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             return Task.CompletedTask;
