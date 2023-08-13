@@ -78,6 +78,7 @@
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
+
         // Login method is responsible for authenticating the user based on the provided username and password
         public async Task<OperationResult<string>> Login(string? username, string? password)
         {
@@ -247,9 +248,7 @@
             return Regex.IsMatch(user, emailPattern);
         }
 
-
         // GetUser method creates a new User entity with the provided details
-
         private static User GetUser(User entity)
         {
             return new User()
@@ -264,7 +263,6 @@
         }
 
         // GetErrorMessage method generates an error message string from a ValidationResult object
-
         private static string GetErrorMessage(ValidationResult result)
         {
             var errors = result.Errors.Select(x => x.ErrorMessage).Distinct();
@@ -278,10 +276,8 @@
             return errorMessage;
         }
 
-
         // ComputeSha256Hash method generates the SHA256 hash of a provided string
         // This method is used to hash the password before storing it in the database
-
         private static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
@@ -300,7 +296,6 @@
         }
 
         // GenerateToken method generates a JWT token for the authenticated user
-
         private string GenerateToken(User user)
         {
             var claims = new[]
