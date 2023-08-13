@@ -39,7 +39,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+                result.ErrorType.Should().Be(ErrorTypes.BusinessValidationError);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -53,7 +53,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.DatabaseError);
+                result.ErrorType.Should().Be(ErrorTypes.DatabaseError);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -67,7 +67,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.ExternalServicesError);
+                result.ErrorType.Should().Be(ErrorTypes.ExternalServicesError);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -81,7 +81,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.UnexpectedError);
+                result.ErrorType.Should().Be(ErrorTypes.UnexpectedError);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -95,7 +95,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.DataSubmittedInvalid);
+                result.ErrorType.Should().Be(ErrorTypes.DataSubmittedInvalid);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -109,7 +109,7 @@
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+                result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }

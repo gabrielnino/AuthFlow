@@ -36,21 +36,21 @@ namespace AuthFlow.Application.DTOs
             {
                 IsSuccessful = false,
                 Message = this.Message,
-                Types = this.Types
+                ErrorType = this.ErrorType
             };
         }
 
         // Indicates if the operation was successful.
         public bool IsSuccessful { get; private set; }
 
+        // Contains the data associated with the operation result.
+        public T? Data { get; private set; }
+
         // Provides additional details about the operation, such as error messages or success information.
         public string? Message { get; private set; }
 
         // Specifies the type of error, if any, that occurred during the operation.
-        public ErrorTypes? Types { get; private set; }
-
-        // Contains the data associated with the operation result.
-        public T? Data { get; private set; }
+        public ErrorTypes? ErrorType { get; private set; }
 
         /// <summary>
         /// Creates a successful operation result with the given data and optional message.
@@ -60,7 +60,7 @@ namespace AuthFlow.Application.DTOs
         /// <returns>The operation result</returns>
         public static OperationResult<T> Success(T data, string message = "")
         {
-            return new OperationResult<T> { IsSuccessful = true, Message = message, Data = data };
+            return new OperationResult<T> { IsSuccessful = true, Data = data, Message = message };
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace AuthFlow.Application.DTOs
         /// <returns>The operation result</returns>
         private static OperationResult<T> Failure(string message, ErrorTypes errorTypes)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = errorTypes };
+            return new OperationResult<T> { IsSuccessful = false, Message = message, ErrorType = errorTypes };
         }
 
         /// <summary>

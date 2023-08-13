@@ -96,7 +96,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 
@@ -117,7 +117,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 
@@ -138,7 +138,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 
@@ -159,7 +159,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 
@@ -180,7 +180,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 

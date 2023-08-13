@@ -69,7 +69,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageReCaptchaFailed);
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 

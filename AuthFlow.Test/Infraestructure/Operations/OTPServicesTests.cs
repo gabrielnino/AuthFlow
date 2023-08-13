@@ -71,7 +71,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be("FailureExtenalService");
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
 
@@ -110,7 +110,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageInvalidOtpFailed);
-            result.Result.Types.Should().Be(ErrorTypes.BusinessValidationError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.BusinessValidationError);
             return Task.CompletedTask;
         }
 

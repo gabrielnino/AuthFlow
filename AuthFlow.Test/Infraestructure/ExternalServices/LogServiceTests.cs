@@ -127,7 +127,7 @@
             UtilTest<string>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeNull();
-            result.Result.Types.Should().Be(ErrorTypes.ConfigurationMissingError);
+            result.Result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
             return Task.CompletedTask;
         }
 
