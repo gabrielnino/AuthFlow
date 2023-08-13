@@ -1,109 +1,164 @@
 ﻿// Namespace holding all the application DTOs
 namespace AuthFlow.Application.DTOs
 {
-    // OperationResult is a class used to encapsulate the result of an operation.
-    // This class is generic and can hold any type of data associated with the operation result.
+    /// <summary>
+    /// Represents the result of an operation.
+    /// </summary>
+    /// <typeparam name="T">The type of data associated with the operation result.</typeparam>
     public class OperationResult<T>
     {
-        // A boolean indicating whether the operation was successful or not
-        public bool IsSuccessful { get; set; }
+        private const string InvalidOperation = "This method can only be used if the value of IsSuccessful is false.";
 
-        // Message related to the operation result. This could be error messages or success details.
-        // This may be null if no message is set.
-        public string? Message { get; set; }
+        // Private constructor ensures that objects can only be created using factory methods.
+        private OperationResult()
+        {
 
-        public ErrorTypes? Types { get; set; }
+        }
 
-        // The actual data associated with the operation result. This can be any type as specified by T.
-        // This may be null if no data is associated with the operation.
-        public T? Data { get; set; }
+        /// <summary>
+        /// Checks if the current operation result indicates a failure.
+        /// Throws an exception if the operation was successful.
+        /// </summary>
+        private void EnsureIsFailure()
+        {
+            if (IsSuccessful.Equals(true))
+            {
+                throw new InvalidOperationResultException(OperationResult<T>.InvalidOperation);
+            }
+        }
 
-        // Factory method for creating a successful operation result with the given data and message.
-        // "data" parameter is the data that operation returns
-        // "message" parameter is an optional success message, empty by default
+        /// <summary>
+        /// Creates a new OperationResult with the specified generic type based on the current result.
+        /// </summary>
+        private OperationResult<U> AsType<U>()
+        {
+            return new OperationResult<U>
+            {
+                IsSuccessful = false,
+                Message = this.Message,
+                Types = this.Types
+            };
+        }
+
+        // Indicates if the operation was successful.
+        public bool IsSuccessful { get; private set; }
+
+        // Provides additional details about the operation, such as error messages or success information.
+        public string? Message { get; private set; }
+
+        // Specifies the type of error, if any, that occurred during the operation.
+        public ErrorTypes? Types { get; private set; }
+
+        // Contains the data associated with the operation result.
+        public T? Data { get; private set; }
+
+        /// <summary>
+        /// Creates a successful operation result with the given data and optional message.
+        /// </summary>
+        /// <param name="data">Data result return</param>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> Success(T data, string message = "")
         {
             return new OperationResult<T> { IsSuccessful = true, Message = message, Data = data };
         }
 
+        /// <summary>
+        /// Creates a failed operation result with the given message and error type.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="errorTypes">The error type</param>
+        /// <returns>The operation result</returns>
+        private static OperationResult<T> Failure(string message, ErrorTypes errorTypes)
+        {
+            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = errorTypes };
+        }
+
+        /// <summary>
+        /// Creates a failed operation result for a business validation scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureBusinessValidation(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.BusinessValidationError };
+            return Failure(message, ErrorTypes.BusinessValidationError);
         }
 
+        /// <summary>
+        /// Creates a failed operation result for a database scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureDatabase(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.DatabaseError };
+            return Failure(message, ErrorTypes.DatabaseError);
         }
 
+        /// <summary>
+        /// Creates a failed operation result for a external service scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureExtenalService(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.ExternalServicesError };
+            return Failure(message, ErrorTypes.ExternalServicesError);
         }
 
+        /// <summary>
+        /// Creates a failed operation result for a unexpected errror scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureUnexpectedError(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.UnexpectedError };
+            return Failure(message, ErrorTypes.UnexpectedError);
         }
 
+        /// <summary>
+        /// Creates a failed operation result for a data sumitted invalid scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureDataSubmittedInvalid(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.DataSubmittedInvalid };
+            return Failure(message, ErrorTypes.DataSubmittedInvalid);
         }
 
+        /// <summary>
+        /// Creates a failed operation result for a configuration missing error scenario."
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <returns>The operation result</returns>
         public static OperationResult<T> FailureConfigurationMissingError(string message)
         {
-            return new OperationResult<T> { IsSuccessful = false, Message = message, Types = ErrorTypes.ConfigurationMissingError };
+            return Failure(message, ErrorTypes.ConfigurationMissingError);
         }
-        private OperationResult()
+
+        /// <summary>
+        /// Converts the current result to a boolean type.
+        /// </summary>
+        public OperationResult<bool> ToResultWithBoolType()
         {
-            
+            EnsureIsFailure();
+            return AsType<bool>();
         }
 
-        public OperationResult<bool> GetBool()
-        { 
-            if (IsSuccessful.Equals(true))
-            {
-                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
-            }
-
-            return new OperationResult<bool> 
-            { 
-                IsSuccessful = false, 
-                Message = this.Message, 
-                Types = this.Types
-            };
-        }
-
-        public OperationResult<string> GetString()
+        /// <summary>
+        /// Converts the current result to an integer type.
+        /// </summary>
+        public OperationResult<int> ToResultWithIntType()
         {
-            if (IsSuccessful.Equals(true))
-            {
-                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
-            }
-
-            return new OperationResult<string>
-            {
-                IsSuccessful = false,
-                Message = this.Message,
-                Types = this.Types
-            };
+            EnsureIsFailure();
+            return AsType<int>();
         }
 
-        public OperationResult<int> GetInt()
+        /// <summary>
+        /// Converts the current result to its generic type.
+        /// </summary>
+        public OperationResult<T> ToResultWithGenericType()
         {
-            if (IsSuccessful.Equals(true))
-            {
-                throw new Exception("This method can only be used if the value of IsSuccessful is false.");
-            }
-
-            return new OperationResult<int>
-            {
-                IsSuccessful = false,
-                Message = this.Message,
-                Types = this.Types
-            };
+            EnsureIsFailure();
+            return AsType<T>();
         }
-
     }
 }

@@ -72,7 +72,7 @@
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -119,7 +119,7 @@
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -347,7 +347,7 @@
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -455,7 +455,7 @@
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -496,7 +496,7 @@
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);

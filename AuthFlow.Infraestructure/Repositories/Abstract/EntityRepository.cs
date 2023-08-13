@@ -31,14 +31,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return hasEntity.GetInt();
+                    return hasEntity.ToResultWithIntType();
                 }
                
                 // Validate the entity
                 var validationResult = await AddEntity(entity);
                 if (!validationResult.IsSuccessful)
                 {
-                    return validationResult.GetInt();
+                    return validationResult.ToResultWithIntType();
                 }
 
                 // If validation is successful, add the entity to the database
@@ -54,7 +54,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if(!result.IsSuccessful)
                 {
-                    result.GetInt();
+                    result.ToResultWithIntType();
                 }
                 
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -71,19 +71,19 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var hasEntity = await HasEntity(entity);
                 if (!hasEntity.IsSuccessful)
                 {
-                    return hasEntity.GetBool();
+                    return hasEntity.ToResultWithBoolType();
                 }
 
                 var resultExist = await ValidateExist(entity.Id);
                 if (!resultExist.IsSuccessful)
                 {
-                    return resultExist.GetBool();
+                    return resultExist.ToResultWithBoolType();
                 }
 
                 var resultModifyEntity = await ModifyEntity(entity, resultExist.Data);
                 if (!resultModifyEntity.IsSuccessful)
                 {
-                    return resultModifyEntity.GetBool();
+                    return resultModifyEntity.ToResultWithBoolType();
                 }
 
                 // If validation is successful, update the entity in the database
@@ -102,7 +102,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -143,7 +143,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -186,7 +186,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -224,7 +224,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -257,7 +257,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<T>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -284,7 +284,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -320,7 +320,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -348,7 +348,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetBool();
+                    result.ToResultWithBoolType();
                 }
 
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
@@ -377,7 +377,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    result.GetInt();
+                    result.ToResultWithIntType();
                 }
 
                 return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
