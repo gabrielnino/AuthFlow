@@ -24,7 +24,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
         }
 
         // This method adds a new entity to the database after performing a series of validations.
-        public new async Task<OperationResult<int>> Add(T entity)
+        public new async Task<OperationResult_REVIEWED<int>> Add(T entity)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
                 // Create a success message and return the success result
                 var successMessage = string.Format(Resource.SuccessfullyGeneric, typeof(T).Name);
-                return OperationResult<int>.Success(addedEntityResult, successMessage);
+                return OperationResult_REVIEWED<int>.Success(addedEntityResult, successMessage);
             }
             catch(Exception ex)
             {
@@ -57,14 +57,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithIntType();
                 }
                 
-                return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
 
 
         // This method modifies an existing entity in the database after performing a series of validations.
-        public new async Task<OperationResult<bool>> Modified(T entity)
+        public new async Task<OperationResult_REVIEWED<bool>> Modified(T entity)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericUpdated, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<bool>.Success(updateResult, messageSuccess);
+                return OperationResult_REVIEWED<bool>.Success(updateResult, messageSuccess);
 
             }
             catch (Exception ex)
@@ -105,12 +105,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // This method activates an entity by setting its 'Active' status to true.
-        public async Task<OperationResult<bool>> Activate(int id)
+        public async Task<OperationResult_REVIEWED<bool>> Activate(int id)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericActiveated, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<bool>.Success(result, messageSuccess);
+                return OperationResult_REVIEWED<bool>.Success(result, messageSuccess);
             }
             catch (Exception ex)
             {
@@ -146,14 +146,14 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
 
 
         // This method deactivates an entity by setting its 'Active' status to false.
-        public async Task<OperationResult<bool>> Deactivate(int id)
+        public async Task<OperationResult_REVIEWED<bool>> Deactivate(int id)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.UserToInactiveNotExist, typeof(T).Name);
-                    return OperationResult<bool>.FailureBusinessValidation(messageExist);
+                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(messageExist);
                 }
 
                 // If validation is successful, set the entity as inactive
@@ -178,7 +178,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericDisabled, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<bool>.Success(result, messageSuccess);
+                return OperationResult_REVIEWED<bool>.Success(result, messageSuccess);
             }
             catch (Exception ex)
             {
@@ -189,12 +189,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // This method deletes an entity from the database.
-        public async Task<OperationResult<bool>> Remove(int id)
+        public async Task<OperationResult_REVIEWED<bool>> Remove(int id)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 if (!validationResult.IsSuccessful)
                 {
                     var messageExist = string.Format(Resource.GenericToDeleteNotExist, typeof(T).Name);
-                    return OperationResult<bool>.FailureBusinessValidation(messageExist);
+                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(messageExist);
                 }
 
                 // If validation is successful, delete the entity from the database
@@ -216,7 +216,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccess = string.Format(Resource.SuccessfullyGenericDeleted, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<bool>.Success(result, messageSuccess);
+                return OperationResult_REVIEWED<bool>.Success(result, messageSuccess);
             }
             catch (Exception ex)
             {
@@ -227,12 +227,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // This method retrieves all entities from the database that match the provided filter expression.
-        public new async Task<OperationResult<T>> GetUserById(int id)
+        public new async Task<OperationResult_REVIEWED<T>> GetUserById(int id)
         {
             try
             {
@@ -248,7 +248,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var entity = validationResult.Data;
                 // Return a success operation result
                 var messageSuccessfully = Resource.SuccessfullyFind;
-                return OperationResult<T>.Success(entity, messageSuccessfully);
+                return OperationResult_REVIEWED<T>.Success(entity, messageSuccessfully);
             }
             catch (Exception ex)
             {
@@ -259,12 +259,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<T>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<T>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // This method retrieves all entities from the database that match the provided filter expression.
-        public new async Task<OperationResult<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
+        public new async Task<OperationResult_REVIEWED<IQueryable<T>>> GetAllByFilter(Expression<Func<T, bool>> predicate)
         {
             try
             {
@@ -275,7 +275,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
+                return OperationResult_REVIEWED<IQueryable<T>>.Success(result, messageSuccessfully);
             }
             catch (Exception ex)
             {
@@ -286,12 +286,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // This method retrieves a page of entities from the database based on the provided filter expression.
-        public new async Task<OperationResult<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter)
+        public new async Task<OperationResult_REVIEWED<IQueryable<T>>> GetPageByFilter(int pageNumber, int pageSize, string filter)
         {
             try
             {
@@ -303,7 +303,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<IQueryable<T>>.Success(result, messageSuccessfully);
+                return OperationResult_REVIEWED<IQueryable<T>>.Success(result, messageSuccessfully);
 
             }
             catch (Exception ex)
@@ -322,11 +322,11 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<IQueryable<T>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
-        public new async Task<OperationResult<int>> GetCountByFilter(string filter)
+        public new async Task<OperationResult_REVIEWED<int>> GetCountByFilter(string filter)
         {
             try
             {
@@ -338,7 +338,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<int>.Success(result, messageSuccessfully);
+                return OperationResult_REVIEWED<int>.Success(result, messageSuccessfully);
 
             }
             catch (Exception ex)
@@ -350,12 +350,12 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // Method to retrieve entities based on a filter expression.
-        public new async Task<OperationResult<int>> GetCountFilter(string filter)
+        public new async Task<OperationResult_REVIEWED<int>> GetCountFilter(string filter)
         {
             try
             {
@@ -367,7 +367,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                 var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
 
                 // Return a success operation result
-                return OperationResult<int>.Success(result, messageSuccessfully);
+                return OperationResult_REVIEWED<int>.Success(result, messageSuccessfully);
 
             }
             catch (Exception ex)
@@ -379,7 +379,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
                     result.ToResultWithIntType();
                 }
 
-                return OperationResult<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult_REVIEWED<int>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
@@ -389,34 +389,34 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
 
 
         // Abstract method to validate an entity, must be overridden in derived classes
-        internal abstract Task<OperationResult<T>> AddEntity(T entity);
+        internal abstract Task<OperationResult_REVIEWED<T>> AddEntity(T entity);
 
-        internal virtual async Task<OperationResult<T>> ModifyEntity(T entityModified, T entityUnmodified)
+        internal virtual async Task<OperationResult_REVIEWED<T>> ModifyEntity(T entityModified, T entityUnmodified)
         {
             // Custom success message
             var messageSuccessfully = string.Format(Resource.SuccessfullySearchGeneric, typeof(T).Name);
-            return OperationResult<T>.Success(entityModified, messageSuccessfully);
+            return OperationResult_REVIEWED<T>.Success(entityModified, messageSuccessfully);
         }
 
         // If the entity is null, return a failure operation result with a custom error message
-        private static async Task<OperationResult<T>> HasEntity(T entity)
+        private static async Task<OperationResult_REVIEWED<T>> HasEntity(T entity)
         {
             if (entity is null)
             {
-                return OperationResult<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                return OperationResult_REVIEWED<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
             }
 
-            return OperationResult<T>.Success(entity,Resource.GlobalOkMessage);
+            return OperationResult_REVIEWED<T>.Success(entity,Resource.GlobalOkMessage);
         }
 
 
         // Method to validate if an entity exists based on its ID.
-        private async Task<OperationResult<T>> ValidateExist(int id)
+        private async Task<OperationResult_REVIEWED<T>> ValidateExist(int id)
         {
             // Validate the provided ID
             if (id.Equals(0))
             {
-                return OperationResult<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                return OperationResult_REVIEWED<T>.FailureBusinessValidation(Resource.FailedNecesaryData);
             }
 
             // Get the existing user from the repository
@@ -426,11 +426,11 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
             if (!hasEntity)
             {
                 var messageExist = string.Format(Resource.GenericExistValidation, typeof(T).Name);
-                return OperationResult<T>.FailureBusinessValidation(messageExist);
+                return OperationResult_REVIEWED<T>.FailureBusinessValidation(messageExist);
             }
 
             // If the entity exists, return a success operation result
-            return OperationResult<T>.Success(entityUnmodified, Resource.GlobalOkMessage);
+            return OperationResult_REVIEWED<T>.Success(entityUnmodified, Resource.GlobalOkMessage);
         }
     }
 }

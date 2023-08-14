@@ -13,6 +13,6 @@
         // The Validate method takes a reCAPTCHA token as input and returns an OperationResult which encapsulates 
         // the result of the validation operation. The result is a boolean indicating whether the token validation was 
         // successful or not. The implementation of this method should handle the actual interaction with the reCAPTCHA service.
-        Task<OperationResult<bool>> Validate(ReCaptcha token);
+        Task<OperationResult_REVIEWED<bool>> Validate(ReCaptcha token);
     }
 }

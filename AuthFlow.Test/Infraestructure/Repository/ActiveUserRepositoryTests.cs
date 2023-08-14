@@ -51,7 +51,8 @@
             UtilTest<bool>.Assert(result);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
-            result.Result.ErrorType.Should().Be(ErrorTypes.BusinessValidationError);
+            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            result.Result.Error.Should().Be(expected);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Id.Should().BeGreaterThan(0);

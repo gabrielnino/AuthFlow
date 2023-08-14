@@ -5,11 +5,11 @@
 
     public interface ILogBuilder<T>
     {
-        OperationResult<T> Trace(string message, object entity, OperationExecute operation);
-        OperationResult<T> Debug(string message, object entity, OperationExecute operation);
-        OperationResult<T> Information(string message, object entity, OperationExecute operation);
-        OperationResult<T> Warning(string message, object entity, OperationExecute operation);
-        OperationResult<T> Error(string message, object entity, OperationExecute operation);
-        OperationResult<T> Fatal(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Trace(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Debug(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Information(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Warning(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Error(string message, object entity, OperationExecute operation);
+        OperationResult_REVIEWED<T> Fatal(string message, object entity, OperationExecute operation);
     }
 }

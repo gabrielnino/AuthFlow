@@ -17,87 +17,87 @@
             return new LogBuilder();
         }
 
-        private static OperationResult<Log> ValitedTrace(string message, object entity, LogLevel level, OperationExecute operation)
+        private static OperationResult_REVIEWED<Log> ValitedTrace(string message, object entity, LogLevel level, OperationExecute operation)
         {
             try
             {
                 if (message == null || entity == null)
                 {
-                    return OperationResult<Log>.FailureDataSubmittedInvalid(Resource.FailedLogBuilderDataNotExist);
+                    return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(Resource.FailedLogBuilderDataNotExist);
                 }
 
                 var entityName = entity.GetType().Name;
                 var entityValue = JsonConvert.SerializeObject(entity);
                 var log = GetLog(message, entityName, entityValue, level, operation);
-                return OperationResult<Log>.Success(log, Resource.SuccessfullyValidationOperationResult);
+                return OperationResult_REVIEWED<Log>.Success(log, Resource.SuccessfullyValidationOperationResult);
             }
             catch
             {
-                return OperationResult<Log>.FailureUnexpectedError(Resource.FailedValidationLogUnknowled);
+                return OperationResult_REVIEWED<Log>.FailureUnexpectedError(Resource.FailedValidationLogUnknowled);
             }
         }
 
-        public OperationResult<Log> Trace(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Trace(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Trace, operation);
             if(!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;
         }
 
-        public OperationResult<Log> Debug(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Debug(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Debug, operation);
             if (!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;
         }
 
-        public OperationResult<Log> Information(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Information(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Information, operation);
             if (!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;
         }
 
-        public OperationResult<Log> Warning(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Warning(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Warning, operation);
             if (!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;
         }
 
-        public OperationResult<Log> Error(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Error(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Error, operation);
             if (!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;
         }
 
-        public OperationResult<Log> Fatal(string message, object entity, OperationExecute operation)
+        public OperationResult_REVIEWED<Log> Fatal(string message, object entity, OperationExecute operation)
         {
             var result = ValitedTrace(message, entity, LogLevel.Fatal, operation);
             if (!result.IsSuccessful)
             {
-                return OperationResult<Log>.FailureDataSubmittedInvalid(result.Message);
+                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
             }
 
             return result;

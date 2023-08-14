@@ -30,7 +30,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
         }
 
         // Asynchronously validates a ReCaptcha token
-        public async Task<OperationResult<bool>> Validate(ReCaptcha token)
+        public async Task<OperationResult_REVIEWED<bool>> Validate(ReCaptcha token)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
 
                 if (!Util.HasString(secret) || !Util.HasString(url))
                 {
-                    return OperationResult<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorReCaptcha);
+                    return OperationResult_REVIEWED<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorReCaptcha);
                 }
 
                 // Prepare the values for the POST request to the ReCaptcha service
@@ -61,7 +61,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
                 var jsonData = JsonConvert.DeserializeObject<ReCaptchaResponse>(jsonString);
 
                 // Return the result of the validation
-                return OperationResult<bool>.Success(true, Resource.SuccessfullyRecaptcha);
+                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullyRecaptcha);
             }
             catch (Exception ex)
             {
@@ -70,10 +70,10 @@ namespace AuthFlow.Infraestructure.ExternalServices
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
                 {
-                    return OperationResult<bool>.FailureExtenalService(Resource.FailedRecaptchaService);
+                    return OperationResult_REVIEWED<bool>.FailureExtenalService(Resource.FailedRecaptchaService);
                 }
 
-                return OperationResult<bool>.FailureExtenalService(Resource.FailedRecaptchaService);
+                return OperationResult_REVIEWED<bool>.FailureExtenalService(Resource.FailedRecaptchaService);
             }
         }
     }

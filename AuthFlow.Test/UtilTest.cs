@@ -10,7 +10,7 @@ namespace AuthFlow.Test
 {
     public static class UtilTest<T>
     {
-        public static void Assert(Task<OperationResult<T>> result)
+        public static void Assert(Task<OperationResult_REVIEWED<T>> result)
         {
             result.Should().NotBeNull();
             result.Id.Should().NotBe(0);

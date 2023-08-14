@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AuthFlow.Application.DTOs
 {
-    public class InvalidOperationResultException : Exception
+    public class InvalidOperationResultException_REVIEWED : Exception
     {
-        public InvalidOperationResultException(string message)
+        public InvalidOperationResultException_REVIEWED(string message)
             : base(message)
         {
         }

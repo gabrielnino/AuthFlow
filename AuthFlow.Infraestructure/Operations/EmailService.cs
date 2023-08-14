@@ -29,7 +29,7 @@ namespace AuthFlow.Infraestructure.Operations
         }
 
         // Asynchronously sends an email
-        public async Task<OperationResult<bool>> SendEmailAsync(string email, string subject, string message)
+        public async Task<OperationResult_REVIEWED<bool>> SendEmailAsync(string email, string subject, string message)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace AuthFlow.Infraestructure.Operations
 
                 if (validateConfiguration(smtp, mailAddress, username, password, port))
                 {
-                    return OperationResult<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorSendEmail);
+                    return OperationResult_REVIEWED<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorSendEmail);
                 }
 
                 // Prepare the mail message
@@ -62,7 +62,7 @@ namespace AuthFlow.Infraestructure.Operations
                     };
                 };
                 // Return the result of the operation
-                return OperationResult<bool>.Success(true, Resource.SuccessfullyEmail);
+                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullyEmail);
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace AuthFlow.Infraestructure.Operations
                 // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, sendEmailAsync, OperationExecute.SendEmailAsync);
                 await _externalLogService.CreateLog(log);
-                return OperationResult<bool>.FailureDatabase(Resource.FailedEmailService);
+                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedEmailService);
             }
         }
 

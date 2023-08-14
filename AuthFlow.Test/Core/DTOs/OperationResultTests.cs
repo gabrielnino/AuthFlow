@@ -21,7 +21,7 @@
                 string data = "Test data";
 
                 // When
-                var result = OperationResult<string>.Success(data);
+                var result = OperationResult_REVIEWED<string>.Success(data);
 
                 // Then
                 result.Should().NotBeNull();
@@ -34,12 +34,13 @@
             public void When_Operation_FailureBusinessValidation_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureBusinessValidation(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureBusinessValidation(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.BusinessValidationError);
+                var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -48,12 +49,13 @@
             public void When_Operation_FailureDatabase_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureDatabase(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureDatabase(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.DatabaseError);
+                var expected = ErrorTypes_REVIEWED.DatabaseError.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -62,12 +64,13 @@
             public void When_Operation_FailureExternalService_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureExtenalService(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureExtenalService(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.ExternalServicesError);
+                var expected = ErrorTypes_REVIEWED.ExternalServicesError.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -76,12 +79,13 @@
             public void When_Operation_FailureUnexpectedError_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureUnexpectedError(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureUnexpectedError(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.UnexpectedError);
+                var expected = ErrorTypes_REVIEWED.UnexpectedError.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -90,12 +94,13 @@
             public void When_Operation_FailureDataSubmittedInvalid_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureDataSubmittedInvalid(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureDataSubmittedInvalid(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.DataSubmittedInvalid);
+                var expected = ErrorTypes_REVIEWED.DataSubmittedInvalid.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }
@@ -104,12 +109,13 @@
             public void When_Operation_FailureConfigurationMissingError_Then_FailureObjectCreated()
             {
                 // When
-                var result = OperationResult<string>.FailureConfigurationMissingError(MessageFailure);
+                var result = OperationResult_REVIEWED<string>.FailureConfigurationMissingError(MessageFailure);
 
                 // Then
                 result.Should().NotBeNull();
                 result.IsSuccessful.Should().BeFalse();
-                result.ErrorType.Should().Be(ErrorTypes.ConfigurationMissingError);
+                var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+                result.Error.Should().Be(expected);
                 result.Message.Should().Be(MessageFailure);
                 result.Data.Should().BeNull();
             }

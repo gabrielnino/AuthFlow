@@ -16,6 +16,6 @@
         // The CreateLog method takes in a log object, which encapsulates the details of an event that occurred in the system.
         // The implementation of this method should handle the actual logging of the event, 
         // for example, writing it to a database or sending it to an external logging service.
-        Task<OperationResult<string>> CreateLog(Log log);
+        Task<OperationResult_REVIEWED<string>> CreateLog(Log log);
     }
 }
