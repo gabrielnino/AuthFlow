@@ -29,7 +29,7 @@ namespace AuthFlow.Infraestructure.Operations
         }
 
         // Asynchronously sends an email
-        public async Task<OperationResult_REVIEWED<bool>> SendEmailAsync(string email, string subject, string message)
+        public async Task<OperationResult<bool>> SendEmailAsync(string email, string subject, string message)
         {
             try
             {
@@ -40,9 +40,9 @@ namespace AuthFlow.Infraestructure.Operations
                 var password = _configuration.GetSection("email:password").Value ?? string.Empty;
                 var port = _configuration.GetSection("email:port").Value ?? string.Empty;
 
-                if (validateConfiguration(smtp, mailAddress, username, password, port))
+                if (InValidateConfiguration(smtp, mailAddress, username, password, port))
                 {
-                    return OperationResult_REVIEWED<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorSendEmail);
+                    return OperationResult<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorSendEmail);
                 }
 
                 // Prepare the mail message
@@ -62,7 +62,7 @@ namespace AuthFlow.Infraestructure.Operations
                     };
                 };
                 // Return the result of the operation
-                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullyEmail);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyEmail);
             }
             catch (Exception ex)
             {
@@ -76,18 +76,18 @@ namespace AuthFlow.Infraestructure.Operations
                 // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, sendEmailAsync, OperationExecute.SendEmailAsync);
                 await _externalLogService.CreateLog(log);
-                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedEmailService);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedEmailService);
             }
         }
 
-        private static bool validateConfiguration(string smtp, string mailAddress, string username, string password, string port)
+        private static bool InValidateConfiguration(string smtp, string mailAddress, string username, string password, string port)
         {
             return 
-                !Util.HasString(smtp) || 
-                !Util.HasString(mailAddress) || 
-                !Util.HasString(username) || 
-                !Util.HasString(password) || 
-                !Util.HasString(port);
+                string.IsNullOrWhiteSpace(smtp) || 
+                string.IsNullOrWhiteSpace(mailAddress) || 
+                string.IsNullOrWhiteSpace(username) || 
+                string.IsNullOrWhiteSpace(password) || 
+                string.IsNullOrWhiteSpace(port);
         }
     }
 }

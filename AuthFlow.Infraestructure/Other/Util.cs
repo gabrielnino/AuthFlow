@@ -24,10 +24,6 @@
             return resutl.Data;
         }
 
-        public static bool HasString(string str)
-        {
-            return !(string.IsNullOrEmpty(str) || string.IsNullOrWhiteSpace(str));
-        }
 
         public static string GetMethodName([CallerMemberName] string memberName = "")
         {

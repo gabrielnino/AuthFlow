@@ -3,7 +3,7 @@
 namespace AuthFlow.Persistence.Data
 {
     // The Genesys class is an internal helper class used for generating initial user data.
-    internal class Genesys
+    internal class Genesys_ForReview
     {
         const string commonPassword = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
         // GetUsers method generates a list of User entities to be initially populated in the database.

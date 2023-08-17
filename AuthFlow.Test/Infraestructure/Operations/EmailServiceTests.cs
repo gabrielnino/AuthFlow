@@ -96,7 +96,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+            var expected = ErrorTypes.ConfigurationMissingError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -118,7 +118,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+            var expected = ErrorTypes.ConfigurationMissingError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -140,7 +140,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+            var expected = ErrorTypes.ConfigurationMissingError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -162,7 +162,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+            var expected = ErrorTypes.ConfigurationMissingError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -184,7 +184,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageConfigurationInvalid);
-            var expected = ErrorTypes_REVIEWED.ConfigurationMissingError.ToErrorString();
+            var expected = ErrorTypes.ConfigurationMissingError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }

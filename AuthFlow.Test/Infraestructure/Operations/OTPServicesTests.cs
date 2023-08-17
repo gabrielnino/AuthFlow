@@ -29,9 +29,9 @@
             mocklogService = new Mock<ILogService>();
         }
 
-        private void SetBehavior(OperationResult_REVIEWED<bool>? success = null, string? otp = null)
+        private void SetBehavior(OperationResult<bool>? success = null, string? otp = null)
         {
-            var result = success ?? OperationResult_REVIEWED<bool>.Success(true, MessageEmailSuccessfully);
+            var result = success ?? OperationResult<bool>.Success(true, MessageEmailSuccessfully);
             var otpSend =  otp ?? OTPServicesTests.otp;
             SetConfigurationValues(result, otpSend);
             mockIOtpService = new OtpService(mockIDistributedCache.Object, mockIEmailService.Object, mocklogService.Object);
@@ -59,7 +59,7 @@
         public Task When_GenerateOtp_SendEmailFailed_Then_Failed()
         {
             // Given
-            var resultSendEnmailFailed = OperationResult_REVIEWED<bool>.FailureExtenalService("FailureExtenalService");
+            var resultSendEnmailFailed = OperationResult<bool>.FailureExtenalService("FailureExtenalService");
             SetBehavior(resultSendEnmailFailed);
             string email = OTPServicesTests.email;
 
@@ -71,7 +71,7 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be("FailureExtenalService");
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -111,12 +111,12 @@
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeFalse();
             result.Result.Message.Should().Be(MessageInvalidOtpFailed);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
 
-        private void SetConfigurationValues(OperationResult_REVIEWED<bool> success, string otpResponse)
+        private void SetConfigurationValues(OperationResult<bool> success, string otpResponse)
         {
             mockIEmailService
                 .Setup(x => x.SendEmailAsync(

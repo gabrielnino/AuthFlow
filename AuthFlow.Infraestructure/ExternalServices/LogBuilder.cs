@@ -5,106 +5,73 @@
     using AuthFlow.Domain.Entities;
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Provides functionality to build and validate log entries.
+    /// </summary>
     public class LogBuilder : ILogBuilder<Log>
     {
+        // Lazy instance ensures thread-safety for singleton initialization
+        private static readonly Lazy<LogBuilder> _lazyInstance = new Lazy<LogBuilder>(() => new LogBuilder());
+
+        // Private constructor ensures that LogBuilder objects can only be created within this class.
         private LogBuilder()
         {
-            
+
         }
 
-        public static LogBuilder GetLogBuilder()
-        {
-            return new LogBuilder();
-        }
-
-        private static OperationResult_REVIEWED<Log> ValitedTrace(string message, object entity, LogLevel level, OperationExecute operation)
+        /// <summary>
+        /// Validates the logging data, creates and returns the log entry if valid.
+        /// </summary>
+        /// <param name="message">The log message.</param>
+        /// <param name="entity">The associated entity object to log.</param>
+        /// <param name="operation">The operation being executed.</param>
+        /// <param name="level">The severity level of the log.</param>
+        /// <returns>Operation result containing the log entry if successful, or an error message if validation fails.</returns>
+        private static OperationResult<Log> CreateLogIfValid(string message, object entity, OperationExecute operation, LogLevel level)
         {
             try
             {
-                if (message == null || entity == null)
+                // Validation for message and entity
+                if (string.IsNullOrWhiteSpace(message) || entity is null)
                 {
-                    return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(Resource.FailedLogBuilderDataNotExist);
+                    return OperationResult<Log>.FailureDataSubmittedInvalid(Resource.FailedLogBuilderDataNotExist);
                 }
 
+                // Get the name of the entity and serialize its value
                 var entityName = entity.GetType().Name;
                 var entityValue = JsonConvert.SerializeObject(entity);
+
+                // Build the log entry
                 var log = GetLog(message, entityName, entityValue, level, operation);
-                return OperationResult_REVIEWED<Log>.Success(log, Resource.SuccessfullyValidationOperationResult);
+                return OperationResult<Log>.Success(log, Resource.SuccessfullyValidationOperationResult);
             }
-            catch
+            catch (JsonSerializationException jsonEx)
             {
-                return OperationResult_REVIEWED<Log>.FailureUnexpectedError(Resource.FailedValidationLogUnknowled);
+                // Handle exceptions related to JSON serialization
+                return OperationResult<Log>.FailureDataSubmittedInvalid($"Failed to serialize entity: {jsonEx.Message}");
+            }
+            catch (NullReferenceException nullEx)
+            {
+                // Handle null reference exceptions
+                return OperationResult<Log>.FailureUnexpectedError($"Null reference encountered: {nullEx.Message}");
+            }
+            catch (Exception ex)
+            {
+                // General error handling for unexpected issues
+                return OperationResult<Log>.FailureUnexpectedError($"An unexpected error occurred: {ex.Message}");
             }
         }
 
-        public OperationResult_REVIEWED<Log> Trace(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Trace, operation);
-            if(!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
 
-            return result;
-        }
-
-        public OperationResult_REVIEWED<Log> Debug(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Debug, operation);
-            if (!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
-
-            return result;
-        }
-
-        public OperationResult_REVIEWED<Log> Information(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Information, operation);
-            if (!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
-
-            return result;
-        }
-
-        public OperationResult_REVIEWED<Log> Warning(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Warning, operation);
-            if (!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
-
-            return result;
-        }
-
-        public OperationResult_REVIEWED<Log> Error(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Error, operation);
-            if (!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
-
-            return result;
-        }
-
-        public OperationResult_REVIEWED<Log> Fatal(string message, object entity, OperationExecute operation)
-        {
-            var result = ValitedTrace(message, entity, LogLevel.Fatal, operation);
-            if (!result.IsSuccessful)
-            {
-                return OperationResult_REVIEWED<Log>.FailureDataSubmittedInvalid(result.Message);
-            }
-
-            return result;
-        }
-
-        // GetLog is a private method used by the static methods to create a new Log instance. It sets
-        // all the properties of the Log instance based on the parameters it receives.
+        /// <summary>
+        /// Creates a log entry with the specified parameters.
+        /// </summary>
+        /// <param name="message">The log message.</param>
+        /// <param name="entityName">The name of the associated entity.</param>
+        /// <param name="entityValue">The serialized value of the entity.</param>
+        /// <param name="level">The severity level of the log.</param>
+        /// <param name="operation">The operation being executed.</param>
+        /// <returns>A new Log entry.</returns>
         private static Log GetLog(string message, string entityName, string entityValue, LogLevel level, OperationExecute operation)
         {
             return new Log
@@ -116,6 +83,85 @@
                 Operation = operation,
                 CreatedAt = DateTime.UtcNow
             };
+        }
+
+
+        /// <summary>
+        /// Retrieves the singleton instance of LogBuilder.
+        /// </summary>
+        /// <returns>The singleton instance of LogBuilder.</returns>
+        public static LogBuilder GetLogBuilder() => _lazyInstance.Value;
+
+        /// <summary>
+        /// The following method create log entries for specific trace log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Trace(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Trace);
+        }
+
+        /// <summary>
+        /// The following method create log entries for specific debug log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Debug(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Debug);
+        }
+
+        /// <summary>
+        /// The following method create log entries for specific information log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Information(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Information);
+        }
+
+        /// <summary>
+        /// The following method create log entries for specific warning log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Warning(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Warning);
+        }
+
+        /// <summary>
+        /// The following method create log entries for specific error log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Error(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Error);
+        }
+
+        /// <summary>
+        /// The following method create log entries for specific fatal log level.
+        /// </summary>
+        /// <param name="message">The message</param>
+        /// <param name="entity">The entity</param>
+        /// <param name="operation">The operation</param>
+        /// <returns>The log</returns>
+        public OperationResult<Log> Fatal(string message, object entity, OperationExecute operation)
+        {
+            return CreateLogIfValid(message, entity, operation, LogLevel.Fatal);
         }
     }
 }

@@ -141,7 +141,7 @@
             UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(necessaryData);
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -161,7 +161,7 @@
             result.Result.Message.Should().Be(lengthMinimun);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -181,7 +181,7 @@
             result.Result.Message.Should().Be(lengthOverMaximum);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -201,7 +201,7 @@
             UtilTest<int>.Assert(result);
             result.Result.Message.Should().Be(alreadyRegisteredUsername);
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -222,7 +222,7 @@
             result.Result.Message.Should().Be(alreadyRegisteredEmail);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }
@@ -243,7 +243,7 @@
             result.Result.Message.Should().Be(invalidEmailFormat);
             result.Result.IsSuccessful.Should().BeFalse();
             result.Result.Data.Should().BeGreaterThan(-1);
-            var expected = ErrorTypes_REVIEWED.BusinessValidationError.ToErrorString();
+            var expected = ErrorTypes.BusinessValidationError.ToErrorString();
             result.Result.Error.Should().Be(expected);
             return Task.CompletedTask;
         }

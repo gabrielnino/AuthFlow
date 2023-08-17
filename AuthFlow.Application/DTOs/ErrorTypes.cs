@@ -3,7 +3,7 @@
     /// <summary>
     /// Enumerates different types of application errors.
     /// </summary>
-    public enum ErrorTypes_REVIEWED
+    public enum ErrorTypes
     {
         None,  // Represents no error.
         BusinessValidationError,  // Represents errors related to business logic validation.

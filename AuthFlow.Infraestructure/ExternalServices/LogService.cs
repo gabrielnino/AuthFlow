@@ -37,7 +37,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
         }
 
         // Asynchronously creates a log entry in the external log service
-        public async Task<OperationResult_REVIEWED<string>> CreateLog(Log log)
+        public async Task<OperationResult<string>> CreateLog(Log log)
         {
             try
             {
@@ -48,21 +48,21 @@ namespace AuthFlow.Infraestructure.ExternalServices
                     return result.Result;
                 }
 
-                return OperationResult_REVIEWED<string>.Success(string.Empty, Resource.SuccessfullyLogCreate);
+                return OperationResult<string>.Success(string.Empty, Resource.SuccessfullyLogCreate);
             }
             catch (Exception ex)
             {
                 var message = string.Format(Resource.FailedGolbalException, ex.Message, ex.StackTrace);
-                return OperationResult_REVIEWED<string>.FailureUnexpectedError(Resource.SuccessfullyLogCreate);
+                return OperationResult<string>.FailureUnexpectedError(Resource.SuccessfullyLogCreate);
             }
         }
 
         // Asynchronously gets a token for authentication with the logging service
-        private async Task<OperationResult_REVIEWED<string>> GetToken()
+        private async Task<OperationResult<string>> GetToken()
         {
-            if (!Util.HasString(_urlLogservice) || !Util.HasString(_username) || !Util.HasString(_password))
+            if (string.IsNullOrWhiteSpace(_urlLogservice) || string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password))
             {
-                return OperationResult_REVIEWED<string>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingError);
+                return OperationResult<string>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingError);
             }
 
             // Create the url for the token request
@@ -75,7 +75,7 @@ namespace AuthFlow.Infraestructure.ExternalServices
             if (!response.IsSuccessStatusCode)
             {
                 // If the response indicates failure, return an empty string
-                return OperationResult_REVIEWED<string>.FailureExtenalService(Resource.FailedGetToken);
+                return OperationResult<string>.FailureExtenalService(Resource.FailedGetToken);
             }
 
             // Read the content of the response
@@ -85,11 +85,11 @@ namespace AuthFlow.Infraestructure.ExternalServices
             var _tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
 
             // Return the token
-            return OperationResult_REVIEWED<string>.Success(_tokenResponse.Token, Resource.SuccessfullyGetToken);
+            return OperationResult<string>.Success(_tokenResponse.Token, Resource.SuccessfullyGetToken);
         }
 
         // Asynchronously creates a log entry in the external log service
-        private async Task<OperationResult_REVIEWED<string>> SetLog(Log log)
+        private async Task<OperationResult<string>> SetLog(Log log)
         {
             // Get the bearer token for the request
             var bearerToken = await GetToken();
@@ -117,10 +117,10 @@ namespace AuthFlow.Infraestructure.ExternalServices
             // If the response indicates failure, return an empty string
             if (!response.IsSuccessStatusCode)
             {
-                return OperationResult_REVIEWED<string>.FailureExtenalService(Resource.FailedSetLog);
+                return OperationResult<string>.FailureExtenalService(Resource.FailedSetLog);
             }
 
-            return OperationResult_REVIEWED<string>.Success(string.Empty, Resource.SuccessfullySetLog);
+            return OperationResult<string>.Success(string.Empty, Resource.SuccessfullySetLog);
         }
     }
 }

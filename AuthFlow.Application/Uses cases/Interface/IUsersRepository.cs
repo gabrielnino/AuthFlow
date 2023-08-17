@@ -17,23 +17,30 @@ namespace AuthFlow.Application.Repositories.Interface
         // It takes the username and password provided by the user and returns an OperationResult.
         // The result encapsulates a string which is the token if the login was successful or null if it was unsuccessful.
         // The implementation of this method should handle the actual process of user authentication.
-        Task<OperationResult_REVIEWED<string>> Login(string? username, string? password);
+        Task<OperationResult<string>> Login(string? username, string? password);
 
         // Method: ValidateEmail
         // Checks the validity of the provided email.
         // This method takes in an email, and returns an OperationResult.
         // The specific process of email validation should be implemented in the method that implements this interface.
-        Task<OperationResult_REVIEWED<bool>> ValidateEmail(string? email);
+        Task<OperationResult<bool>> ValidateEmail(string? email);
 
         // Method: ValidateUsername
         // Checks the validity of the provided username.
         // This method takes in a username, and returns an OperationResult.
         // The specific process of username validation should be implemented in the method that implements this interface.
-        Task<OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username);
+        Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username);
 
-        Task<OperationResult_REVIEWED<bool>> SetNewPassword(string? email, string? password);
+        // Method: SetNewPassword
+        // Responsible for setting a new password for the user associated with the provided email.
+        // It takes in an email and a new password, and returns an OperationResult.
+        // The implementation should handle the logic of updating the user's password in the data source.
+        Task<OperationResult<bool>> SetNewPassword(string? email, string? password);
 
-        Task<OperationResult_REVIEWED<string>> LoginOtp(string email, string otp);
+        // Method: LoginOtp
+        // Handles the process of authenticating a user via a one-time password (OTP).
+        // It takes in the user's email and the OTP provided, then returns an OperationResult.
+        // The result encapsulates a string which is the token if the OTP authentication was successful or null if it was unsuccessful.
+        Task<OperationResult<string>> LoginOtp(string email, string otp);
     }
 }
-// 

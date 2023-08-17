@@ -31,7 +31,7 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.GetPageByFilter(pageNumber, pageSize, filter);
             var resultDTO = _mapper.Map<List<User>>(result.Data.ToList());
-            return Ok(OperationResult_REVIEWED<List<User>>.Success(resultDTO, result.Message));
+            return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
         [Authorize]
@@ -41,7 +41,7 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.GetPageByFilter(pageNumber, pageSize, string.Empty);
             var resultDTO = _mapper.Map<List<User>>(result.Data.ToList());
-            return Ok(OperationResult_REVIEWED<List<User>>.Success(resultDTO, result.Message));
+            return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
         [Authorize]
@@ -51,7 +51,7 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.GetCountByFilter(filter);
             var count = result.Data;
-            return Ok(OperationResult_REVIEWED<int>.Success(count, result.Message));
+            return Ok(OperationResult<int>.Success(count, result.Message));
         }
 
         [Authorize]
@@ -61,7 +61,7 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.GetCountByFilter(string.Empty);
             var count = result.Data;
-            return Ok(OperationResult_REVIEWED<int>.Success(count, result.Message));
+            return Ok(OperationResult<int>.Success(count, result.Message));
         }
 
         [Authorize]
@@ -71,7 +71,7 @@ namespace AuthFlow.Api.Controllers
         {
             var result = await _usersRepository.GetUserById(id);
             var resultDTO = _mapper.Map<List<User>>(result.Data);
-            return Ok(OperationResult_REVIEWED<User>.Success(resultDTO.FirstOrDefault(), result.Message));
+            return Ok(OperationResult<User>.Success(resultDTO.FirstOrDefault(), result.Message));
         }
     }
 }

@@ -5,14 +5,14 @@ namespace AuthFlow.Application.DTOs
     /// Represents the result of an operation.
     /// </summary>
     /// <typeparam name="T">The type of data associated with the operation result.</typeparam>
-    public class OperationResult_REVIEWED<T>
+    public class OperationResult<T>
     {
         private const string InvalidOperation = "This method can only be used if the value of IsSuccessful is false.";
 
         /// <summary>
         /// Private constructor ensures that objects can only be created using factory methods.
         /// </summary>
-        private OperationResult_REVIEWED()
+        private OperationResult()
         {
 
         }
@@ -25,16 +25,16 @@ namespace AuthFlow.Application.DTOs
         {
             if (IsSuccessful.Equals(true))
             {
-                throw new InvalidOperationResultException_REVIEWED(OperationResult_REVIEWED<T>.InvalidOperation);
+                throw new InvalidOperationResultException(OperationResult<T>.InvalidOperation);
             }
         }
 
         /// <summary>
         /// Creates a new OperationResult with the specified generic type based on the current result.
         /// </summary>
-        private OperationResult_REVIEWED<U> AsType<U>()
+        private OperationResult<U> AsType<U>()
         {
-            return new OperationResult_REVIEWED<U>
+            return new OperationResult<U>
             {
                 IsSuccessful = false,
                 Message = this.Message,
@@ -60,7 +60,7 @@ namespace AuthFlow.Application.DTOs
         /// <summary>
         /// Specifies the type of error, if any, that occurred during the operation.
         /// </summary>
-        private ErrorTypes_REVIEWED ErrorType { get; set; }
+        private ErrorTypes ErrorType { get; set; }
 
         /// <summary>
         /// Specifies the type of error, if any, that occurred during the operation as a string.
@@ -73,14 +73,14 @@ namespace AuthFlow.Application.DTOs
         /// <param name="data">Data result return</param>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> Success(T data, string message = "")
+        public static OperationResult<T> Success(T data, string message = "")
         {
-            return new OperationResult_REVIEWED<T>
+            return new OperationResult<T>
             {
                 IsSuccessful = true,
                 Data = data,
                 Message = message,
-                ErrorType = ErrorTypes_REVIEWED.None
+                ErrorType = ErrorTypes.None
             };
         }
 
@@ -90,9 +90,9 @@ namespace AuthFlow.Application.DTOs
         /// <param name="message">The message</param>
         /// <param name="errorTypes">The error type</param>
         /// <returns>The operation result</returns>
-        private static OperationResult_REVIEWED<T> Failure(string message, ErrorTypes_REVIEWED errorTypes)
+        private static OperationResult<T> Failure(string message, ErrorTypes errorTypes)
         {
-            return new OperationResult_REVIEWED<T> { IsSuccessful = false, Message = message, ErrorType = errorTypes };
+            return new OperationResult<T> { IsSuccessful = false, Message = message, ErrorType = errorTypes };
         }
 
         /// <summary>
@@ -100,9 +100,9 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureBusinessValidation(string message)
+        public static OperationResult<T> FailureBusinessValidation(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.BusinessValidationError);
+            return Failure(message, ErrorTypes.BusinessValidationError);
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureDatabase(string message)
+        public static OperationResult<T> FailureDatabase(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.DatabaseError);
+            return Failure(message, ErrorTypes.DatabaseError);
         }
 
         /// <summary>
@@ -120,9 +120,9 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureExtenalService(string message)
+        public static OperationResult<T> FailureExtenalService(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.ExternalServicesError);
+            return Failure(message, ErrorTypes.ExternalServicesError);
         }
 
         /// <summary>
@@ -130,9 +130,9 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureUnexpectedError(string message)
+        public static OperationResult<T> FailureUnexpectedError(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.UnexpectedError);
+            return Failure(message, ErrorTypes.UnexpectedError);
         }
 
         /// <summary>
@@ -140,9 +140,9 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureDataSubmittedInvalid(string message)
+        public static OperationResult<T> FailureDataSubmittedInvalid(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.DataSubmittedInvalid);
+            return Failure(message, ErrorTypes.DataSubmittedInvalid);
         }
 
         /// <summary>
@@ -150,15 +150,15 @@ namespace AuthFlow.Application.DTOs
         /// </summary>
         /// <param name="message">The message</param>
         /// <returns>The operation result</returns>
-        public static OperationResult_REVIEWED<T> FailureConfigurationMissingError(string message)
+        public static OperationResult<T> FailureConfigurationMissingError(string message)
         {
-            return Failure(message, ErrorTypes_REVIEWED.ConfigurationMissingError);
+            return Failure(message, ErrorTypes.ConfigurationMissingError);
         }
 
         /// <summary>
         /// Converts the current result to a boolean type.
         /// </summary>
-        public OperationResult_REVIEWED<bool> ToResultWithBoolType()
+        public OperationResult<bool> ToResultWithBoolType()
         {
             EnsureIsFailure();
             return AsType<bool>();
@@ -167,7 +167,7 @@ namespace AuthFlow.Application.DTOs
         /// <summary>
         /// Converts the current result to an integer type.
         /// </summary>
-        public OperationResult_REVIEWED<int> ToResultWithIntType()
+        public OperationResult<int> ToResultWithIntType()
         {
             EnsureIsFailure();
             return AsType<int>();
@@ -176,7 +176,7 @@ namespace AuthFlow.Application.DTOs
         /// <summary>
         /// Converts the current result to its generic type.
         /// </summary>
-        public OperationResult_REVIEWED<T> ToResultWithGenericType()
+        public OperationResult<T> ToResultWithGenericType()
         {
             EnsureIsFailure();
             return AsType<T>();

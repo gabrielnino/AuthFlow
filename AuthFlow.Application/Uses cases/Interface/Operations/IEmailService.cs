@@ -17,6 +17,6 @@
         // The result is a boolean indicating whether the email was sent successfully or not.
         // The implementation of this method should handle the actual process of sending the email, 
         // potentially interacting with an external email service provider.
-        Task<OperationResult_REVIEWED<bool>> SendEmailAsync(string email, string subject, string message);
+        Task<OperationResult<bool>> SendEmailAsync(string email, string subject, string message);
     }
 }

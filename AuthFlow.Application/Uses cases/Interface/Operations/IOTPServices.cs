@@ -14,13 +14,13 @@
         // It takes the email as a parameter, and returns an OperationResult which encapsulates the outcome of the OTP generation.
         // The result is a boolean indicating whether the OTP was successfully generated or not.
         // The implementation of this method should handle the actual process of generating and storing the OTP, potentially sending it to the email provided.
-        Task<OperationResult_REVIEWED<bool>> GenerateOtp(string email);
+        Task<OperationResult<bool>> GenerateOtp(string email);
 
         // The ValidateOtp method is responsible for validating the OTP provided against the one stored for the given email.
         // It takes the email and the OTP as parameters, and returns an OperationResult which encapsulates the outcome of the OTP validation.
         // The result is a boolean indicating whether the OTP validation was successful or not.
         // The implementation of this method should handle the actual process of OTP validation, checking the provided OTP against the one stored.
-        Task<OperationResult_REVIEWED<bool>> ValidateOtp(string email, string otp);
+        Task<OperationResult<bool>> ValidateOtp(string email, string otp);
 
     }
 }

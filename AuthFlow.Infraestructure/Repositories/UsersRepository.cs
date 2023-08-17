@@ -32,13 +32,13 @@
             _configuration = configuration;
             _otpService = otpService;
         }
-        public async Task<OperationResult_REVIEWED<string>> LoginOtp(string email, string otp)
+        public async Task<OperationResult<string>> LoginOtp(string email, string otp)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(otp))
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
                 }
 
                 // Get entities from the database based on the provided filter expression
@@ -46,19 +46,19 @@
                 var user = result?.Data?.FirstOrDefault();
                 if (user is null)
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(Resource.FailedUserNotFound);
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedUserNotFound);
                 }
 
                 var resultOtp = await this._otpService.ValidateOtp(email, otp);
                 if(!resultOtp.IsSuccessful)
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(resultOtp.Message);
+                    return OperationResult<string>.FailureBusinessValidation(resultOtp.Message);
                 }
 
                 var token = GenerateToken(user);
 
                 //// Return a success operation result
-                return OperationResult_REVIEWED<string>.Success(token, Resource.SuccessfullyLogin);
+                return OperationResult<string>.Success(token, Resource.SuccessfullyLogin);
             }
             catch (Exception ex)
             {
@@ -75,18 +75,18 @@
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult_REVIEWED<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // Login method is responsible for authenticating the user based on the provided username and password
-        public async Task<OperationResult_REVIEWED<string>> Login(string? username, string? password)
+        public async Task<OperationResult<string>> Login(string? username, string? password)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedNecesaryData);
                 }
 
                 // Get entities from the database based on the provided filter expression
@@ -94,19 +94,19 @@
                 var user = result?.Data?.FirstOrDefault();
                 if (user is null)
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(Resource.FailedUserNotFound);
+                    return OperationResult<string>.FailureBusinessValidation(Resource.FailedUserNotFound);
                 }
 
                 var passwordCipher = ComputeSha256Hash(password);
                 if (!passwordCipher.Equals(user.Password))
                 {
-                    return OperationResult_REVIEWED<string>.FailureBusinessValidation(Resource.UserFailedPassword);
+                    return OperationResult<string>.FailureBusinessValidation(Resource.UserFailedPassword);
                 }
 
                 var token = GenerateToken(user);
 
                 //// Return a success operation result
-                return OperationResult_REVIEWED<string>.Success(token, Resource.SuccessfullyLogin);
+                return OperationResult<string>.Success(token, Resource.SuccessfullyLogin);
 
             }
             catch (Exception ex)
@@ -123,13 +123,13 @@
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult_REVIEWED<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<string>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // AddEntity method adds a new User entity to the database
         // This method also validates the entity before adding it to the database
-        internal override async Task<OperationResult_REVIEWED<User>> AddEntity(User entity)
+        internal override async Task<OperationResult<User>> AddEntity(User entity)
         {
 
             // Create a new instance of the UserValidator and validate the entity
@@ -140,12 +140,12 @@
             if (!result.IsValid)
             {
                 var errorMessage = GetErrorMessage(result);
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
+                return OperationResult<User>.FailureBusinessValidation(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
             if (!IsValidEmail(entity?.Email))
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
             }
 
             // Check if the email is already registered by another user
@@ -153,7 +153,7 @@
             var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
             if (userExistByEmail is not null)
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
             }
 
             // Check if the username is already registered by another user
@@ -161,18 +161,18 @@
             var userExistByUserName = userByUserName?.Data?.FirstOrDefault();
             if (userExistByUserName is not null)
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredUser);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredUser);
             }
 
             User entityAdd = GetUser(entity);
 
             // Return a success operation result
-            return OperationResult_REVIEWED<User>.Success(entityAdd);
+            return OperationResult<User>.Success(entityAdd);
         }
 
         // ModifyEntity method modifies an existing User entity in the database
         // This method also validates the updated entity before updating it in the database
-        internal override async Task<OperationResult_REVIEWED<User>> ModifyEntity(User entityModified, User entityUnmodified)
+        internal override async Task<OperationResult<User>> ModifyEntity(User entityModified, User entityUnmodified)
         {
             var validatorModified = new ModifiedUserRequestRules();
             var result = validatorModified.Validate(entityModified);
@@ -180,12 +180,12 @@
             if (!result.IsValid)
             {
                 var errorMessage = GetErrorMessage(result);
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
+                return OperationResult<User>.FailureBusinessValidation(string.Format(Resource.FailedDataSizeCharacter, errorMessage));
             }
 
             if (!IsValidEmail(entityModified?.Email))
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
             }
 
             // Check if the email is already registered by another user
@@ -193,7 +193,7 @@
             var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
             if (userExistByEmail is not null)
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
             }
 
             // Check if the username is already registered by another user
@@ -201,7 +201,7 @@
             var userExistByUserName = userByUserName?.Data?.FirstOrDefault();
             if (userExistByUserName is not null)
             {
-                return OperationResult_REVIEWED<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredUser);
+                return OperationResult<User>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredUser);
             }
 
             // Update the username, email, and active status if they are different from the provided entity
@@ -221,7 +221,7 @@
             entityUnmodified.Password =  ComputeSha256Hash(entityModified.Password);
             // Custom success message
             var successMessage = string.Format(Resource.SuccessfullySearchGeneric, typeof(User).Name);
-            return OperationResult_REVIEWED<User>.Success(entityUnmodified, successMessage);
+            return OperationResult<User>.Success(entityUnmodified, successMessage);
         }
 
         // GetPredicate method builds a predicate based on the provided filter
@@ -317,13 +317,13 @@
             return new JwtSecurityTokenHandler().WriteToken(securitytoken);
         }
 
-        public async Task<OperationResult_REVIEWED<bool>> ValidateEmail(string? email)
+        public async Task<OperationResult<bool>> ValidateEmail(string? email)
         {
             try
             {
                 if (!IsValidEmail(email))
                 {
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
                 }
 
                 // Check if the email is already registered by another user
@@ -331,10 +331,10 @@
                 var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
                 if (userExistByEmail is not null)
                 {
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedAlreadyRegisteredEmail);
                 }
 
-                return OperationResult_REVIEWED<bool>.Success(true, Resource.GlobalOkMessage);
+                return OperationResult<bool>.Success(true, Resource.GlobalOkMessage);
             }
             catch (Exception ex)
             {
@@ -345,7 +345,7 @@
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
@@ -409,13 +409,13 @@
             return commonWords[indexCommonWord].ToLower();
         }
 
-        public async Task<OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username)
+        public async Task<OperationResult<Tuple<bool, IEnumerable<string>>>> ValidateUsername(string? username)
         {
             try
             {
                 if (!IsUser(username))
                 {
-                    return OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>.FailureBusinessValidation(Resource.FailedUsernameInvalidFormat);
+                    return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureBusinessValidation(Resource.FailedUsernameInvalidFormat);
                 }
 
                 // Check if the username is already registered by another user
@@ -438,11 +438,11 @@
                     } while (userList.Count()<10);
 
                     var resultFailed = new Tuple<bool, IEnumerable<string>>(false, userList);
-                    return OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>.Success(resultFailed, Resource.FailedAlreadyRegisteredUser);
+                    return OperationResult<Tuple<bool, IEnumerable<string>>>.Success(resultFailed, Resource.FailedAlreadyRegisteredUser);
                 }
 
                 var resultOk = new Tuple<bool, IEnumerable<string>>(true, new List<string>());
-                return OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>.Success(resultOk, Resource.GlobalOkMessage);
+                return OperationResult<Tuple<bool, IEnumerable<string>>>.Success(resultOk, Resource.GlobalOkMessage);
             }
             catch (Exception ex)
             {
@@ -453,17 +453,17 @@
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult_REVIEWED<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<Tuple<bool, IEnumerable<string>>>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
-        public async Task<OperationResult_REVIEWED<bool>> SetNewPassword(string? email, string? password)
+        public async Task<OperationResult<bool>> SetNewPassword(string? email, string? password)
         {
             try
             {
                 if (!IsValidEmail(email))
                 {
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedEmailInvalidFormat);
                 }
 
                 // Check if the email is already registered by another user
@@ -471,13 +471,13 @@
                 var userExistByEmail = userByEmail?.Data?.FirstOrDefault();
                 if (userExistByEmail is null)
                 {
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.FailedNotRegisteredEmail);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.FailedNotRegisteredEmail);
                 }
 
                 userExistByEmail.Password = password;
                 await this.Modified(userExistByEmail);
 
-                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullySetNewPassword);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullySetNewPassword);
             }
             catch (Exception ex)
             {
@@ -494,7 +494,7 @@
                     result.ToResultWithBoolType();
                 }
 
-                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
     }

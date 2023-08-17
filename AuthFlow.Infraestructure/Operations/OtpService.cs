@@ -27,7 +27,7 @@ namespace AuthFlow.Infraestructure.Operations
         }
 
         // Generate a one time password (OTP) and send it via email
-        public async Task<OperationResult_REVIEWED<bool>> GenerateOtp(string email)
+        public async Task<OperationResult<bool>> GenerateOtp(string email)
         {
             try
             {
@@ -54,37 +54,37 @@ namespace AuthFlow.Infraestructure.Operations
                 if (!result.IsSuccessful)
                 {
                     // If the email sending fails, return a failure result
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(result.Message);
+                    return OperationResult<bool>.FailureBusinessValidation(result.Message);
                 }
 
                 // Return a success result if the OTP is generated and sent successfully
-                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullyOTPGenerate);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyOTPGenerate);
             }
             catch (Exception ex)
             {
                 // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, email, OperationExecute.GenerateOtp);
                 await _externalLogService.CreateLog(log);
-                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedOccurredDataLayer);
             }
         }
 
         // Validates the given OTP against the one stored in cache for the given email
-        public async Task<OperationResult_REVIEWED<bool>> ValidateOtp(string email, string otp)
+        public async Task<OperationResult<bool>> ValidateOtp(string email, string otp)
         {
             try
             {
                 if (!HasStrig(otp))
                 {
                     // If no OTP is submitted, return a failure result
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotSubmitted);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotSubmitted);
                 }
 
                 var byteArray = _distributedCache.Get(email);
                 if (byteArray == null)
                 {
                     // If no OTP is found in the cache for the given email, return a failure result
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
                 }
 
                 // Retrieve the OTP from the cache
@@ -92,17 +92,17 @@ namespace AuthFlow.Infraestructure.Operations
                 if (!HasStrig(storeOtp))
                 {
                     // If no OTP is found in the cache for the given email, return a failure result
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotExist);
                 }
 
                 if (!storeOtp.Equals(otp))
                 {
                     // If the submitted OTP does not match the stored OTP, return a failure result
-                    return OperationResult_REVIEWED<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotEquals);
+                    return OperationResult<bool>.FailureBusinessValidation(Resource.OtpFailedDoesNotEquals);
                 }
 
                 // Return a success result if the OTP is validated successfully
-                return OperationResult_REVIEWED<bool>.Success(true, Resource.SuccessfullyOTPValidate);
+                return OperationResult<bool>.Success(true, Resource.SuccessfullyOTPValidate);
             }
             catch (Exception ex)
             {
@@ -115,7 +115,7 @@ namespace AuthFlow.Infraestructure.Operations
                 // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, otpClass, OperationExecute.ValidateOtp);
                 await _externalLogService.CreateLog(log);
-                return OperationResult_REVIEWED<bool>.FailureDatabase(Resource.FailedRecaptchaService);
+                return OperationResult<bool>.FailureDatabase(Resource.FailedRecaptchaService);
             }
         }
 
