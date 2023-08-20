@@ -18,7 +18,6 @@
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
-    using static System.Net.WebRequestMethods;
 
     // UsersRepository is a concrete implementation of IUserRepository
     // It provides repository operations for the User entity using the EntityRepository base class

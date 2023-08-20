@@ -29,6 +29,7 @@
         protected Mock<IConfigurationSection> _configSectionPassword;
         protected Mock<IConfigurationSection> _configSectionEmail;
         protected Mock<IConfigurationSection> _configSectionMasive;
+        protected IDataSeeder _dataSeeder;
 
         [SetUp]
         public void Setup()
@@ -62,8 +63,8 @@
                 .Setup(x => x.Value)
                 .Returns("false");
             _configuration
-               .Setup(section => section.GetSection("anonymous:username"))
-               .Returns(_configSectionUsername.Object);
+                .Setup(section => section.GetSection("anonymous:username"))
+                .Returns(_configSectionUsername.Object);
             _configuration
                 .Setup(section => section.GetSection("anonymous:password"))
                 .Returns(_configSectionPassword.Object);
@@ -71,13 +72,15 @@
                 .Setup(section => section.GetSection("anonymous:email"))
                 .Returns(_configSectionEmail.Object);
             _configuration
-                .Setup(section => section.GetSection("genesys:masive"))
+                .Setup(section => section.GetSection("genesys:isMassive"))
                 .Returns(_configSectionMasive.Object);
 
 
             _userFactory = new UserFactory();
             _userDataGenerator = new UserDataGenerator(_userFactory, _configuration.Object);
-            _dbContextMock =  new AuthFlowDbContext(_options, _userDataGenerator, _configuration.Object);
+            _dbContextMock =  new AuthFlowDbContext(_options);
+            _dataSeeder = new DataSeeder(_dbContextMock, _userDataGenerator, _configuration.Object);
+            _dataSeeder.SeedData();
             _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object, _otpService.Object);
         }
 

@@ -1,83 +1,60 @@
-﻿// Namespace for Persistence Data
-namespace AuthFlow.Persistence.Data
+﻿namespace AuthFlow.Persistence.Data
 {
     using AuthFlow.Domain.Entities;
     using AuthFlow.Persistence.Data.Interface;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using System;
 
-    // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model.
-    // It manages the entity objects during runtime, which includes populating objects with data from a database,
-    // change tracking, and persisting data to the database.
-    public class AuthFlowDbContext : DbContext
+    /// <summary>
+    /// Represents the main database context for AuthFlow, coordinating Entity Framework functionality.
+    /// </summary>
+    public class AuthFlowDbContext : DbContext, IAuthFlowDbContext
     {
-        private IUserDataGenerator _userDataGenerator;
-        private IConfiguration _configuration;
-        private bool _massive = false;
-        public void Initialize(IUserDataGenerator userDataGenerator, IConfiguration configuration)
+        /// <summary>
+        /// Ensures the database for this context is created. If it exists, no action is taken.
+        /// </summary>
+        public void Initialize()
         {
-            _userDataGenerator = userDataGenerator;
-            _configuration = configuration;
-            var massiveValue = _configuration.GetSection("genesys:masive").Value;
-            _massive = massiveValue is not null && massiveValue.Equals("true");
-
-            // Ensure the database for the context exists. If it exists, no action is taken.
-            // If it does not exist then the database and all its schema are created.
             Database.EnsureCreated();
-
-
-
-            // Check if any users are already present in the database
-            if (!Users.Any())
-            {
-                var users = _massive ? _userDataGenerator.GenerateMassiveUserList() : _userDataGenerator.GetUsers();
-                var pageSize = 10000;
-                var result = (double)(users.Count()/pageSize);
-                var countPage = (int)Math.Ceiling(result);
-                for (int pageNumber = 0; pageNumber<=countPage; pageNumber++)
-                {
-                    int skip = pageNumber * pageSize;
-                    var pageUsers = users.Skip(skip)
-                      .Take(pageSize);
-                    Users.AddRange(pageUsers);
-                    SaveChanges();
-                }
-                // Save the changes to the database
-            }
         }
 
-        // Define a DbSet for the User model. This represents a collection of Users in the database context.
+        /// <summary>
+        /// Represents a collection of <see cref="User"/> entities in the database context.
+        /// </summary>
         public virtual DbSet<User> Users { get; set; }
 
-        // Define a constructor that takes DbContextOptions<AuthFlowDbContext> and passes it to the base constructor.
-        // This constructor is used to configure the DbContext with options, which can include a connection string,
-        // a provider to use, or other configuration.
-        public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options, IUserDataGenerator userDataGenerator, IConfiguration configuration) : base(options)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthFlowDbContext"/> class with the specified options.
+        /// </summary>
+        /// <param name="options">The options to be used by the database context.</param>
+        public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options) : base(options)
         {
-            // Initialize the database with Users if none exist
-            Initialize(userDataGenerator, configuration);
-
-            // Initialize the Users property with a non-null DbSet<User>
-            Users = Set<User>();
+            Initialize();
         }
 
+        /// <summary>
+        /// Applies the model configurations using the Fluent API.
+        /// </summary>
+        /// <param name="modelBuilder">The builder used for configuring the entity model.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure the properties and relationships of the User model via Fluent API
+            // Configure the User entity properties and relationships.
 
-            // Define properties' types, requirements, keys, and relationships.
+            // Setting the ID property type and key.
             modelBuilder.Entity<User>().Property(u => u.Id).HasColumnType("int");
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
+            modelBuilder.Entity<User>().Property(u => u.Id).ValueGeneratedOnAdd();
+
+            // Setting the Username property type, requirement, and unique constraint.
             modelBuilder.Entity<User>().Property(u => u.Username).HasColumnType("nvarchar(50)").IsRequired();
+            modelBuilder.Entity<User>().HasIndex(u => u.Username, "UC_Users_Username").IsUnique(true);
+
+            // Setting other User properties with their types and requirements.
             modelBuilder.Entity<User>().Property(u => u.Password).HasColumnType("nvarchar(100)").IsRequired();
             modelBuilder.Entity<User>().Property(u => u.Email).HasColumnType("nvarchar(100)").IsRequired();
+            modelBuilder.Entity<User>().HasIndex(u => u.Email, "UC_Users_Email").IsUnique(true);
             modelBuilder.Entity<User>().Property(u => u.CreatedAt).HasColumnType("datetime").IsRequired();
             modelBuilder.Entity<User>().Property(u => u.UpdatedAt).HasColumnType("datetime");
             modelBuilder.Entity<User>().Property(u => u.Active).HasColumnType("bit").IsRequired();
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
-            modelBuilder.Entity<User>().Property(u => u.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<User>().HasIndex(u => u.Username, "UC_Users_Username").IsUnique(true);
-            modelBuilder.Entity<User>().HasIndex(u => u.Email, "UC_Users_Email").IsUnique(true);
         }
     }
 }
