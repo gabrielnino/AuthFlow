@@ -22,7 +22,7 @@ namespace AuthFlow.Persistence.Data
             if (!Users.Any())
             {
                 GetUserAnonymous();
-                var users = Genesys_ForReview.GetMasiveUsers();//Genesys.GetUsers();
+                var users = UserDataGenerator.GenerateMassiveUserList();//Genesys.GetUsers();
                 var pageSize = 10000;
                 var result = (double)(users.Count()/pageSize);
                 var countPage = (int)Math.Ceiling(result);
@@ -44,7 +44,7 @@ namespace AuthFlow.Persistence.Data
             var user = userSearch.FirstOrDefault();
             if (user == null)
             {
-                var userAnonymousSearch = Genesys_ForReview.GetUsers().Where(user => user.Username.Equals("usernameanonymous"));
+                var userAnonymousSearch = UserDataGenerator.GetUsers().Where(user => user.Username.Equals("usernameanonymous"));
                 var userAnonymous = userAnonymousSearch.FirstOrDefault();
                 Users.Add(userAnonymous);
                 SaveChanges();
