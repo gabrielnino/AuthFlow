@@ -19,7 +19,7 @@
             // Then
             UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(100000);
+            result.Result.Data.Should().BeGreaterThan(13);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -36,7 +36,7 @@
             // Then
             UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(100);
+            result.Result.Data.Should().Be(0);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -53,7 +53,7 @@
             // Then
             UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(100);
+            result.Result.Data.Should().Be(0);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }
@@ -70,7 +70,7 @@
             // Then
             UtilTest<int>.Assert(result);
             result.Result.IsSuccessful.Should().BeTrue();
-            result.Result.Data.Should().BeGreaterThan(100);
+            result.Result.Data.Should().Be(0);
             result.Result.Message.Should().Be(MessageSucess);
             return Task.CompletedTask;
         }

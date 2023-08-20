@@ -11,6 +11,7 @@
     using AuthFlow.Application.Use_cases.Interface.ExternalServices;
     using AuthFlow.Application.Use_cases.Interface.Operations;
     using AuthFlow.Application.Repositories.Interface;
+    using AuthFlow.Persistence.Data.Interface;
 
     [TestFixture]
     public class BaseTests
@@ -22,6 +23,12 @@
         protected Mock<IConfiguration> _configuration;
         protected Mock<IConfigurationSection> _configurationSection;
         protected Mock<IOTPServices> _otpService;
+        protected IUserDataGenerator _userDataGenerator;
+        protected IUserFactory _userFactory;
+        protected Mock<IConfigurationSection> _configSectionUsername;
+        protected Mock<IConfigurationSection> _configSectionPassword;
+        protected Mock<IConfigurationSection> _configSectionEmail;
+        protected Mock<IConfigurationSection> _configSectionMasive;
 
         [SetUp]
         public void Setup()
@@ -37,7 +44,40 @@
             _options = new DbContextOptionsBuilder<AuthFlowDbContext>()
                .UseInMemoryDatabase(databaseName: "testdb")
                .Options;
-            _dbContextMock =  new AuthFlowDbContext(_options);
+            _configSectionUsername = new Mock<IConfigurationSection>();
+            _configSectionPassword = new Mock<IConfigurationSection>();
+            _configSectionEmail = new Mock<IConfigurationSection>();
+            _configSectionMasive = new Mock<IConfigurationSection>();
+
+            _configSectionUsername
+               .Setup(x => x.Value)
+               .Returns("usernameanonymous");
+            _configSectionPassword
+                .Setup(x => x.Value)
+                .Returns("72b28030ce99fa4d0ab678f1d4a4374cc0d7bb676eb4307b0fa105f4c66b644e");
+            _configSectionEmail
+                .Setup(x => x.Value)
+                .Returns("user.anonymous@withoutemail.com");
+            _configSectionMasive
+                .Setup(x => x.Value)
+                .Returns("false");
+            _configuration
+               .Setup(section => section.GetSection("anonymous:username"))
+               .Returns(_configSectionUsername.Object);
+            _configuration
+                .Setup(section => section.GetSection("anonymous:password"))
+                .Returns(_configSectionPassword.Object);
+            _configuration
+                .Setup(section => section.GetSection("anonymous:email"))
+                .Returns(_configSectionEmail.Object);
+            _configuration
+                .Setup(section => section.GetSection("genesys:masive"))
+                .Returns(_configSectionMasive.Object);
+
+
+            _userFactory = new UserFactory();
+            _userDataGenerator = new UserDataGenerator(_userFactory, _configuration.Object);
+            _dbContextMock =  new AuthFlowDbContext(_options, _userDataGenerator, _configuration.Object);
             _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object, _otpService.Object);
         }
 

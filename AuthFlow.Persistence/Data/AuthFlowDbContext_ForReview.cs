@@ -2,7 +2,9 @@
 namespace AuthFlow.Persistence.Data
 {
     using AuthFlow.Domain.Entities;
+    using AuthFlow.Persistence.Data.Interface;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using System;
 
     // AuthFlowDbContext is the main class that coordinates Entity Framework functionality for a given data model.
@@ -10,19 +12,26 @@ namespace AuthFlow.Persistence.Data
     // change tracking, and persisting data to the database.
     public class AuthFlowDbContext : DbContext
     {
-        public void Initialize()
+        private IUserDataGenerator _userDataGenerator;
+        private IConfiguration _configuration;
+        private bool _massive = false;
+        public void Initialize(IUserDataGenerator userDataGenerator, IConfiguration configuration)
         {
+            _userDataGenerator = userDataGenerator;
+            _configuration = configuration;
+            var massiveValue = _configuration.GetSection("genesys:masive").Value;
+            _massive = massiveValue is not null && massiveValue.Equals("true");
+
             // Ensure the database for the context exists. If it exists, no action is taken.
             // If it does not exist then the database and all its schema are created.
             Database.EnsureCreated();
 
-           
+
 
             // Check if any users are already present in the database
             if (!Users.Any())
             {
-                GetUserAnonymous();
-                var users = UserDataGenerator.GenerateMassiveUserList();//Genesys.GetUsers();
+                var users = _massive ? _userDataGenerator.GenerateMassiveUserList() : _userDataGenerator.GetUsers();
                 var pageSize = 10000;
                 var result = (double)(users.Count()/pageSize);
                 var countPage = (int)Math.Ceiling(result);
@@ -38,29 +47,16 @@ namespace AuthFlow.Persistence.Data
             }
         }
 
-        private void GetUserAnonymous()
-        {
-            var userSearch = Users.Where(user => user.Username.Equals("usernameanonymous"));
-            var user = userSearch.FirstOrDefault();
-            if (user == null)
-            {
-                var userAnonymousSearch = UserDataGenerator.GetUsers().Where(user => user.Username.Equals("usernameanonymous"));
-                var userAnonymous = userAnonymousSearch.FirstOrDefault();
-                Users.Add(userAnonymous);
-                SaveChanges();
-            }
-        }
-
         // Define a DbSet for the User model. This represents a collection of Users in the database context.
         public virtual DbSet<User> Users { get; set; }
 
         // Define a constructor that takes DbContextOptions<AuthFlowDbContext> and passes it to the base constructor.
         // This constructor is used to configure the DbContext with options, which can include a connection string,
         // a provider to use, or other configuration.
-        public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options) : base(options)
+        public AuthFlowDbContext(DbContextOptions<AuthFlowDbContext> options, IUserDataGenerator userDataGenerator, IConfiguration configuration) : base(options)
         {
             // Initialize the database with Users if none exist
-            Initialize();
+            Initialize(userDataGenerator, configuration);
 
             // Initialize the Users property with a non-null DbSet<User>
             Users = Set<User>();
