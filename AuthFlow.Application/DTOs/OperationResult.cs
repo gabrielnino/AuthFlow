@@ -12,10 +12,7 @@ namespace AuthFlow.Application.DTOs
         /// <summary>
         /// Private constructor ensures that objects can only be created using factory methods.
         /// </summary>
-        private OperationResult()
-        {
-
-        }
+        private OperationResult() {}
 
         /// <summary>
         /// Checks if the current operation result indicates a failure.
@@ -41,6 +38,10 @@ namespace AuthFlow.Application.DTOs
                 ErrorType = this.ErrorType
             };
         }
+        /// <summary>
+        /// Specifies the type of error, if any, that occurred during the operation.
+        /// </summary>
+        private ErrorTypes ErrorType { get; set; }
 
         /// <summary>
         /// Indicates if the operation was successful.
@@ -56,11 +57,6 @@ namespace AuthFlow.Application.DTOs
         /// Provides additional details about the operation, such as error messages or success information.
         /// </summary>
         public string? Message { get; private set; }
-
-        /// <summary>
-        /// Specifies the type of error, if any, that occurred during the operation.
-        /// </summary>
-        private ErrorTypes ErrorType { get; set; }
 
         /// <summary>
         /// Specifies the type of error, if any, that occurred during the operation as a string.

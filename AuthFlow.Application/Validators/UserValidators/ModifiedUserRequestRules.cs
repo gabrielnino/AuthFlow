@@ -4,8 +4,10 @@ namespace AuthFlow.Application.Validators.UserValidators
     using AuthFlow.Domain.Entities;
     using FluentValidation;
 
-    // The ModifiedUserRequestRules class defines the validation rules for modifying a User.
-    // It extends the AbstractValidator<User> from FluentValidation, which provides a fluent interface for defining validation rules.
+    /// <summary>
+    /// The ModifiedUserRequestRules class defines the validation rules for modifying a User.
+    /// It extends the AbstractValidator<User> from FluentValidation, which provides a fluent interface for defining validation rules.
+    /// </summary>
     public class ModifiedUserRequestRules : AbstractValidator<User>
     {
         public ModifiedUserRequestRules()
