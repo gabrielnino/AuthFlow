@@ -70,11 +70,12 @@
         private readonly string _username;
         private readonly string _password;
         private readonly string _email;
-        
+
         /// <summary>
-        /// Constructor of the class.
+        /// Initializes a new instance of the <see cref="UserDataGenerator"/> class.
         /// </summary>
-        /// <param name="userFactory">The user factory.</param>
+        /// <param name="userFactory">An instance of <see cref="IUserFactory"/> used for creating users.</param>
+        /// <param name="configuration">An instance of <see cref="IConfiguration"/> for fetching configuration values.</param>
         public UserDataGenerator(IUserFactory userFactory, IConfiguration configuration)
         {
             _userFactory = userFactory;
@@ -85,9 +86,9 @@
         }
 
         /// <summary>
-        /// Returns a list of predefined users.
+        /// Generates an anonymous user.
         /// </summary>
-        /// <returns>List of predefined users.</returns>
+        /// <returns>An anonymous <see cref="User"/> object.</returns>
         public User GetUserAnonymous()
         {
             var utcNow = DateTime.UtcNow;
@@ -95,9 +96,9 @@
         }
 
         /// <summary>
-        /// Returns a list of predefined users.
+        /// Generates a list of sample users.
         /// </summary>
-        /// <returns>List of predefined users.</returns>
+        /// <returns>An immutable list of sample <see cref="User"/> objects.</returns>
         public ImmutableList<User> GetUsers()
         {
             var utcNow = DateTime.UtcNow;
@@ -123,9 +124,13 @@
         }
 
         /// <summary>
-        /// Generates a massive list of users.
+        /// Generates a large number of users based on predefined name lists.
         /// </summary>
-        /// <returns>List of predefined users.</returns>
+        /// <param name="sizeFirstNames">Number of first names to be used.</param>
+        /// <param name="sizeMiddleName">Number of middle names to be used.</param>
+        /// <param name="sizeLastname">Number of last names to be used.</param>
+        /// <param name="sizeSecondlastName">Number of second last names to be used.</param>
+        /// <returns>An immutable list of generated <see cref="User"/> objects.</returns>
         public ImmutableList<User> GenerateMassiveUserList(
             int sizeFirstNames = 300,
             int sizeMiddleName = 10,
@@ -147,14 +152,17 @@
         }
     }
 
+    /// <summary>
+    /// Provides an extension method for strings.
+    /// </summary>
     internal static class StringExtention
     {
         /// <summary>
-        /// Truncates a string to a specified length.
+        /// Truncates the given string to a specified length.
         /// </summary>
-        /// <param name="value">The value</param>
-        /// <param name="maxLength">The max length.</param>
-        /// <returns></returns>
+        /// <param name="value">The string to be truncated.</param>
+        /// <param name="maxLength">Maximum length for the truncated string.</param>
+        /// <returns>The truncated string.</returns>
         internal static string Truncate(this string value, int maxLength) =>
            string.IsNullOrEmpty(value) ? value : value.Length <= maxLength ? value : value[..maxLength];
     }

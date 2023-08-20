@@ -56,7 +56,7 @@ namespace AuthFlow.Application.DTOs
         /// <summary>
         /// Provides additional details about the operation, such as error messages or success information.
         /// </summary>
-        public string? Message { get; private set; }
+        public string Message { get; private set; }
 
         /// <summary>
         /// Specifies the type of error, if any, that occurred during the operation as a string.

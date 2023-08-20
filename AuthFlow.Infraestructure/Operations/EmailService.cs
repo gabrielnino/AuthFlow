@@ -1,6 +1,7 @@
 ﻿// The namespace for operations in the infrastructure layer
 namespace AuthFlow.Infraestructure.Operations
 {
+    using System;
     using System.Net.Mail;
     using System.Net;
     using Microsoft.Extensions.Configuration;
@@ -11,16 +12,23 @@ namespace AuthFlow.Infraestructure.Operations
     using AuthFlow.Infraestructure.ExternalServices;
     using AuthFlow.Infraestructure.Other;
     using AuthFlow.Application.Uses_cases.Interface.Wrapper;
+    using System.Threading.Tasks;
 
-    // The EmailService class handles the sending of emails
+    /// <summary>
+    /// The EmailService class provides functionality to handle email sending operations.
+    /// </summary>
     public class EmailService : IEmailService
     {
-        // Dependencies injected via constructor
         private readonly IConfiguration _configuration;
         private readonly ILogService _externalLogService;
         private readonly IWrapper _httpContentWrapper;
 
-        // Constructor that accepts IConfiguration and ILogService as parameters
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmailService"/> class with specified configurations and logging capabilities.
+        /// </summary>
+        /// <param name="configuration">The application's configuration interface.</param>
+        /// <param name="externalLogService">Service used for logging purposes.</param>
+        /// <param name="httpContentWrapper">Wrapper for handling HTTP content.</param>
         public EmailService(IConfiguration configuration, ILogService externalLogService, IWrapper httpContentWrapper)
         {
             _configuration = configuration;
@@ -28,12 +36,17 @@ namespace AuthFlow.Infraestructure.Operations
             _httpContentWrapper = httpContentWrapper;
         }
 
-        // Asynchronously sends an email
+        /// <summary>
+        /// Asynchronously sends an email to the provided recipient with the specified subject and message.
+        /// </summary>
+        /// <param name="email">Recipient's email address.</param>
+        /// <param name="subject">Subject of the email.</param>
+        /// <param name="message">Email body or message content.</param>
+        /// <returns>A task representing the asynchronous email sending operation. The task result contains the operation result indicating success or failure.</returns>
         public async Task<OperationResult<bool>> SendEmailAsync(string email, string subject, string message)
         {
             try
             {
-                // Get the email settings from the configuration
                 var smtp = _configuration.GetSection("email:smtp").Value ?? string.Empty;
                 var mailAddress = _configuration.GetSection("email:mailAddress").Value ?? string.Empty;
                 var username = _configuration.GetSection("email:username").Value ?? string.Empty;
@@ -45,7 +58,6 @@ namespace AuthFlow.Infraestructure.Operations
                     return OperationResult<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorSendEmail);
                 }
 
-                // Prepare the mail message
                 using (var mailMessage = new MailMessage())
                 {
                     mailMessage.From = new MailAddress(mailAddress);
@@ -53,7 +65,6 @@ namespace AuthFlow.Infraestructure.Operations
                     mailMessage.Body = message;
                     mailMessage.To.Add(email);
 
-                    // Send the email via SMTP
                     using (var client = new SmtpClient(smtp, int.Parse(port)))
                     {
                         client.Credentials = new NetworkCredential(username, password);
@@ -61,7 +72,6 @@ namespace AuthFlow.Infraestructure.Operations
                         await _httpContentWrapper.SendMailAsync(client, mailMessage);
                     };
                 };
-                // Return the result of the operation
                 return OperationResult<bool>.Success(true, Resource.SuccessfullyEmail);
             }
             catch (Exception ex)
@@ -72,21 +82,28 @@ namespace AuthFlow.Infraestructure.Operations
                     Subject = subject,
                     Message = message,
                 };
-
-                // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, sendEmailAsync, OperationExecute.SendEmailAsync);
                 await _externalLogService.CreateLog(log);
                 return OperationResult<bool>.FailureDatabase(Resource.FailedEmailService);
             }
         }
 
+        /// <summary>
+        /// Validates email configuration settings.
+        /// </summary>
+        /// <param name="smtp">SMTP server address.</param>
+        /// <param name="mailAddress">Email sender's address.</param>
+        /// <param name="username">SMTP server username.</param>
+        /// <param name="password">SMTP server password.</param>
+        /// <param name="port">SMTP server port number.</param>
+        /// <returns>Boolean indicating whether the configuration is invalid.</returns>
         private static bool InValidateConfiguration(string smtp, string mailAddress, string username, string password, string port)
         {
-            return 
-                string.IsNullOrWhiteSpace(smtp) || 
-                string.IsNullOrWhiteSpace(mailAddress) || 
-                string.IsNullOrWhiteSpace(username) || 
-                string.IsNullOrWhiteSpace(password) || 
+            return
+                string.IsNullOrWhiteSpace(smtp) ||
+                string.IsNullOrWhiteSpace(mailAddress) ||
+                string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(port);
         }
     }

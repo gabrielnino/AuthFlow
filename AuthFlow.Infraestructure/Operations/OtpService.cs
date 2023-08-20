@@ -1,4 +1,6 @@
-﻿// The namespace for operations in the infrastructure layer
+﻿/// <summary>
+/// The namespace for operations in the infrastructure layer.
+/// </summary>
 namespace AuthFlow.Infraestructure.Operations
 {
     using AuthFlow.Application.DTOs;
@@ -9,7 +11,9 @@ namespace AuthFlow.Infraestructure.Operations
     using Microsoft.Extensions.Caching.Distributed;
     using System.Text;
 
-    // The OtpService class handles operations related to OTP (One Time Password)
+    /// <summary>
+    /// Provides functionality to handle operations related to OTP (One Time Password).
+    /// </summary>
     public class OtpService : IOTPServices
     {
         // Dependencies injected via constructor
@@ -18,7 +22,12 @@ namespace AuthFlow.Infraestructure.Operations
         private readonly IEmailService _emailService;
         private readonly ILogService _externalLogService;
 
-        // Constructor that accepts IDistributedCache, IEmailService and ILogService as parameters
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OtpService"/> class with specified dependencies.
+        /// </summary>
+        /// <param name="distributedCache">Service for distributed cache operations.</param>
+        /// <param name="emailService">Service for sending emails.</param>
+        /// <param name="logService">Service for logging operations.</param>
         public OtpService(IDistributedCache distributedCache, IEmailService emailService, ILogService logService)
         {
             _distributedCache = distributedCache;
@@ -26,7 +35,11 @@ namespace AuthFlow.Infraestructure.Operations
             _externalLogService = logService;
         }
 
-        // Generate a one time password (OTP) and send it via email
+        /// <summary>
+        /// Asynchronously generates an OTP and sends it via email.
+        /// </summary>
+        /// <param name="email">Recipient's email address.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains the operation result indicating success or failure of OTP generation.</returns>
         public async Task<OperationResult<bool>> GenerateOtp(string email)
         {
             try
@@ -69,7 +82,12 @@ namespace AuthFlow.Infraestructure.Operations
             }
         }
 
-        // Validates the given OTP against the one stored in cache for the given email
+        /// <summary>
+        /// Validates the provided OTP against the stored OTP in cache for a given email.
+        /// </summary>
+        /// <param name="email">The email for which the OTP was generated.</param>
+        /// <param name="otp">The OTP to validate.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains the operation result indicating success or failure of OTP validation.</returns>
         public async Task<OperationResult<bool>> ValidateOtp(string email, string otp)
         {
             try
@@ -119,6 +137,12 @@ namespace AuthFlow.Infraestructure.Operations
             }
         }
 
+
+        /// <summary>
+        /// Validates if the provided string is neither null nor whitespace.
+        /// </summary>
+        /// <param name="str">String to validate.</param>
+        /// <returns>Boolean indicating whether the string has content or not.</returns>
         private bool HasStrig(string str)
         {
             return !(string.IsNullOrWhiteSpace(str) || string.IsNullOrEmpty(str));

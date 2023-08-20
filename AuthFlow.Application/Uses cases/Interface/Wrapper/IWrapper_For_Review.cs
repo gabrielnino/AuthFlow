@@ -28,7 +28,7 @@ namespace AuthFlow.Application.Uses_cases.Interface.Wrapper
         Task<HttpResponseMessage> PostAsync(HttpClient client, string url, HttpContent? content, AuthenticationHeaderValue? authenticationHeaderValue);
 
         /// <summary>
-        ///  // Sends an email using the provided SMTP client and mail message asynchronously.
+        ///   Sends an email using the provided SMTP client and mail message asynchronously.
         /// </summary>
         /// <param name="smtpClient">The smtp client.</param>
         /// <param name="message">The message.</param>

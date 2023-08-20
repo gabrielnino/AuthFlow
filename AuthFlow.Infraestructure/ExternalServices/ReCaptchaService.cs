@@ -10,17 +10,27 @@ namespace AuthFlow.Infraestructure.ExternalServices
     using AuthFlow.Infraestructure.Other;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
-    // The ReCaptchaService class handles the interactions with Google's ReCaptcha service
+    /// <summary>
+    /// The ReCaptchaService class handles the interactions with Google's ReCaptcha service.
+    /// </summary>
     public class ReCaptchaService : IReCaptchaService
     {
-        // Dependencies injected via constructor
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
         protected readonly ILogService _externalLogService;
         protected readonly IWrapper _httpContentWrapper;
 
-        // Constructor that accepts IConfiguration, HttpClient, and ILogService as parameters
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReCaptchaService"/> class.
+        /// </summary>
+        /// <param name="configuration">Application's configuration interface.</param>
+        /// <param name="httpClient">The HttpClient instance used to send HTTP requests.</param>
+        /// <param name="logService">Service used to log information.</param>
+        /// <param name="httpContentWrapper">Wrapper for handling HTTP content.</param>
         public ReCaptchaService(IConfiguration configuration, HttpClient httpClient, ILogService logService, IWrapper httpContentWrapper)
         {
             _configuration = configuration;
@@ -29,12 +39,15 @@ namespace AuthFlow.Infraestructure.ExternalServices
             _httpContentWrapper = httpContentWrapper;
         }
 
-        // Asynchronously validates a ReCaptcha token
+        /// <summary>
+        /// Asynchronously validates a ReCaptcha token.
+        /// </summary>
+        /// <param name="token">The ReCaptcha token to validate.</param>
+        /// <returns>A task representing the asynchronous validation operation. The task result contains the operation result indicating success or failure.</returns>
         public async Task<OperationResult<bool>> Validate(ReCaptcha token)
         {
             try
             {
-                // Get the secret key and url from the configuration
                 var secret = _configuration.GetSection("reCAPTCHA:SecretKey").Value ?? string.Empty;
                 var url = _configuration.GetSection("reCAPTCHA:Url").Value ?? string.Empty;
 
@@ -43,29 +56,21 @@ namespace AuthFlow.Infraestructure.ExternalServices
                     return OperationResult<bool>.FailureConfigurationMissingError(Resource.FailureConfigurationMissingErrorReCaptcha);
                 }
 
-                // Prepare the values for the POST request to the ReCaptcha service
                 var values = new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("secret", secret),
                     new KeyValuePair<string, string>("respuesta", token?.Token)
                 };
 
-                // Create the content for the POST request
                 var content = new FormUrlEncodedContent(values);
-
-                // Send a POST request to the ReCaptcha service and await the response
                 var response = await _httpContentWrapper.PostAsync(_httpClient, url, content, null);
                 var jsonString = await _httpContentWrapper.ReadAsStringAsync(response.Content);
-
-                // Deserialize the response content
                 var jsonData = JsonConvert.DeserializeObject<ReCaptchaResponse>(jsonString);
 
-                // Return the result of the validation
                 return OperationResult<bool>.Success(true, Resource.SuccessfullyRecaptcha);
             }
             catch (Exception ex)
             {
-                // Log the error and return a failure result if there's an exception
                 var log = Util.GetLogError(ex, token, OperationExecute.Validate);
                 var result = await _externalLogService.CreateLog(log);
                 if (!result.IsSuccessful)
