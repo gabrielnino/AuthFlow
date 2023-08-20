@@ -8,6 +8,7 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
     using AuthFlow.Domain.Interfaces;
     using AuthFlow.Infraestructure.Other;
     using AuthFlow.Persistence.Data;
+    using AuthFlow.Persistence.Data.Interface;
     using AuthFlow.Persistence.Repositories;
     using System.Linq.Expressions;
 
@@ -18,8 +19,9 @@ namespace AuthFlow.Infraestructure.Repositories.Abstract
     {
         protected readonly ILogService _externalLogService;
         // Injecting the database context and the logging service into the constructor
-        public EntityRepository(AuthFlowDbContext context, ILogService externalLogService) : base(context)
+        public EntityRepository(AuthFlowDbContext context, ILogService externalLogService, IDataSeeder dataSeeder) : base(context)
         {
+            dataSeeder.SeedData();
             _externalLogService = externalLogService;
         }
 

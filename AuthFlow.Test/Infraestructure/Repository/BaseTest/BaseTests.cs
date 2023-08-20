@@ -80,8 +80,11 @@
             _userDataGenerator = new UserDataGenerator(_userFactory, _configuration.Object);
             _dbContextMock =  new AuthFlowDbContext(_options);
             _dataSeeder = new DataSeeder(_dbContextMock, _userDataGenerator, _configuration.Object);
-            _dataSeeder.SeedData();
-            _userRepository = new UsersRepository(_dbContextMock, _externalLogService.Object, _configuration.Object, _otpService.Object);
+            _userRepository = new UsersRepository(_dbContextMock,
+                _externalLogService.Object,
+                _configuration.Object,
+                _otpService.Object,
+                _dataSeeder);
         }
 
 

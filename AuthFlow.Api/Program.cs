@@ -18,6 +18,8 @@ using AuthFlow.Persistence.Data.Interface;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AuthDBDbContext");
 builder.Services.AddDbContext<AuthFlowDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IAuthFlowDbContext, AuthFlowDbContext>();
+builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
@@ -26,6 +28,8 @@ builder.Services.AddScoped<IOTPServices, OtpService>();
 builder.Services.AddScoped<IWrapper, Wrapper>();
 builder.Services.AddSingleton<IUserDataGenerator, UserDataGenerator>();
 builder.Services.AddSingleton<IUserFactory, UserFactory>();
+
+
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

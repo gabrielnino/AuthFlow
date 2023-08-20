@@ -1,12 +1,6 @@
-﻿using AuthFlow.Persistence.Data.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuthFlow.Persistence.Data
+﻿namespace AuthFlow.Persistence.Data
 {
+    using AuthFlow.Persistence.Data.Interface;
     using User = Domain.Entities.User;
     public class UserFactory : IUserFactory
     {

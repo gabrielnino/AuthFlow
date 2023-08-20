@@ -9,6 +9,7 @@
     using AuthFlow.Infraestructure.Other;
     using AuthFlow.Infraestructure.Repositories.Abstract;
     using AuthFlow.Persistence.Data;
+    using AuthFlow.Persistence.Data.Interface;
     using FluentValidation.Results;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
@@ -26,7 +27,7 @@
         private readonly IConfiguration _configuration;
         private readonly IOTPServices _otpService;
         // The constructor initializes context, externalLogService and configuration properties
-        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration, IOTPServices otpService) : base(context, externalLogService)
+        public UsersRepository(AuthFlowDbContext context, ILogService externalLogService, IConfiguration configuration, IOTPServices otpService, IDataSeeder dataSeeder) : base(context, externalLogService, dataSeeder)
         {
             _configuration = configuration;
             _otpService = otpService;

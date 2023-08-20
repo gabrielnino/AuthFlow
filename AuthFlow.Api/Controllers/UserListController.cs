@@ -34,7 +34,7 @@ namespace AuthFlow.Api.Controllers
             return Ok(OperationResult<List<User>>.Success(resultDTO, result.Message));
         }
 
-        [Authorize]
+        //[Authorize]
         // Gets all Users. Endpoint: GET api/User/GetUsersAll
         [HttpGet("[action]/{pageNumber}/{pageSize}")]
         public async Task<IActionResult> GetPage(int pageNumber, int pageSize)
